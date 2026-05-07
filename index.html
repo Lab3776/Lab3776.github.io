@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 3776 Applications</title>
+  <meta name="description" content="Official documentation and download links for Lab 3776 applications.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-glass: rgba(30, 30, 30, 0.6);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: #a0a0a0;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --card-radius: 20px;
+      --btn-radius: 12px;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.06), transparent 25%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header & i18n Switcher */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff, #a0a0a0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lang-switcher {
+      background: var(--surface-glass);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-glass);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+    }
+
+    .lang-switcher:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Grid Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5% 80px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .grid-two {
+      grid-template-columns: repeat(2, minmax(320px, 1fr));
+    }
+
+    /* Glass Card */
+    .card {
+      background: var(--surface-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card.featured {
+      background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .featured .app-title {
+      font-size: 2rem;
+    }
+
+    .badge {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      white-space: nowrap;
+    }
+
+    .badge.windows {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .app-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .app-meta {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+    }
+
+    .app-meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .app-meta-label {
+      color: var(--text-muted);
+    }
+
+    .app-meta-value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .app-meta-value.loading {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: var(--btn-radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid transparent;
+      flex: 1;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: #e2e8f0;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-win {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-win:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border-color: var(--border-glass);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .footer-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+    }
+
+    .footer-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="brand">Lab 3776</div>
+    <button class="lang-switcher" id="langToggle">🌐 EN</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 data-ja="ソフトウェア＆ツール" data-en="Software & Tools">Software & Tools</h1>
+      <p data-ja="Lab 3776が開発するアプリケーションの公式配布サイト。ダウンロードやポリシー情報を確認できます。" data-en="The official portal for applications developed by Lab 3776. Find downloads, privacy policies, and documentation.">The official portal for applications developed by Lab 3776. Find downloads, privacy policies, and documentation.</p>
+    </section>
+
+    <div class="container">
+      <h2 class="section-title" data-ja="Windows アプリケーション" data-en="Windows Applications">Windows Applications</h2>
+      <div class="grid grid-two" style="margin-bottom: 64px;">
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">Viewer3776win</h3>
+            <span class="badge windows">Windows</span>
+          </div>
+          <p class="app-desc" data-ja="Windows標準機能だけで構築された、超軽量で汎用性の高いファイルビューア。画像、PDF、動画、音声、HTML、RTFなど多種多様なフォーマットを単一の実行ファイルで瞬時に開くことができます。インストール不要で動作します。" data-en="An ultra-lightweight, versatile file viewer built using standard Windows APIs. Instantly open images, PDFs, media, HTML, RTF, and more with a single standalone executable. No installation required.">An ultra-lightweight, versatile file viewer built using standard Windows APIs. Instantly open images, PDFs, media, HTML, RTF, and more with a single standalone executable. No installation required.</p>
+          <div class="app-meta" id="viewer3776winReleaseCard">
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="最新版" data-en="Latest">Latest</span>
+              <span class="app-meta-value loading" data-release-version>Loading...</span>
+            </div>
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="公開日" data-en="Published">Published</span>
+              <span class="app-meta-value loading" data-release-date>Loading...</span>
+            </div>
+          </div>
+          <div class="btn-group">
+            <a href="viewer3776win/" class="btn btn-win" data-ja="詳細ページを見る" data-en="View Details">View Details</a>
+            <div class="btn-row">
+              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases/latest/download/Viewer3776win.zip" class="btn btn-secondary" data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
+              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases" class="btn btn-secondary" data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h2 class="section-title" data-ja="Android アプリケーション" data-en="Android Applications">Android Applications</h2>
+      <div class="grid">
+        <article class="card featured">
+          <div class="card-header">
+            <h3 class="app-title">TransLayer 3776</h3>
+            <span class="badge">Featured</span>
+          </div>
+          <p class="app-desc" data-ja="画面上のテキストをリアルタイムでAI翻訳し、オーバーレイ表示する強力なアシスタントツール。海外ゲームのプレイや、外国語アプリの利用時に画面上の文字をそのまま翻訳して被せて表示します。" data-en="A powerful assistant tool that translates on-screen text in real-time using AI and displays it as an overlay. Perfect for playing foreign games or using apps in other languages without losing context.">A powerful assistant tool that translates on-screen text in real-time using AI and displays it as an overlay. Perfect for playing foreign games or using apps in other languages without losing context.</p>
+          <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.lab3776.translayer3776" class="btn btn-primary" data-ja="Google Play で取得" data-en="Get on Google Play">Get on Google Play</a>
+            <div class="btn-row">
+              <a href="translayer3776/privacy-policy.html" class="btn btn-secondary" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+              <a href="translayer3776/oss-licenses.html" class="btn btn-secondary" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">QR3776</h3>
+            <span class="badge">Android</span>
+          </div>
+          <p class="app-desc" data-ja="無駄を一切省いた、シンプルで高速なQRコードリーダー。必要な時にすぐに起動し、迷うことなく読み取ることができます。" data-en="A simple, lightning-fast QR code reader stripped of all unnecessary features. Opens instantly when you need it, scanning without hesitation.">A simple, lightning-fast QR code reader stripped of all unnecessary features. Opens instantly when you need it, scanning without hesitation.</p>
+          <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.lab3776.qr3776" class="btn btn-primary" data-ja="Google Play で取得" data-en="Get on Google Play">Get on Google Play</a>
+            <div class="btn-row">
+              <a href="qr3776/privacy-policy.html" class="btn btn-secondary" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+              <a href="qr3776/oss-licenses.html" class="btn btn-secondary" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">Resizer 3776</h3>
+            <span class="badge">Android</span>
+          </div>
+          <p class="app-desc" data-ja="画像のリサイズだけに特化した軽量アプリ。SNSへのアップロード前や容量節約のために、数タップで素早くサイズを変更できます。" data-en="A lightweight application dedicated solely to image resizing. Quickly change dimensions in a few taps before uploading to social media or to save space.">A lightweight application dedicated solely to image resizing. Quickly change dimensions in a few taps before uploading to social media or to save space.</p>
+          <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.lab3776.resizer3776" class="btn btn-primary" data-ja="Google Play で取得" data-en="Get on Google Play">Get on Google Play</a>
+            <div class="btn-row">
+              <a href="resizer3776/privacy-policy.html" class="btn btn-secondary" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+              <a href="resizer3776/oss-licenses.html" class="btn btn-secondary" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">Sticker3776</h3>
+            <span class="badge">Android</span>
+          </div>
+          <p class="app-desc" data-ja="よく使うステッカーを最速で呼び出し、共有・コピーできるピッカーアプリ。クイック設定タイルから一瞬で起動し、どんなアプリへもスムーズにステッカーを送れます。" data-en="A lightning-fast picker for your most used stickers. Launch instantly from the Quick Settings tile and share stickers effortlessly to any application.">A lightning-fast picker for your most used stickers. Launch instantly from the Quick Settings tile and share stickers effortlessly to any application.</p>
+          <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.lab3776.sticker3776" class="btn btn-primary" data-ja="Google Play で取得" data-en="Get on Google Play">Get on Google Play</a>
+            <div class="btn-row">
+              <a href="sticker3776/privacy-policy.html" class="btn btn-secondary" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+              <a href="sticker3776/oss-licenses.html" class="btn btn-secondary" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Lab 3776. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://x.com/Lab3776" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="X / @Lab3776">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18.244 2H21.5l-7.117 8.134L22.75 22h-6.553l-5.13-7.12L4.84 22H1.58l7.61-8.7L1.25 2h6.72l4.636 6.443L18.244 2Zm-1.141 18h1.804L6.99 3.896H5.055L17.103 20Z"/>
+        </svg>
+        <span data-ja="@Lab3776" data-en="@Lab3776">@Lab3776</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="release-feed.js"></script>
+  <script>
+    (function(){
+      const toggleBtn = document.getElementById('langToggle');
+      const elements = document.querySelectorAll('[data-en][data-ja]');
+      const releaseVersion = document.querySelector('[data-release-version]');
+      const releaseDate = document.querySelector('[data-release-date]');
+      
+      // Auto detect user language, default to 'en', but use localStorage if set
+      let currentLang = localStorage.getItem('lab3776_lang');
+      if(!currentLang) {
+        currentLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
+      }
+
+      function updateLanguage(lang) {
+        elements.forEach(el => {
+          el.textContent = el.getAttribute(`data-${lang}`);
+        });
+        toggleBtn.textContent = lang === 'ja' ? '🌐 JP' : '🌐 EN';
+        document.documentElement.lang = lang;
+        if (releaseDate && releaseDate.dataset.isoDate) {
+          releaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(releaseDate.dataset.isoDate, lang);
+          releaseDate.classList.remove('loading');
+        }
+      }
+
+      async function loadViewerRelease() {
+        if (!releaseVersion || !releaseDate || !window.Lab3776ReleaseFeed) {
+          return;
+        }
+
+        try {
+          const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'viewer3776win-downloads',
+            assetName: 'Viewer3776win.zip',
+            summaryCount: 3
+          });
+
+          releaseVersion.textContent = release.tagName || release.title || 'Latest';
+          releaseVersion.classList.remove('loading');
+          releaseDate.dataset.isoDate = release.publishedAt || '';
+          releaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+          releaseDate.classList.remove('loading');
+        } catch (error) {
+          releaseVersion.textContent = 'GitHub';
+          releaseVersion.classList.remove('loading');
+          releaseDate.textContent = currentLang === 'ja' ? 'Release ページで確認' : 'See Release page';
+          releaseDate.classList.remove('loading');
+        }
+      }
+
+      // Initialize
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          updateLanguage(currentLang);
+          loadViewerRelease();
+        });
+      } else {
+        updateLanguage(currentLang);
+        loadViewerRelease();
+      }
+
+      // Toggle event
+      toggleBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'ja' : 'en';
+        localStorage.setItem('lab3776_lang', currentLang);
+        updateLanguage(currentLang);
+      });
+    })();
+  </script>
+</body>
+</html>

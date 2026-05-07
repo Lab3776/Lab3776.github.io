@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer3776win | Lab 3776</title>
+  <meta name="description" content="Viewer3776win の紹介、ダウンロード、更新履歴をまとめた公式ページです。">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #101417;
+      --bg-soft: #151b20;
+      --panel: rgba(22, 28, 34, 0.86);
+      --panel-strong: #1c232b;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5f7fa;
+      --muted: #a9b4c0;
+      --blue: #4da0ff;
+      --blue-strong: #2d7de0;
+      --mint: #4fd3b0;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --radius-small: 16px;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(77, 160, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(79, 211, 176, 0.1), transparent 20%),
+        linear-gradient(180deg, #0f1418 0%, #12181d 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .back-link,
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .back-link:hover,
+    .lang-switcher:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .section-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(77, 160, 255, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-side {
+      padding: 24px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(77, 160, 255, 0.12);
+      color: #b8d7ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 760px;
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .side-title {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .release-box {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 18px;
+    }
+
+    .release-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.95rem;
+    }
+
+    .release-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .release-label {
+      color: var(--muted);
+    }
+
+    .release-value {
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .loading {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .side-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-card {
+      padding: 28px;
+    }
+
+    .section-card.full {
+      margin-bottom: 24px;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .shot-main,
+    .shot-sub {
+      margin: 0;
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .shot-main img,
+    .shot-sub img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .shot-caption {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .feature-list,
+    .summary-list,
+    .note-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .feature-item,
+    .summary-item,
+    .note-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-item strong,
+    .summary-item strong,
+    .note-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .feature-item span,
+    .summary-item span,
+    .note-item span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .formats {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .format-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .format-name {
+      font-weight: 700;
+    }
+
+    .format-value {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .release-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .release-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .release-fallback {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .section-grid,
+      .showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-main,
+      .hero-side,
+      .section-card {
+        padding: 22px;
+      }
+
+      .format-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="back-link" href="../index.html" data-ja="← 一覧へ戻る" data-en="← Back to Apps">← Back to Apps</a>
+      <div class="brand">Lab 3776</div>
+      <button class="lang-switcher" id="langToggle">🌐 EN</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-main">
+          <span class="eyebrow" data-ja="Windows Viewer" data-en="Windows Viewer">Windows Viewer</span>
+          <h1>Viewer3776win</h1>
+          <p class="lede" data-ja="画像、漫画アーカイブ、PDF、テキスト、動画、音声まで、Windows 標準機能を中心にまとめて開ける軽量ビューアです。インストール不要で動作し、見開き表示や高速シークプレビューにも対応します。" data-en="A lightweight viewer that opens images, comic archives, PDFs, text, video, and audio with a Windows-native foundation. It runs without installation and supports spread view plus fast seek preview.">A lightweight viewer that opens images, comic archives, PDFs, text, video, and audio with a Windows-native foundation. It runs without installation and supports spread view plus fast seek preview.</p>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-label" data-ja="最新版" data-en="Latest">Latest</span>
+              <span class="stat-value loading" data-release-version>Loading...</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label" data-ja="公開日" data-en="Published">Published</span>
+              <span class="stat-value loading" data-release-date>Loading...</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label" data-ja="配布形式" data-en="Distribution">Distribution</span>
+              <span class="stat-value" data-ja="ZIP 配布" data-en="ZIP Package">ZIP Package</span>
+            </div>
+          </div>
+
+          <div class="tag-list">
+            <span class="tag" data-ja="漫画アーカイブ" data-en="Comic Archives">Comic Archives</span>
+            <span class="tag" data-ja="PDF / テキスト" data-en="PDF / Text">PDF / Text</span>
+            <span class="tag" data-ja="動画 / 音声" data-en="Video / Audio">Video / Audio</span>
+            <span class="tag" data-ja="インストール不要" data-en="Portable">Portable</span>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <h2 class="side-title" data-ja="ダウンロード" data-en="Download">Download</h2>
+          <div class="release-box">
+            <div class="release-row">
+              <span class="release-label" data-ja="最新タグ" data-en="Tag">Tag</span>
+              <span class="release-value loading" data-release-tag>Loading...</span>
+            </div>
+            <div class="release-row">
+              <span class="release-label" data-ja="最終更新" data-en="Updated">Updated</span>
+              <span class="release-value loading" data-release-updated>Loading...</span>
+            </div>
+            <div class="release-row">
+              <span class="release-label" data-ja="取得ファイル" data-en="Package">Package</span>
+              <span class="release-value">Viewer3776win.zip</span>
+            </div>
+          </div>
+
+          <div class="button-stack">
+            <a class="btn btn-primary" data-download-link href="https://github.com/Lab3776/viewer3776win-downloads/releases/latest/download/Viewer3776win.zip" data-ja="最新版をダウンロード" data-en="Download Latest">Download Latest</a>
+            <a class="btn btn-secondary" data-release-link href="https://github.com/Lab3776/viewer3776win-downloads/releases" data-ja="更新履歴を見る" data-en="View Release Notes">View Release Notes</a>
+          </div>
+
+          <p class="side-note" data-ja="ZIP / CBZ はそのまま利用できます。RAR / 7z / LZH / LHA は 7z.dll、古い FLV は ffmpeg.exe が見つかる環境で再生対応します。" data-en="ZIP and CBZ work as-is. RAR / 7z / LZH / LHA require 7z.dll, and older FLV files can be handled when ffmpeg.exe is available.">ZIP and CBZ work as-is. RAR / 7z / LZH / LHA require 7z.dll, and older FLV files can be handled when ffmpeg.exe is available.</p>
+        </aside>
+      </section>
+
+      <section class="section-grid">
+        <article class="section-card">
+          <h2 class="section-title" data-ja="主な特徴" data-en="Highlights">Highlights</h2>
+          <p class="section-copy" data-ja="ビューアとしての快適さを優先しつつ、単一実行ファイルで多形式を扱えることを重視した構成です。" data-en="The design prioritizes viewer comfort while keeping broad format support inside a single portable executable.">The design prioritizes viewer comfort while keeping broad format support inside a single portable executable.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <strong data-ja="漫画閲覧向けの見開きとシークプレビュー" data-en="Spread view and seek preview for comics">Spread view and seek preview for comics</strong>
+              <span data-ja="ページを高速に移動しても、見開き前提のプレビューが素早く切り替わる構成です。" data-en="Built to switch previews quickly while you scrub through pages, including spread layouts.">Built to switch previews quickly while you scrub through pages, including spread layouts.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="画像以外も 1 本で扱える" data-en="Handles more than images">Handles more than images</strong>
+              <span data-ja="PDF、テキスト、HTML、RTF、動画、音声まで同じ操作感で開けます。" data-en="Open PDFs, text, HTML, RTF, video, and audio with the same viewer flow.">Open PDFs, text, HTML, RTF, video, and audio with the same viewer flow.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="ポータブル運用" data-en="Portable operation">Portable operation</strong>
+              <span data-ja="インストール不要で動作し、設定や履歴は `_res` フォルダにまとまります。" data-en="Runs without installation and keeps settings plus history inside the `_res` folder.">Runs without installation and keeps settings plus history inside the `_res` folder.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <h2 class="section-title" data-ja="対応形式" data-en="Supported Formats">Supported Formats</h2>
+          <p class="section-copy" data-ja="標準状態で開ける形式と、追加コンポーネントがあると広がる形式を分けて案内しています。" data-en="Formats are grouped by what works out of the box and what expands with optional helpers.">Formats are grouped by what works out of the box and what expands with optional helpers.</p>
+          <div class="formats">
+            <div class="format-row">
+              <div class="format-name" data-ja="画像" data-en="Images">Images</div>
+              <div class="format-value">JPG, PNG, WebP, AVIF, HEIC, SVG, GIF, BMP</div>
+            </div>
+            <div class="format-row">
+              <div class="format-name" data-ja="文書" data-en="Documents">Documents</div>
+              <div class="format-value">PDF, TXT, LOG, INI, XML, Markdown, HTML, RTF</div>
+            </div>
+            <div class="format-row">
+              <div class="format-name" data-ja="メディア" data-en="Media">Media</div>
+              <div class="format-value">MP4, MOV, WMV, AVI, MKV, WebM, MP3, WAV, M4A, FLAC, WMA</div>
+            </div>
+            <div class="format-row">
+              <div class="format-name" data-ja="圧縮ファイル" data-en="Archives">Archives</div>
+              <div class="format-value" data-ja="ZIP / CBZ は標準対応。RAR / 7z / LZH / LHA は 7z.dll が必要です。" data-en="ZIP / CBZ work by default. RAR / 7z / LZH / LHA require 7z.dll.">ZIP / CBZ work by default. RAR / 7z / LZH / LHA require 7z.dll.</div>
+            </div>
+            <div class="format-row">
+              <div class="format-name" data-ja="ffmpeg.exe 対応" data-en="ffmpeg.exe support">ffmpeg.exe support</div>
+              <div class="format-value" data-ja="古い FLV は ffmpeg.exe が見つかる環境で自動変換して再生します。" data-en="Older FLV files can be auto-converted for playback when ffmpeg.exe is available.">Older FLV files can be auto-converted for playback when ffmpeg.exe is available.</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-card full">
+        <h2 class="section-title" data-ja="画面イメージ" data-en="Screenshots">Screenshots</h2>
+        <p class="section-copy" data-ja="実在コンテンツではなく、見開き表示と単ページ表示の挙動が伝わるようにしたデモ画面です。" data-en="These demo screens use neutral sample content to show spread view and single-page behavior without relying on third-party material.">These demo screens use neutral sample content to show spread view and single-page behavior without relying on third-party material.</p>
+        <div class="showcase">
+          <figure class="shot-main">
+            <img src="img/p002-003.png" alt="Viewer3776win spread view demo">
+            <figcaption class="shot-caption" data-ja="見開き表示のデモ。左右ページと下部シークバーの見え方を確認できます。" data-en="Spread view demo showing the left-right page layout and the bottom seek bar.">Spread view demo showing the left-right page layout and the bottom seek bar.</figcaption>
+          </figure>
+          <figure class="shot-sub">
+            <img src="img/p001.png" alt="Viewer3776win single-page cover demo">
+            <figcaption class="shot-caption" data-ja="単ページ表紙のデモ。表紙のような1ページ表示でも同じ操作感で閲覧できます。" data-en="Single-page cover demo showing the same viewer flow for one-page content.">Single-page cover demo showing the same viewer flow for one-page content.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section-card full">
+        <div class="release-header">
+          <div>
+            <h2 class="section-title" data-ja="最新の更新内容" data-en="Latest Release Notes">Latest Release Notes</h2>
+            <p data-ja="GitHub Releases から最新版情報を自動取得しています。" data-en="The latest information is fetched automatically from GitHub Releases.">The latest information is fetched automatically from GitHub Releases.</p>
+          </div>
+          <a class="footer-link" data-release-link-secondary href="https://github.com/Lab3776/viewer3776win-downloads/releases" data-ja="Release 一覧へ" data-en="All Releases">All Releases</a>
+        </div>
+        <div class="summary-list" id="releaseSummaryList">
+          <div class="summary-item">
+            <strong data-ja="読み込み中" data-en="Loading">Loading</strong>
+            <span data-ja="更新内容を取得しています。" data-en="Fetching release notes.">Fetching release notes.</span>
+          </div>
+        </div>
+        <p class="release-fallback" id="releaseFallback" hidden data-ja="取得できない場合は GitHub の Release ページから最新版と更新内容を確認できます。" data-en="If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.">If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.</p>
+      </section>
+
+      <section class="section-grid">
+        <article class="section-card">
+          <h2 class="section-title" data-ja="補足" data-en="Notes">Notes</h2>
+          <div class="note-list">
+            <div class="note-item">
+              <strong data-ja="アーカイブ対応" data-en="Archive support">Archive support</strong>
+              <span data-ja="RAR / 7z 系は配布物に同梱していません。必要に応じて 7z.dll を `_res\bin` に配置してください。" data-en="RAR / 7z support is not bundled. Place 7z.dll in `_res\bin` when you need those formats.">RAR / 7z support is not bundled. Place 7z.dll in `_res\bin` when you need those formats.</span>
+            </div>
+            <div class="note-item">
+              <strong data-ja="動画再生" data-en="Video playback">Video playback</strong>
+              <span data-ja="古いコンテナやコーデックは OS 側の再生機能に左右されます。必要に応じて ffmpeg.exe が補助に入ります。" data-en="Older containers and codecs still depend on OS media support, with ffmpeg.exe used as an optional helper when needed.">Older containers and codecs still depend on OS media support, with ffmpeg.exe used as an optional helper when needed.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <h2 class="section-title" data-ja="関連情報" data-en="Related Information">Related Information</h2>
+          <p class="section-copy" data-ja="ポリシーや OSS ライセンスは別ページにまとめています。" data-en="Privacy and OSS information live on separate pages.">Privacy and OSS information live on separate pages.</p>
+          <div class="footer-links">
+            <a class="footer-link" href="privacy-policy.html" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+            <a class="footer-link" href="oss-licenses.html" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
+            <a class="footer-link" href="https://github.com/Lab3776/viewer3776win-downloads/releases" data-ja="公開 Release" data-en="Public Releases">Public Releases</a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../release-feed.js"></script>
+  <script>
+    (function () {
+      var toggleBtn = document.getElementById('langToggle');
+      var elements = document.querySelectorAll('[data-en][data-ja]');
+      var currentReleaseSummaryItems = [];
+      var currentLang = localStorage.getItem('lab3776_lang');
+      if (!currentLang) {
+        currentLang = navigator.language && navigator.language.indexOf('ja') === 0 ? 'ja' : 'en';
+      }
+
+      function updateLanguage(lang) {
+        for (var index = 0; index < elements.length; index++) {
+          elements[index].textContent = elements[index].getAttribute('data-' + lang);
+        }
+
+        toggleBtn.textContent = lang === 'ja' ? '🌐 JP' : '🌐 EN';
+        document.documentElement.lang = lang;
+
+        var dateNodes = document.querySelectorAll('[data-iso-date]');
+        for (var dateIndex = 0; dateIndex < dateNodes.length; dateIndex++) {
+          dateNodes[dateIndex].textContent = window.Lab3776ReleaseFeed.formatPublishedDate(dateNodes[dateIndex].dataset.isoDate, lang);
+        }
+      }
+
+      function setReleaseSummary(items) {
+        currentReleaseSummaryItems = items.slice();
+        var summaryList = document.getElementById('releaseSummaryList');
+        summaryList.innerHTML = '';
+        for (var index = 0; index < items.length; index++) {
+          var item = document.createElement('div');
+          item.className = 'summary-item';
+          var strong = document.createElement('strong');
+          strong.textContent = currentLang === 'ja' ? '更新内容' : 'Update';
+          var span = document.createElement('span');
+          span.textContent = items[index];
+          item.appendChild(strong);
+          item.appendChild(span);
+          summaryList.appendChild(item);
+        }
+      }
+
+      async function loadRelease() {
+        try {
+          var release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'viewer3776win-downloads',
+            assetName: 'Viewer3776win.zip',
+            summaryCount: 5
+          });
+
+          var versionNodes = document.querySelectorAll('[data-release-version], [data-release-tag]');
+          for (var index = 0; index < versionNodes.length; index++) {
+            versionNodes[index].textContent = release.tagName || release.title || 'Latest';
+            versionNodes[index].classList.remove('loading');
+          }
+
+          var dateNodes = document.querySelectorAll('[data-release-date], [data-release-updated]');
+          for (var dateIndex = 0; dateIndex < dateNodes.length; dateIndex++) {
+            dateNodes[dateIndex].dataset.isoDate = release.publishedAt || '';
+            dateNodes[dateIndex].textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+            dateNodes[dateIndex].classList.remove('loading');
+          }
+
+          var downloadLink = document.querySelector('[data-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          var releaseLinks = document.querySelectorAll('[data-release-link], [data-release-link-secondary]');
+          for (var linkIndex = 0; linkIndex < releaseLinks.length; linkIndex++) {
+            if (release.htmlUrl) {
+              releaseLinks[linkIndex].href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+            }
+          }
+
+          if (release.summaryItems && release.summaryItems.length > 0) {
+            setReleaseSummary(release.summaryItems);
+          } else {
+            setReleaseSummary([
+              currentLang === 'ja'
+                ? '更新内容は Release ページで確認してください。'
+                : 'See the Release page for the full update notes.'
+            ]);
+          }
+        } catch (error) {
+          document.getElementById('releaseFallback').hidden = false;
+          setReleaseSummary([
+            currentLang === 'ja'
+              ? 'GitHub からの取得に失敗しました。Release ページから最新版を確認してください。'
+              : 'Automatic fetch failed. Please check the GitHub Releases page.'
+          ]);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          updateLanguage(currentLang);
+          loadRelease();
+        });
+      } else {
+        updateLanguage(currentLang);
+        loadRelease();
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        currentLang = currentLang === 'en' ? 'ja' : 'en';
+        localStorage.setItem('lab3776_lang', currentLang);
+        updateLanguage(currentLang);
+        if (currentReleaseSummaryItems.length > 0) {
+          setReleaseSummary(currentReleaseSummaryItems);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
