@@ -372,6 +372,17 @@
       font-size: 0.95rem;
     }
 
+    .summary-bullets {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .summary-bullets li + li {
+      margin-top: 8px;
+    }
+
     .formats {
       display: grid;
       gap: 14px;
@@ -646,7 +657,10 @@
     (function () {
       var toggleBtn = document.getElementById('langToggle');
       var elements = document.querySelectorAll('[data-en][data-ja]');
-      var currentReleaseSummaryItems = [];
+      var currentReleaseSummary = {
+        title: '',
+        items: []
+      };
       var currentLang = localStorage.getItem('lab3776_lang');
       if (!currentLang) {
         currentLang = navigator.language && navigator.language.indexOf('ja') === 0 ? 'ja' : 'en';
@@ -666,21 +680,58 @@
         }
       }
 
-      function setReleaseSummary(items) {
-        currentReleaseSummaryItems = items.slice();
+      function normalizeReleaseSummary(release) {
+        var title = release.title || release.tagName || (currentLang === 'ja' ? '最新リリース' : 'Latest Release');
+        var items = Array.isArray(release.summaryItems) ? release.summaryItems.slice() : [];
+
+        if (items.length > 0) {
+          var normalizedFirstItem = items[0].replace(/\s+/g, ' ').trim();
+          var normalizedTitle = title.replace(/\s+/g, ' ').trim();
+          if (normalizedFirstItem === normalizedTitle) {
+            items.shift();
+          }
+        }
+
+        return {
+          title: title,
+          items: items
+        };
+      }
+
+      function setReleaseSummary(summary) {
+        currentReleaseSummary = {
+          title: summary.title || '',
+          items: Array.isArray(summary.items) ? summary.items.slice() : []
+        };
+
         var summaryList = document.getElementById('releaseSummaryList');
         summaryList.innerHTML = '';
-        for (var index = 0; index < items.length; index++) {
-          var item = document.createElement('div');
-          item.className = 'summary-item';
-          var strong = document.createElement('strong');
-          strong.textContent = currentLang === 'ja' ? '更新内容' : 'Update';
+
+        var item = document.createElement('div');
+        item.className = 'summary-item';
+
+        var strong = document.createElement('strong');
+        strong.textContent = currentReleaseSummary.title || (currentLang === 'ja' ? '最新リリース' : 'Latest Release');
+        item.appendChild(strong);
+
+        if (currentReleaseSummary.items.length > 0) {
+          var list = document.createElement('ul');
+          list.className = 'summary-bullets';
+          for (var index = 0; index < currentReleaseSummary.items.length; index++) {
+            var bullet = document.createElement('li');
+            bullet.textContent = currentReleaseSummary.items[index];
+            list.appendChild(bullet);
+          }
+          item.appendChild(list);
+        } else {
           var span = document.createElement('span');
-          span.textContent = items[index];
-          item.appendChild(strong);
+          span.textContent = currentLang === 'ja'
+            ? '更新内容は Release ページで確認してください。'
+            : 'See the Release page for the full update notes.';
           item.appendChild(span);
-          summaryList.appendChild(item);
         }
+
+        summaryList.appendChild(item);
       }
 
       async function loadRelease() {
@@ -717,22 +768,17 @@
             }
           }
 
-          if (release.summaryItems && release.summaryItems.length > 0) {
-            setReleaseSummary(release.summaryItems);
-          } else {
-            setReleaseSummary([
-              currentLang === 'ja'
-                ? '更新内容は Release ページで確認してください。'
-                : 'See the Release page for the full update notes.'
-            ]);
-          }
+          setReleaseSummary(normalizeReleaseSummary(release));
         } catch (error) {
           document.getElementById('releaseFallback').hidden = false;
-          setReleaseSummary([
-            currentLang === 'ja'
-              ? 'GitHub からの取得に失敗しました。Release ページから最新版を確認してください。'
-              : 'Automatic fetch failed. Please check the GitHub Releases page.'
-          ]);
+          setReleaseSummary({
+            title: currentLang === 'ja' ? '更新内容' : 'Release Notes',
+            items: [
+              currentLang === 'ja'
+                ? 'GitHub からの取得に失敗しました。Release ページから最新版を確認してください。'
+                : 'Automatic fetch failed. Please check the GitHub Releases page.'
+            ]
+          });
         }
       }
 
@@ -750,8 +796,8 @@
         currentLang = currentLang === 'en' ? 'ja' : 'en';
         localStorage.setItem('lab3776_lang', currentLang);
         updateLanguage(currentLang);
-        if (currentReleaseSummaryItems.length > 0) {
-          setReleaseSummary(currentReleaseSummaryItems);
+        if (currentReleaseSummary.items.length > 0 || currentReleaseSummary.title) {
+          setReleaseSummary(currentReleaseSummary);
         }
       });
     })();
