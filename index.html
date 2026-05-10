@@ -388,6 +388,31 @@
             </div>
           </div>
         </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">Note3776win</h3>
+            <span class="badge windows">Windows</span>
+          </div>
+          <p class="app-desc" data-ja="Clipboard 自動収集、Markdown の見やすさ、常駐利用を重視した Windows 向けテキストエディタです。インストール不要で動作し、タブ付き編集、軽量な Markdown 装飾、表整形を 1 本にまとめています。" data-en="A portable Windows text editor focused on clipboard capture, Markdown readability, and tray-friendly workflow. It combines tabbed editing, lightweight Markdown styling, and table formatting in a single standalone package.">A portable Windows text editor focused on clipboard capture, Markdown readability, and tray-friendly workflow. It combines tabbed editing, lightweight Markdown styling, and table formatting in a single standalone package.</p>
+          <div class="app-meta" id="note3776winReleaseCard">
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="最新版" data-en="Latest">Latest</span>
+              <span class="app-meta-value loading" data-note-release-version>Loading...</span>
+            </div>
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="公開日" data-en="Published">Published</span>
+              <span class="app-meta-value loading" data-note-release-date>Loading...</span>
+            </div>
+          </div>
+          <div class="btn-group">
+            <a href="note3776win/" class="btn btn-win" data-ja="詳細ページを見る" data-en="View Details">View Details</a>
+            <div class="btn-row">
+              <a href="https://github.com/Lab3776/note3776win-downloads/releases" class="btn btn-secondary" data-note-download-link data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
+              <a href="https://github.com/Lab3776/note3776win-downloads/releases" class="btn btn-secondary" data-note-release-link data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
+            </div>
+          </div>
+        </article>
       </div>
 
       <h2 class="section-title" data-ja="Android アプリケーション" data-en="Android Applications">Android Applications</h2>
@@ -474,6 +499,8 @@
       const elements = document.querySelectorAll('[data-en][data-ja]');
       const releaseVersion = document.querySelector('[data-release-version]');
       const releaseDate = document.querySelector('[data-release-date]');
+      const noteReleaseVersion = document.querySelector('[data-note-release-version]');
+      const noteReleaseDate = document.querySelector('[data-note-release-date]');
       
       // Auto detect user language, default to 'en', but use localStorage if set
       let currentLang = localStorage.getItem('lab3776_lang');
@@ -490,6 +517,10 @@
         if (releaseDate && releaseDate.dataset.isoDate) {
           releaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(releaseDate.dataset.isoDate, lang);
           releaseDate.classList.remove('loading');
+        }
+        if (noteReleaseDate && noteReleaseDate.dataset.isoDate) {
+          noteReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(noteReleaseDate.dataset.isoDate, lang);
+          noteReleaseDate.classList.remove('loading');
         }
       }
 
@@ -519,15 +550,52 @@
         }
       }
 
+      async function loadNoteRelease() {
+        if (!noteReleaseVersion || !noteReleaseDate || !window.Lab3776ReleaseFeed) {
+          return;
+        }
+
+        try {
+          const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'note3776win-downloads',
+            summaryCount: 3
+          });
+
+          noteReleaseVersion.textContent = release.tagName || release.title || 'Latest';
+          noteReleaseVersion.classList.remove('loading');
+          noteReleaseDate.dataset.isoDate = release.publishedAt || '';
+          noteReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+          noteReleaseDate.classList.remove('loading');
+
+          const downloadLink = document.querySelector('[data-note-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          const releaseLink = document.querySelector('[data-note-release-link]');
+          if (releaseLink && release.htmlUrl) {
+            releaseLink.href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+          }
+        } catch (error) {
+          noteReleaseVersion.textContent = 'GitHub';
+          noteReleaseVersion.classList.remove('loading');
+          noteReleaseDate.textContent = currentLang === 'ja' ? 'Release ページで確認' : 'See Release page';
+          noteReleaseDate.classList.remove('loading');
+        }
+      }
+
       // Initialize
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
           updateLanguage(currentLang);
           loadViewerRelease();
+          loadNoteRelease();
         });
       } else {
         updateLanguage(currentLang);
         loadViewerRelease();
+        loadNoteRelease();
       }
 
       // Toggle event
