@@ -531,12 +531,12 @@
             </div>
             <div class="release-row">
               <span class="release-label" data-ja="取得ファイル" data-en="Package">Package</span>
-              <span class="release-value">Viewer3776win.zip</span>
+              <span class="release-value loading" data-release-package>Loading...</span>
             </div>
           </div>
 
           <div class="button-stack">
-            <a class="btn btn-primary" data-download-link href="https://github.com/Lab3776/viewer3776win-downloads/releases/latest/download/Viewer3776win.zip" data-ja="最新版をダウンロード" data-en="Download Latest">Download Latest</a>
+            <a class="btn btn-primary" data-download-link href="https://github.com/Lab3776/viewer3776win-downloads/releases" data-ja="最新版をダウンロード" data-en="Download Latest">Download Latest</a>
             <a class="btn btn-secondary" data-release-link href="https://github.com/Lab3776/viewer3776win-downloads/releases" data-ja="更新履歴を見る" data-en="View Release Notes">View Release Notes</a>
           </div>
 
@@ -739,7 +739,6 @@
           var release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
             owner: 'Lab3776',
             repo: 'viewer3776win-downloads',
-            assetName: 'Viewer3776win.zip',
             summaryCount: 5
           });
 
@@ -761,6 +760,14 @@
             downloadLink.href = release.asset.browser_download_url;
           }
 
+          var packageNode = document.querySelector('[data-release-package]');
+          if (packageNode) {
+            packageNode.textContent = release.asset && release.asset.name
+              ? release.asset.name
+              : (currentLang === 'ja' ? '添付 zip' : 'Release asset');
+            packageNode.classList.remove('loading');
+          }
+
           var releaseLinks = document.querySelectorAll('[data-release-link], [data-release-link-secondary]');
           for (var linkIndex = 0; linkIndex < releaseLinks.length; linkIndex++) {
             if (release.htmlUrl) {
@@ -770,6 +777,11 @@
 
           setReleaseSummary(normalizeReleaseSummary(release));
         } catch (error) {
+          var packageNode = document.querySelector('[data-release-package]');
+          if (packageNode) {
+            packageNode.textContent = currentLang === 'ja' ? 'Release ページから取得' : 'See Release page';
+            packageNode.classList.remove('loading');
+          }
           document.getElementById('releaseFallback').hidden = false;
           setReleaseSummary({
             title: currentLang === 'ja' ? '更新内容' : 'Release Notes',

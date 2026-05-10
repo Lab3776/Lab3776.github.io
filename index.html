@@ -383,8 +383,8 @@
           <div class="btn-group">
             <a href="viewer3776win/" class="btn btn-win" data-ja="詳細ページを見る" data-en="View Details">View Details</a>
             <div class="btn-row">
-              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases/latest/download/Viewer3776win.zip" class="btn btn-secondary" data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
-              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases" class="btn btn-secondary" data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
+              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases" class="btn btn-secondary" data-viewer-download-link data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
+              <a href="https://github.com/Lab3776/viewer3776win-downloads/releases" class="btn btn-secondary" data-viewer-release-link data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
             </div>
           </div>
         </article>
@@ -533,7 +533,6 @@
           const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
             owner: 'Lab3776',
             repo: 'viewer3776win-downloads',
-            assetName: 'Viewer3776win.zip',
             summaryCount: 3
           });
 
@@ -542,6 +541,16 @@
           releaseDate.dataset.isoDate = release.publishedAt || '';
           releaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
           releaseDate.classList.remove('loading');
+
+          const downloadLink = document.querySelector('[data-viewer-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          const releaseLink = document.querySelector('[data-viewer-release-link]');
+          if (releaseLink && release.htmlUrl) {
+            releaseLink.href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+          }
         } catch (error) {
           releaseVersion.textContent = 'GitHub';
           releaseVersion.classList.remove('loading');
