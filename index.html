@@ -413,6 +413,31 @@
             </div>
           </div>
         </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="app-title">Sticker3776win</h3>
+            <span class="badge windows">Windows</span>
+          </div>
+          <p class="app-desc" data-ja="よく使うステッカーや画像を素早く呼び出して貼り付けることができる、Windows 向け常駐型ステッカーアプリ。キーボードショートカットで瞬時に起動し、クリップボード経由で様々なアプリへシームレスに送信できます。" data-en="A resident Windows sticker app that lets you quickly summon and paste your favorite stickers. Launch instantly with a keyboard shortcut and send seamlessly to any app via the clipboard.">A resident Windows sticker app that lets you quickly summon and paste your favorite stickers. Launch instantly with a keyboard shortcut and send seamlessly to any app via the clipboard.</p>
+          <div class="app-meta" id="stickerWinReleaseCard">
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="最新版" data-en="Latest">Latest</span>
+              <span class="app-meta-value loading" data-stickerwin-release-version>Loading...</span>
+            </div>
+            <div class="app-meta-row">
+              <span class="app-meta-label" data-ja="公開日" data-en="Published">Published</span>
+              <span class="app-meta-value loading" data-stickerwin-release-date>Loading...</span>
+            </div>
+          </div>
+          <div class="btn-group">
+            <a href="sticker3776win/" class="btn btn-win" data-ja="詳細ページを見る" data-en="View Details">View Details</a>
+            <div class="btn-row">
+              <a href="https://github.com/Lab3776/sticker3776win-downloads/releases" class="btn btn-secondary" data-stickerwin-download-link data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
+              <a href="https://github.com/Lab3776/sticker3776win-downloads/releases" class="btn btn-secondary" data-stickerwin-release-link data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
+            </div>
+          </div>
+        </article>
       </div>
 
       <h2 class="section-title" data-ja="Android アプリケーション" data-en="Android Applications">Android Applications</h2>
@@ -501,6 +526,8 @@
       const releaseDate = document.querySelector('[data-release-date]');
       const noteReleaseVersion = document.querySelector('[data-note-release-version]');
       const noteReleaseDate = document.querySelector('[data-note-release-date]');
+      const stickerWinReleaseVersion = document.querySelector('[data-stickerwin-release-version]');
+      const stickerWinReleaseDate = document.querySelector('[data-stickerwin-release-date]');
       
       // Auto detect user language, default to 'en', but use localStorage if set
       let currentLang = localStorage.getItem('lab3776_lang');
@@ -521,6 +548,10 @@
         if (noteReleaseDate && noteReleaseDate.dataset.isoDate) {
           noteReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(noteReleaseDate.dataset.isoDate, lang);
           noteReleaseDate.classList.remove('loading');
+        }
+        if (stickerWinReleaseDate && stickerWinReleaseDate.dataset.isoDate) {
+          stickerWinReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(stickerWinReleaseDate.dataset.isoDate, lang);
+          stickerWinReleaseDate.classList.remove('loading');
         }
       }
 
@@ -594,17 +625,54 @@
         }
       }
 
+      async function loadStickerWinRelease() {
+        if (!stickerWinReleaseVersion || !stickerWinReleaseDate || !window.Lab3776ReleaseFeed) {
+          return;
+        }
+
+        try {
+          const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'sticker3776win-downloads',
+            summaryCount: 3
+          });
+
+          stickerWinReleaseVersion.textContent = release.tagName || release.title || 'Latest';
+          stickerWinReleaseVersion.classList.remove('loading');
+          stickerWinReleaseDate.dataset.isoDate = release.publishedAt || '';
+          stickerWinReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+          stickerWinReleaseDate.classList.remove('loading');
+
+          const downloadLink = document.querySelector('[data-stickerwin-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          const releaseLink = document.querySelector('[data-stickerwin-release-link]');
+          if (releaseLink && release.htmlUrl) {
+            releaseLink.href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+          }
+        } catch (error) {
+          stickerWinReleaseVersion.textContent = 'GitHub';
+          stickerWinReleaseVersion.classList.remove('loading');
+          stickerWinReleaseDate.textContent = currentLang === 'ja' ? 'Release ページで確認' : 'See Release page';
+          stickerWinReleaseDate.classList.remove('loading');
+        }
+      }
+
       // Initialize
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
           updateLanguage(currentLang);
           loadViewerRelease();
           loadNoteRelease();
+          loadStickerWinRelease();
         });
       } else {
         updateLanguage(currentLang);
         loadViewerRelease();
         loadNoteRelease();
+        loadStickerWinRelease();
       }
 
       // Toggle event

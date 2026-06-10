@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticker3776win | Lab 3776</title>
+  <meta name="description" content="Sticker3776win 縺ｮ邏ｹ莉九√ム繧ｦ繝ｳ繝ｭ繝ｼ繝峨∵峩譁ｰ螻･豁ｴ繧偵∪縺ｨ繧√◆蜈ｬ蠑上・繝ｼ繧ｸ縺ｧ縺吶・>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #101417;
+      --bg-soft: #151b20;
+      --panel: rgba(22, 28, 34, 0.86);
+      --panel-strong: #1c232b;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5f7fa;
+      --muted: #a9b4c0;
+      --blue: #4da0ff;
+      --blue-strong: #2d7de0;
+      --mint: #4fd3b0;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --radius-small: 16px;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(77, 160, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(79, 211, 176, 0.1), transparent 20%),
+        linear-gradient(180deg, #0f1418 0%, #12181d 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0 72px; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .back-link,
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .back-link:hover,
+    .lang-switcher:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .hero-main,
+    .hero-side,
+    .section-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(77, 160, 255, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-side {
+      padding: 24px;
+      position: sticky;
+      top: 20px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(77, 160, 255, 0.12);
+      color: #b8d7ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+    .lede {
+      margin: 0;
+      max-width: 760px;
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .stat {
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .tag {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    .side-title {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+    .release-box {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 18px;
+    }
+    .release-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.95rem;
+    }
+    .release-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .release-label { color: var(--muted); }
+    .release-value { text-align: right; font-weight: 700; }
+    .loading { color: var(--muted); font-weight: 500; }
+    .button-stack { display: grid; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+      color: #fff;
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+    .side-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .section-card {
+      padding: 28px;
+    }
+    .section-card.full {
+      margin-bottom: 24px;
+    }
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+    }
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .feature-list,
+    .summary-list,
+    .note-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .feature-item,
+    .summary-item,
+    .note-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .feature-item strong,
+    .summary-item strong,
+    .note-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+    .feature-item span,
+    .summary-item span,
+    .note-item span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    .summary-bullets {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .summary-bullets li + li { margin-top: 8px; }
+    .release-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .release-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .release-fallback {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .footer-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    @media (max-width: 960px) {
+      .hero,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-side { position: static; }
+    }
+    @media (max-width: 640px) {
+      .page { width: min(100% - 24px, 1180px); }
+      .hero-main,
+      .hero-side,
+      .section-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="back-link" href="../index.html" data-ja="竊・荳隕ｧ縺ｸ謌ｻ繧・ data-en="竊・Back to Apps">竊・Back to Apps</a>
+      <div class="brand">Lab 3776</div>
+      <button class="lang-switcher" id="langToggle">倹 EN</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-main">
+          <span class="eyebrow" data-ja="Windows Editor" data-en="Windows Editor">Windows Editor</span>
+          <h1>Sticker3776win</h1>
+          <p class="lede" data-ja="Clipboard 閾ｪ蜍募庶髮・｀arkdown 縺ｮ隕九ｄ縺吶＆縲∝ｸｸ鬧仙茜逕ｨ繧帝㍾隕悶＠縺・Windows 蜷代￠繝・く繧ｹ繝医お繝・ぅ繧ｿ縺ｧ縺吶ゅち繝紋ｻ倥″邱ｨ髮・∬ｻｽ驥上↑ Markdown 陬・｣ｾ縲∬｡ｨ謨ｴ蠖｢繧・1 譛ｬ縺ｫ縺ｾ縺ｨ繧√√う繝ｳ繧ｹ繝医・繝ｫ荳崎ｦ√〒蛻ｩ逕ｨ縺ｧ縺阪∪縺吶・ data-en="A portable Windows text editor focused on clipboard capture, Markdown readability, and tray-friendly workflow. It combines tabbed editing, lightweight Markdown styling, and table formatting without requiring installation.">A portable Windows text editor focused on clipboard capture, Markdown readability, and tray-friendly workflow. It combines tabbed editing, lightweight Markdown styling, and table formatting without requiring installation.</p>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-label" data-ja="譛譁ｰ迚・ data-en="Latest">Latest</span>
+              <span class="stat-value loading" data-release-version>Loading...</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label" data-ja="蜈ｬ髢区律" data-en="Published">Published</span>
+              <span class="stat-value loading" data-release-date>Loading...</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label" data-ja="蟇ｾ蠢・OS" data-en="Platform">Platform</span>
+              <span class="stat-value">Windows 11</span>
+            </div>
+          </div>
+
+          <div class="tag-list">
+            <span class="tag" data-ja="Clipboard 蜿朱寔" data-en="Clipboard Capture">Clipboard Capture</span>
+            <span class="tag" data-ja="Markdown 陬・｣ｾ" data-en="Markdown Styling">Markdown Styling</span>
+            <span class="tag" data-ja="陦ｨ謨ｴ蠖｢" data-en="Table Formatting">Table Formatting</span>
+            <span class="tag" data-ja="繝昴・繧ｿ繝悶Ν" data-en="Portable">Portable</span>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <h2 class="side-title" data-ja="繝繧ｦ繝ｳ繝ｭ繝ｼ繝・ data-en="Download">Download</h2>
+          <div class="release-box">
+            <div class="release-row">
+              <span class="release-label" data-ja="譛譁ｰ繧ｿ繧ｰ" data-en="Tag">Tag</span>
+              <span class="release-value loading" data-release-tag>Loading...</span>
+            </div>
+            <div class="release-row">
+              <span class="release-label" data-ja="譛邨よ峩譁ｰ" data-en="Updated">Updated</span>
+              <span class="release-value loading" data-release-updated>Loading...</span>
+            </div>
+            <div class="release-row">
+              <span class="release-label" data-ja="蜿門ｾ励ヵ繧｡繧､繝ｫ" data-en="Package">Package</span>
+              <span class="release-value">Sticker3776win ZIP</span>
+            </div>
+          </div>
+
+          <div class="button-stack">
+            <a class="btn btn-primary" data-download-link href="https://github.com/Lab3776/Sticker3776win-downloads/releases" data-ja="譛譁ｰ迚医ｒ繝繧ｦ繝ｳ繝ｭ繝ｼ繝・ data-en="Download Latest">Download Latest</a>
+            <a class="btn btn-secondary" data-release-link href="https://github.com/Lab3776/Sticker3776win-downloads/releases" data-ja="譖ｴ譁ｰ螻･豁ｴ繧定ｦ九ｋ" data-en="View Release Notes">View Release Notes</a>
+          </div>
+
+          <p class="side-note" data-ja="驟榊ｸ・黄縺ｫ縺ｯ `_res` 繝輔か繝ｫ繝縺悟性縺ｾ繧後∪縺吶りｨｭ螳壹，lipboard 螻･豁ｴ縲仝ebView2 縺ｮ蜀・Κ繝・・繧ｿ縺ｯ縺昴・荳ｭ縺ｸ菫晏ｭ倥＆繧後∪縺吶・ data-en="The package includes an `_res` folder. Settings, clipboard history, and WebView2 internal data are stored there.">The package includes an `_res` folder. Settings, clipboard history, and WebView2 internal data are stored there.</p>
+        </aside>
+      </section>
+
+      <section class="section-grid">
+        <article class="section-card">
+          <h2 class="section-title" data-ja="荳ｻ縺ｪ迚ｹ蠕ｴ" data-en="Highlights">Highlights</h2>
+          <p class="section-copy" data-ja="繝励Ξ繝ｼ繝ｳ繝・く繧ｹ繝医お繝・ぅ繧ｿ縺ｨ縺励※縺ｮ霆ｽ縺輔ｒ谿九＠縺､縺､縲，lipboard 縺ｨ Markdown 縺ｮ隕冶ｪ肴ｧ繧帝㍾隕悶＠縺滓ｧ区・縺ｧ縺吶・ data-en="The design keeps a plain-text editor feel while focusing on clipboard workflow and Markdown readability.">The design keeps a plain-text editor feel while focusing on clipboard workflow and Markdown readability.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <strong data-ja="Clipboard 蜿朱寔繧ｿ繝・ data-en="Clipboard capture tab">Clipboard capture tab</strong>
+              <span data-ja="繧ｳ繝斐・縺励◆繝・く繧ｹ繝医ｒ譎ょ綾莉倥″縺ｧ闢・ｩ阪＠縲√◎縺ｮ縺ｾ縺ｾ邱ｨ髮・〒縺阪∪縺吶・ data-en="Copied text is collected with timestamps and remains directly editable.">Copied text is collected with timestamps and remains directly editable.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="Markdown 縺ｮ隕冶ｪ肴ｧ繧貞ｼｷ蛹・ data-en="Improved Markdown readability">Improved Markdown readability</strong>
+              <span data-ja="隕句・縺励∝玄蛻・ｊ邱壹√さ繝ｼ繝峨ヶ繝ｭ繝・け縲√Μ繝ｳ繧ｯ縲∬｡ｨ繧定ｻｽ驥剰｣・｣ｾ縺ｧ隕九ｄ縺吶￥陦ｨ遉ｺ縺励∪縺吶・ data-en="Headings, rules, code fences, links, and tables are styled with lightweight decorations for better scanning.">Headings, rules, code fences, links, and tables are styled with lightweight decorations for better scanning.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="繝昴・繧ｿ繝悶Ν驕狗畑" data-en="Portable workflow">Portable workflow</strong>
+              <span data-ja="繧､繝ｳ繧ｹ繝医・繝ｫ荳崎ｦ√〒蜍穂ｽ懊＠縲∬ｨｭ螳壹ｄ螻･豁ｴ縺ｯ `_res` 繝輔か繝ｫ繝蜀・↓縺ｾ縺ｨ縺ｾ繧翫∪縺吶・ data-en="Runs without installation and keeps settings plus history inside the `_res` folder.">Runs without installation and keeps settings plus history inside the `_res` folder.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <h2 class="section-title" data-ja="荳ｻ縺ｪ讖溯・" data-en="Core Features">Core Features</h2>
+          <p class="section-copy" data-ja="繝・く繧ｹ繝井ｽ懈･ｭ縺ｧ繧医￥菴ｿ縺・渕譛ｬ讖溯・縺ｫ縲｀arkdown 縺ｨ Clipboard 縺ｾ繧上ｊ縺ｮ陬懷勧繧定ｶｳ縺励◆讒区・縺ｧ縺吶・ data-en="The feature set starts with core text editing and adds practical helpers around Markdown and clipboard work.">The feature set starts with core text editing and adds practical helpers around Markdown and clipboard work.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <strong data-ja="繧ｿ繝紋ｻ倥″繧ｨ繝・ぅ繧ｿ" data-en="Tabbed editor">Tabbed editor</strong>
+              <span data-ja="隍・焚繝・く繧ｹ繝医ｒ蜷梧凾縺ｫ髢九″縲∵忰蟆ｾ縺ｮ `・義 縺九ｉ譁ｰ隕上ち繝悶ｒ霑ｽ蜉縺ｧ縺阪∪縺吶・ data-en="Open multiple documents at once and create new tabs from the trailing `+` button.">Open multiple documents at once and create new tabs from the trailing `+` button.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="讀懃ｴ｢ / 鄂ｮ謠・ data-en="Find / Replace">Find / Replace</strong>
+              <span data-ja="繝壹・繧ｸ蜀・､懃ｴ｢縺ｨ鄂ｮ謠帙ｒ蜿ｳ荳翫が繝ｼ繝舌・繝ｬ繧､縺ｧ菴ｿ縺医∪縺吶・ data-en="Use in-page find and replace through the top-right overlay.">Use in-page find and replace through the top-right overlay.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="Markdown 陦ｨ謨ｴ蠖｢" data-en="Markdown table formatting">Markdown table formatting</strong>
+              <span data-ja="蜈ｨ隗呈枚蟄励・蟷・ｂ閠・・縺励↑縺後ｉ蛻怜ｹ・ｒ謨ｴ縺医∬ｪｭ縺ｿ繧・☆縺・｡ｨ縺ｸ謠・∴縺ｾ縺吶・ data-en="Columns are aligned with full-width character handling so tables stay readable.">Columns are aligned with full-width character handling so tables stay readable.</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-card full">
+        <div class="release-header">
+          <div>
+            <h2 class="section-title" data-ja="譛譁ｰ縺ｮ譖ｴ譁ｰ蜀・ｮｹ" data-en="Latest Release Notes">Latest Release Notes</h2>
+            <p data-ja="GitHub Releases 縺九ｉ譛譁ｰ迚域ュ蝣ｱ繧定・蜍募叙蠕励＠縺ｦ縺・∪縺吶・ data-en="The latest information is fetched automatically from GitHub Releases.">The latest information is fetched automatically from GitHub Releases.</p>
+          </div>
+          <a class="footer-link" data-release-link-secondary href="https://github.com/Lab3776/Sticker3776win-downloads/releases" data-ja="Release 荳隕ｧ縺ｸ" data-en="All Releases">All Releases</a>
+        </div>
+        <div class="summary-list" id="releaseSummaryList">
+          <div class="summary-item">
+            <strong data-ja="隱ｭ縺ｿ霎ｼ縺ｿ荳ｭ" data-en="Loading">Loading</strong>
+            <span data-ja="譖ｴ譁ｰ蜀・ｮｹ繧貞叙蠕励＠縺ｦ縺・∪縺吶・ data-en="Fetching release notes.">Fetching release notes.</span>
+          </div>
+        </div>
+        <p class="release-fallback" id="releaseFallback" hidden data-ja="蜿門ｾ励〒縺阪↑縺・ｴ蜷医・ GitHub 縺ｮ Release 繝壹・繧ｸ縺九ｉ譛譁ｰ迚医→譖ｴ譁ｰ蜀・ｮｹ繧堤｢ｺ隱阪〒縺阪∪縺吶・ data-en="If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.">If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.</p>
+      </section>
+
+      <section class="section-grid">
+        <article class="section-card">
+          <h2 class="section-title" data-ja="陬懆ｶｳ" data-en="Notes">Notes</h2>
+          <div class="note-list">
+            <div class="note-item">
+              <strong data-ja="蜍穂ｽ懈擅莉ｶ" data-en="Platform">Platform</strong>
+              <span data-ja="繧ｵ繝昴・繝亥ｯｾ雎｡縺ｯ Windows 11 縺ｧ縺吶・ data-en="Windows 11 is the supported platform.">Windows 11 is the supported platform.</span>
+            </div>
+            <div class="note-item">
+              <strong data-ja="菫晏ｭ倥ョ繝ｼ繧ｿ" data-en="Saved data">Saved data</strong>
+              <span data-ja="險ｭ螳壹，lipboard 螻･豁ｴ縲仝ebView2 縺ｮ蜀・Κ繝・・繧ｿ縺ｯ `_res\data\` 縺ｫ菫晏ｭ倥＆繧後∪縺吶・ data-en="Settings, clipboard history, and WebView2 internal data are saved inside `_res\\data\\`.">Settings, clipboard history, and WebView2 internal data are saved inside `_res\data\`.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <h2 class="section-title" data-ja="髢｢騾｣諠・ｱ" data-en="Related Information">Related Information</h2>
+          <p class="section-copy" data-ja="驟榊ｸ・ｄ譖ｴ譁ｰ遒ｺ隱阪・蜈ｬ蠑上・繝ｼ繧ｸ縺ｨ蜈ｬ髢・Release 繧貞盾辣ｧ縺励※縺上□縺輔＞縲・ data-en="Use the official page and public releases for downloads and update checks.">Use the official page and public releases for downloads and update checks.</p>
+          <div class="footer-links">
+            <a class="footer-link" href="https://lab3776.github.io" data-ja="Lab 3776 繝医ャ繝・ data-en="Lab 3776 Home">Lab 3776 Home</a>
+            <a class="footer-link" href="https://github.com/Lab3776/Sticker3776win-downloads/releases" data-ja="蜈ｬ髢・Release" data-en="Public Releases">Public Releases</a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../release-feed.js"></script>
+  <script>
+    (function () {
+      var toggleBtn = document.getElementById('langToggle');
+      var elements = document.querySelectorAll('[data-en][data-ja]');
+      var currentReleaseSummary = {
+        title: '',
+        items: []
+      };
+      var currentLang = localStorage.getItem('lab3776_lang');
+      if (!currentLang) {
+        currentLang = navigator.language && navigator.language.indexOf('ja') === 0 ? 'ja' : 'en';
+      }
+
+      function updateLanguage(lang) {
+        for (var index = 0; index < elements.length; index++) {
+          elements[index].textContent = elements[index].getAttribute('data-' + lang);
+        }
+
+        toggleBtn.textContent = lang === 'ja' ? '倹 JP' : '倹 EN';
+        document.documentElement.lang = lang;
+
+        var dateNodes = document.querySelectorAll('[data-iso-date]');
+        for (var dateIndex = 0; dateIndex < dateNodes.length; dateIndex++) {
+          dateNodes[dateIndex].textContent = window.Lab3776ReleaseFeed.formatPublishedDate(dateNodes[dateIndex].dataset.isoDate, lang);
+        }
+      }
+
+      function normalizeReleaseSummary(release) {
+        var title = release.title || release.tagName || (currentLang === 'ja' ? '譛譁ｰ繝ｪ繝ｪ繝ｼ繧ｹ' : 'Latest Release');
+        var items = Array.isArray(release.summaryItems) ? release.summaryItems.slice() : [];
+
+        if (items.length > 0) {
+          var normalizedFirstItem = items[0].replace(/\s+/g, ' ').trim();
+          var normalizedTitle = title.replace(/\s+/g, ' ').trim();
+          if (normalizedFirstItem === normalizedTitle) {
+            items.shift();
+          }
+        }
+
+        return {
+          title: title,
+          items: items
+        };
+      }
+
+      function setReleaseSummary(summary) {
+        currentReleaseSummary = {
+          title: summary.title || '',
+          items: Array.isArray(summary.items) ? summary.items.slice() : []
+        };
+
+        var summaryList = document.getElementById('releaseSummaryList');
+        summaryList.innerHTML = '';
+
+        var item = document.createElement('div');
+        item.className = 'summary-item';
+
+        var strong = document.createElement('strong');
+        strong.textContent = currentReleaseSummary.title || (currentLang === 'ja' ? '譛譁ｰ繝ｪ繝ｪ繝ｼ繧ｹ' : 'Latest Release');
+        item.appendChild(strong);
+
+        if (currentReleaseSummary.items.length > 0) {
+          var list = document.createElement('ul');
+          list.className = 'summary-bullets';
+          for (var index = 0; index < currentReleaseSummary.items.length; index++) {
+            var bullet = document.createElement('li');
+            bullet.textContent = currentReleaseSummary.items[index];
+            list.appendChild(bullet);
+          }
+          item.appendChild(list);
+        } else {
+          var span = document.createElement('span');
+          span.textContent = currentLang === 'ja'
+            ? '譖ｴ譁ｰ蜀・ｮｹ縺ｯ Release 繝壹・繧ｸ縺ｧ遒ｺ隱阪＠縺ｦ縺上□縺輔＞縲・
+            : 'See the Release page for the full update notes.';
+          item.appendChild(span);
+        }
+
+        summaryList.appendChild(item);
+      }
+
+      async function loadRelease() {
+        try {
+          var release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'Sticker3776win-downloads',
+            summaryCount: 5
+          });
+
+          var versionNodes = document.querySelectorAll('[data-release-version], [data-release-tag]');
+          for (var index = 0; index < versionNodes.length; index++) {
+            versionNodes[index].textContent = release.tagName || release.title || 'Latest';
+            versionNodes[index].classList.remove('loading');
+          }
+
+          var dateNodes = document.querySelectorAll('[data-release-date], [data-release-updated]');
+          for (var dateIndex = 0; dateIndex < dateNodes.length; dateIndex++) {
+            dateNodes[dateIndex].dataset.isoDate = release.publishedAt || '';
+            dateNodes[dateIndex].textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+            dateNodes[dateIndex].classList.remove('loading');
+          }
+
+          var downloadLink = document.querySelector('[data-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          var releaseLinks = document.querySelectorAll('[data-release-link], [data-release-link-secondary]');
+          for (var linkIndex = 0; linkIndex < releaseLinks.length; linkIndex++) {
+            if (release.htmlUrl) {
+              releaseLinks[linkIndex].href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+            }
+          }
+
+          setReleaseSummary(normalizeReleaseSummary(release));
+        } catch (error) {
+          document.getElementById('releaseFallback').hidden = false;
+          setReleaseSummary({
+            title: currentLang === 'ja' ? '譖ｴ譁ｰ蜀・ｮｹ' : 'Release Notes',
+            items: [
+              currentLang === 'ja'
+                ? 'GitHub 縺九ｉ縺ｮ蜿門ｾ励↓螟ｱ謨励＠縺ｾ縺励◆縲３elease 繝壹・繧ｸ縺九ｉ譛譁ｰ迚医ｒ遒ｺ隱阪＠縺ｦ縺上□縺輔＞縲・
+                : 'Automatic fetch failed. Please check the GitHub Releases page.'
+            ]
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          updateLanguage(currentLang);
+          loadRelease();
+        });
+      } else {
+        updateLanguage(currentLang);
+        loadRelease();
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        currentLang = currentLang === 'en' ? 'ja' : 'en';
+        localStorage.setItem('lab3776_lang', currentLang);
+        updateLanguage(currentLang);
+        if (currentReleaseSummary.items.length > 0 || currentReleaseSummary.title) {
+          setReleaseSummary(currentReleaseSummary);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
