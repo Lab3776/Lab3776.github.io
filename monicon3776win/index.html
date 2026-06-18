@@ -544,49 +544,48 @@
         </aside>
       </section>
 
-      <section class="section-grid">
+            <section class="section-grid">
         <article class="section-card">
-          <h2 class="section-title" data-ja="主な特徴" data-en="Highlights">Highlights</h2>
-          <p class="section-copy" data-ja="ビューアとしての快適さを優先しつつ、単一実行ファイルで多形式を扱えることを重視した構成です。" data-en="The design prioritizes viewer comfort while keeping broad format support inside a single portable executable.">The design prioritizes viewer comfort while keeping broad format support inside a single portable executable.</p>
-          <div class="feature-list">
+          <h2 class="section-title" data-ja="主な機能" data-en="Key Features">Key Features</h2>
+          <div class="features">
             <div class="feature-item">
-              <strong data-ja="漫画閲覧向けの見開きとシークプレビュー" data-en="Spread view and seek preview for comics">Spread view and seek preview for comics</strong>
-              <span data-ja="ページを高速に移動しても、見開き前提のプレビューが素早く切り替わる構成です。" data-en="Built to switch previews quickly while you scrub through pages, including spread layouts.">Built to switch previews quickly while you scrub through pages, including spread layouts.</span>
+              <strong data-ja="カード・表モード切り替え" data-en="Card and Grid Views">Card and Grid Views</strong>
+              <span data-ja="カードモードで1台ずつ詳細に調整したり、表モードで多数のモニターを一括管理できます。" data-en="Switch between detailed card view and compact grid view to manage multiple monitors.">Switch between detailed card view and compact grid view to manage multiple monitors.</span>
             </div>
             <div class="feature-item">
-              <strong data-ja="画像以外も 1 本で扱える" data-en="Handles more than images">Handles more than images</strong>
-              <span data-ja="PDF、テキスト、HTML、RTF、動画、音声まで同じ操作感で開けます。" data-en="Open PDFs, text, HTML, RTF, video, and audio with the same viewer flow.">Open PDFs, text, HTML, RTF, video, and audio with the same viewer flow.</span>
+              <strong data-ja="輝度・コントラスト調整" data-en="Brightness & Contrast">Brightness & Contrast</strong>
+              <span data-ja="各モニターの明るさやコントラストをスライダーで直感的に調整可能です。" data-en="Adjust the brightness and contrast of each monitor intuitively using sliders.">Adjust the brightness and contrast of each monitor intuitively using sliders.</span>
             </div>
             <div class="feature-item">
-              <strong data-ja="ポータブル運用" data-en="Portable operation">Portable operation</strong>
-              <span data-ja="インストール不要で動作し、設定や履歴は `_res` フォルダにまとまります。" data-en="Runs without installation and keeps settings plus history inside the `_res` folder.">Runs without installation and keeps settings plus history inside the `_res` folder.</span>
+              <strong data-ja="入力ソースの切り替え" data-en="Input Source Switching">Input Source Switching</strong>
+              <span data-ja="HDMIやDisplayPortなど、現在利用可能な入力ソースをドロップダウンから直接切り替えられます。" data-en="Directly switch active input sources like HDMI or DisplayPort from a dropdown menu.">Directly switch active input sources like HDMI or DisplayPort from a dropdown menu.</span>
+            </div>
+            <div class="feature-item">
+              <strong data-ja="ホットキーと自動退避" data-en="Hotkeys and Auto-hide">Hotkeys and Auto-hide</strong>
+              <span data-ja="グローバルホットキーで瞬時に呼び出し。操作後は画面端へ自動退避させることができます。" data-en="Instantly show the app using global hotkeys and optionally auto-hide it to the screen edge.">Instantly show the app using global hotkeys and optionally auto-hide it to the screen edge.</span>
             </div>
           </div>
         </article>
 
         <article class="section-card">
-          <h2 class="section-title" data-ja="対応形式" data-en="Supported Formats">Supported Formats</h2>
-          <p class="section-copy" data-ja="標準状態で開ける形式と、追加コンポーネントがあると広がる形式を分けて案内しています。" data-en="Formats are grouped by what works out of the box and what expands with optional helpers.">Formats are grouped by what works out of the box and what expands with optional helpers.</p>
+          <h2 class="section-title" data-ja="動作環境と仕様" data-en="Requirements">Requirements</h2>
+          <p class="section-copy" data-ja="MoniCon3776win の基本要件と対応機器について。" data-en="Basic requirements and supported devices for MoniCon3776win.">Basic requirements and supported devices for MoniCon3776win.</p>
           <div class="formats">
             <div class="format-row">
-              <div class="format-name" data-ja="画像" data-en="Images">Images</div>
-              <div class="format-value">JPG, PNG, WebP, AVIF, HEIC, SVG, GIF, BMP</div>
+              <div class="format-name" data-ja="OS" data-en="OS">OS</div>
+              <div class="format-value">Windows 10 / 11</div>
             </div>
             <div class="format-row">
-              <div class="format-name" data-ja="文書" data-en="Documents">Documents</div>
-              <div class="format-value">PDF, TXT, LOG, INI, XML, Markdown, HTML, RTF</div>
+              <div class="format-name" data-ja="対応モニター" data-en="Monitors">Monitors</div>
+              <div class="format-value" data-ja="DDC/CI 対応モニターが必要です。" data-en="Requires DDC/CI compatible monitors.">Requires DDC/CI compatible monitors.</div>
             </div>
             <div class="format-row">
-              <div class="format-name" data-ja="メディア" data-en="Media">Media</div>
-              <div class="format-value">MP4, MOV, WMV, AVI, MKV, WebM, MP3, WAV, M4A, FLAC, WMA</div>
+              <div class="format-name" data-ja="入力ソース" data-en="Inputs">Inputs</div>
+              <div class="format-value" data-ja="HDMI, DisplayPort, DVI, VGA 等" data-en="HDMI, DisplayPort, DVI, VGA, etc.">HDMI, DisplayPort, DVI, VGA, etc.</div>
             </div>
             <div class="format-row">
-              <div class="format-name" data-ja="圧縮ファイル" data-en="Archives">Archives</div>
-              <div class="format-value" data-ja="ZIP / CBZ は標準対応。RAR / 7z / LZH / LHA は 7z.dll が必要です。" data-en="ZIP / CBZ work by default. RAR / 7z / LZH / LHA require 7z.dll.">ZIP / CBZ work by default. RAR / 7z / LZH / LHA require 7z.dll.</div>
-            </div>
-            <div class="format-row">
-              <div class="format-name" data-ja="ffmpeg.exe 対応" data-en="ffmpeg.exe support">ffmpeg.exe support</div>
-              <div class="format-value" data-ja="古い FLV は ffmpeg.exe が見つかる環境で自動変換して再生します。" data-en="Older FLV files can be auto-converted for playback when ffmpeg.exe is available.">Older FLV files can be auto-converted for playback when ffmpeg.exe is available.</div>
+              <div class="format-name" data-ja="ポータブル" data-en="Portable">Portable</div>
+              <div class="format-value" data-ja="インストール不要で単一の実行ファイルとして動作します。" data-en="Runs as a single executable without installation.">Runs as a single executable without installation.</div>
             </div>
           </div>
         </article>
@@ -594,15 +593,15 @@
 
       <section class="section-card full">
         <h2 class="section-title" data-ja="画面イメージ" data-en="Screenshots">Screenshots</h2>
-        <p class="section-copy" data-ja="実在コンテンツではなく、見開き表示と単ページ表示の挙動が伝わるようにしたデモ画面です。" data-en="These demo screens use neutral sample content to show spread view and single-page behavior without relying on third-party material.">These demo screens use neutral sample content to show spread view and single-page behavior without relying on third-party material.</p>
+        <p class="section-copy" data-ja="カードモードと表（グリッド）モードの表示例です。" data-en="Examples of the card mode and grid mode views.">Examples of the card mode and grid mode views.</p>
         <div class="showcase">
           <figure class="shot-main">
-            <img src="img/p002-003.png" alt="MoniCon3776win spread view demo">
-            <figcaption class="shot-caption" data-ja="見開き表示のデモ。左右ページと下部シークバーの見え方を確認できます。" data-en="Spread view demo showing the left-right page layout and the bottom seek bar.">Spread view demo showing the left-right page layout and the bottom seek bar.</figcaption>
+            <img src="img/p002-003.png" alt="MoniCon3776win grid view demo">
+            <figcaption class="shot-caption" data-ja="多数のモニターを一括管理できる表（グリッド）モードの表示例。" data-en="Grid mode showing multiple monitors in a compact list for easy management.">Grid mode showing multiple monitors in a compact list for easy management.</figcaption>
           </figure>
           <figure class="shot-sub">
-            <img src="img/p001.png" alt="MoniCon3776win single-page cover demo">
-            <figcaption class="shot-caption" data-ja="単ページ表紙のデモ。表紙のような1ページ表示でも同じ操作感で閲覧できます。" data-en="Single-page cover demo showing the same viewer flow for one-page content.">Single-page cover demo showing the same viewer flow for one-page content.</figcaption>
+            <img src="img/p001.png" alt="MoniCon3776win card view demo">
+            <figcaption class="shot-caption" data-ja="各モニターの詳細な設定が可能なカードモードの表示例。" data-en="Card mode showing detailed settings and sliders for each monitor.">Card mode showing detailed settings and sliders for each monitor.</figcaption>
           </figure>
         </div>
       </section>
@@ -624,17 +623,17 @@
         <p class="release-fallback" id="releaseFallback" hidden data-ja="取得できない場合は GitHub の Release ページから最新版と更新内容を確認できます。" data-en="If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.">If the automatic fetch fails, use the GitHub Releases page to view the latest version and notes.</p>
       </section>
 
-      <section class="section-grid">
+            <section class="section-grid">
         <article class="section-card">
           <h2 class="section-title" data-ja="補足" data-en="Notes">Notes</h2>
           <div class="note-list">
             <div class="note-item">
-              <strong data-ja="アーカイブ対応" data-en="Archive support">Archive support</strong>
-              <span data-ja="RAR / 7z 系は配布物に同梱していません。必要に応じて 7z.dll を `_res\bin` に配置してください。" data-en="RAR / 7z support is not bundled. Place 7z.dll in `_res\bin` when you need those formats.">RAR / 7z support is not bundled. Place 7z.dll in `_res\bin` when you need those formats.</span>
+              <strong data-ja="VCPコード" data-en="VCP Codes">VCP Codes</strong>
+              <span data-ja="標準のVCPコードを利用して通信します。モニターによっては一部機能が制限される場合があります。" data-en="MoniCon uses standard VCP codes to communicate. Some monitors may not fully support all commands.">MoniCon uses standard VCP codes to communicate. Some monitors may not fully support all commands.</span>
             </div>
             <div class="note-item">
-              <strong data-ja="動画再生" data-en="Video playback">Video playback</strong>
-              <span data-ja="古いコンテナやコーデックは OS 側の再生機能に左右されます。必要に応じて ffmpeg.exe が補助に入ります。" data-en="Older containers and codecs still depend on OS media support, with ffmpeg.exe used as an optional helper when needed.">Older containers and codecs still depend on OS media support, with ffmpeg.exe used as an optional helper when needed.</span>
+              <strong data-ja="管理者権限" data-en="Admin Rights">Admin Rights</strong>
+              <span data-ja="基本的には不要ですが、ディスプレイドライバの構成によっては昇格が必要になる場合があります。" data-en="Generally not required, but certain display driver configurations might need elevated privileges.">Generally not required, but certain display driver configurations might need elevated privileges.</span>
             </div>
           </div>
         </article>
