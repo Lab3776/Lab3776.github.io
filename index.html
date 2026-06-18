@@ -389,12 +389,12 @@
           </div>
         </article>
 
-<article class="card">
+        <article class="card">
           <div class="card-header">
             <h3 class="app-title">MoniCon3776win</h3>
             <span class="badge windows">Windows</span>
           </div>
-          <p class="app-desc" data-ja="マルチモニターの輝度やコントラスト、入力ソースを一覧で直感的に管理できるアプリケーション。" data-en="An application that allows you to intuitively manage the brightness, contrast, and input sources of multiple monitors in a list.">An application that allows you to intuitively manage the brightness, contrast, and input sources of multiple monitors in a list.</p>
+          <p class="app-desc" data-ja="Windows標準機能だけで構築された、超軽量で汎用性の高いファイルビューア。画像、PDF、動画、音声、HTML、RTFなど多種多様なフォーマットを単一の実行ファイルで瞬時に開くことができます。インストール不要で動作します。" data-en="An application that allows you to intuitively manage the brightness, contrast, and input sources of multiple monitors in a list.">An application that allows you to intuitively manage the brightness, contrast, and input sources of multiple monitors in a list.</p>
           <div class="app-meta" id="monicon3776winReleaseCard">
             <div class="app-meta-row">
               <span class="app-meta-label" data-ja="最新版" data-en="Latest">Latest</span>
@@ -408,8 +408,8 @@
           <div class="btn-group">
             <a href="monicon3776win/" class="btn btn-win" data-ja="詳細ページを見る" data-en="View Details">View Details</a>
             <div class="btn-row">
-              <a href="https://github.com/Lab3776/monicon3776win-downloads/releases" class="btn btn-secondary" data-monicon-download-link data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
-              <a href="https://github.com/Lab3776/monicon3776win-downloads/releases" class="btn btn-secondary" data-monicon-release-link data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
+              <a href="https://github.com/Lab3776/MoniCon3776win/releases" class="btn btn-secondary" data-monicon-download-link data-ja="ダウンロード (.zip)" data-en="Download (.zip)">Download (.zip)</a>
+              <a href="https://github.com/Lab3776/MoniCon3776win/releases" class="btn btn-secondary" data-monicon-release-link data-ja="更新履歴" data-en="Release Notes">Release Notes</a>
             </div>
           </div>
         </article>
@@ -580,6 +580,44 @@
         }
       }
 
+      const moniconReleaseVersion = document.querySelector('#monicon3776winReleaseCard [data-release-version]');
+      const moniconReleaseDate = document.querySelector('#monicon3776winReleaseCard [data-release-date]');
+
+      async function loadMoniconRelease() {
+        if (!moniconReleaseVersion || !moniconReleaseDate || !window.Lab3776ReleaseFeed) {
+          return;
+        }
+
+        try {
+          const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
+            owner: 'Lab3776',
+            repo: 'MoniCon3776win',
+            summaryCount: 3
+          });
+
+          moniconReleaseVersion.textContent = release.tagName || release.title || 'Latest';
+          moniconReleaseVersion.classList.remove('loading');
+          moniconReleaseDate.dataset.isoDate = release.publishedAt || '';
+          moniconReleaseDate.textContent = window.Lab3776ReleaseFeed.formatPublishedDate(release.publishedAt, currentLang);
+          moniconReleaseDate.classList.remove('loading');
+
+          const downloadLink = document.querySelector('[data-monicon-download-link]');
+          if (downloadLink && release.asset && release.asset.browser_download_url) {
+            downloadLink.href = release.asset.browser_download_url;
+          }
+
+          const releaseLink = document.querySelector('[data-monicon-release-link]');
+          if (releaseLink && release.htmlUrl) {
+            releaseLink.href = release.htmlUrl.replace(/\/tag\/[^/]+$/, '');
+          }
+        } catch (error) {
+          moniconReleaseVersion.textContent = 'GitHub';
+          moniconReleaseVersion.classList.remove('loading');
+          moniconReleaseDate.textContent = currentLang === 'ja' ? 'Release ページで確認' : 'See Release page';
+          moniconReleaseDate.classList.remove('loading');
+        }
+      }
+
       async function loadViewerRelease() {
         if (!releaseVersion || !releaseDate || !window.Lab3776ReleaseFeed) {
           return;
@@ -589,13 +627,6 @@
           const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
             owner: 'Lab3776',
             repo: 'viewer3776win-downloads',
-            summaryCount: 3
-          });
-
-        try {
-          const release = await window.Lab3776ReleaseFeed.fetchLatestRelease({
-            owner: 'Lab3776',
-            repo: 'MoniCon3776win',
             summaryCount: 3
           });
 
@@ -697,12 +728,14 @@
         document.addEventListener('DOMContentLoaded', () => {
           updateLanguage(currentLang);
           loadViewerRelease();
+      loadMoniconRelease();
           loadNoteRelease();
           loadStickerWinRelease();
         });
       } else {
         updateLanguage(currentLang);
         loadViewerRelease();
+      loadMoniconRelease();
         loadNoteRelease();
         loadStickerWinRelease();
       }
