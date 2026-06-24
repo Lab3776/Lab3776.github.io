@@ -237,6 +237,27 @@
     .section-card.full {
       margin-bottom: 24px;
     }
+    .showcase {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .showcase figure { margin: 0; }
+    .showcase img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .shot-caption {
+      margin: 12px 4px 2px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
     .section-title {
       margin: 0 0 14px;
       font-size: 1.55rem;
@@ -394,7 +415,7 @@
             <a class="btn btn-secondary" data-release-link href="https://github.com/Lab3776/note3776win-downloads/releases" data-ja="更新履歴を見る" data-en="View Release Notes">View Release Notes</a>
           </div>
 
-          <p class="side-note" data-ja="配布物には `_res` フォルダが含まれます。設定、Clipboard 履歴、WebView2 の内部データはその中へ保存されます。" data-en="The package includes an `_res` folder. Settings, clipboard history, and WebView2 internal data are stored there.">The package includes an `_res` folder. Settings, clipboard history, and WebView2 internal data are stored there.</p>
+          <p class="side-note" data-ja="配布物には `_res` フォルダが含まれます。設定、Clipboard 本文、セッション情報はその中へローカル保存されます。" data-en="The package includes an `_res` folder. Settings, clipboard content, and session data are stored there locally.">The package includes an `_res` folder. Settings, clipboard content, and session data are stored there locally.</p>
         </aside>
       </section>
 
@@ -439,6 +460,17 @@
       </section>
 
       <section class="section-card full">
+        <h2 class="section-title" data-ja="画面イメージ" data-en="Screenshot">Screenshot</h2>
+        <p class="section-copy" data-ja="Markdown 記法を軽量装飾で読みやすく表示するネイティブ編集画面です。" data-en="The native editor renders Markdown syntax with lightweight styling for easier reading.">The native editor renders Markdown syntax with lightweight styling for easier reading.</p>
+        <div class="showcase">
+          <figure>
+            <img src="img/note3776win-editor.png" alt="Note3776win editor displaying a Markdown README" loading="lazy">
+            <figcaption class="shot-caption" data-ja="見出し・箇条書き・コード表記を強調しながら、通常のテキストとしてそのまま編集できます。" data-en="Headings, lists, and code notation are highlighted while remaining directly editable as plain text.">Headings, lists, and code notation are highlighted while remaining directly editable as plain text.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section-card full">
         <div class="release-header">
           <div>
             <h2 class="section-title" data-ja="最新の更新内容" data-en="Latest Release Notes">Latest Release Notes</h2>
@@ -465,7 +497,7 @@
             </div>
             <div class="note-item">
               <strong data-ja="保存データ" data-en="Saved data">Saved data</strong>
-              <span data-ja="設定、Clipboard 履歴、WebView2 の内部データは `_res\data\` に保存されます。" data-en="Settings, clipboard history, and WebView2 internal data are saved inside `_res\\data\\`.">Settings, clipboard history, and WebView2 internal data are saved inside `_res\data\`.</span>
+              <span data-ja="設定、Clipboard 本文、セッション情報は `_res\data\` にローカル保存されます。" data-en="Settings, clipboard content, and session data are stored locally inside `_res\\data\\`.">Settings, clipboard content, and session data are stored locally inside `_res\data\`.</span>
             </div>
           </div>
         </article>
@@ -476,6 +508,8 @@
           <div class="footer-links">
             <a class="footer-link" href="https://lab3776.github.io" data-ja="Lab 3776 トップ" data-en="Lab 3776 Home">Lab 3776 Home</a>
             <a class="footer-link" href="https://github.com/Lab3776/note3776win-downloads/releases" data-ja="公開 Release" data-en="Public Releases">Public Releases</a>
+            <a class="footer-link" href="privacy-policy.html" data-ja="プライバシーポリシー" data-en="Privacy Policy">Privacy Policy</a>
+            <a class="footer-link" href="oss-licenses.html" data-ja="OSS ライセンス" data-en="OSS Licenses">OSS Licenses</a>
           </div>
         </article>
       </section>
