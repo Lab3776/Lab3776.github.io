@@ -9,7 +9,7 @@ const t = key => I18N[state.lang][key] ?? key;
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const localized = (entry, field) => entry[`${field}_${state.lang}`] ?? entry[`${field}_ja`] ?? entry[field] ?? "";
 const targetId = entry => entry.target_id || entry.model_id || entry.target || entry.model_name || entry.id;
-const targetName = entry => entry.target || entry.model_name || entry.target_id || entry.model_id || "—";
+const targetName = entry => entry[`target_${state.lang}`] || entry.target || entry.model_name || entry.target_id || entry.model_id || "—";
 function populateFilters() {
   const targetValue = $("targetFilter").value;
   const typeValue = $("typeFilter").value;
