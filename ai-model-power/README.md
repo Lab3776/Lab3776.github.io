@@ -2,19 +2,20 @@
 
 ## Default comparison scope
 
-The database may contain consumer-chat, API-only, local-only, special-purpose and retired
-models, but the top page defaults to active models that can be used directly from a normal
-consumer-facing web/app chat UI.
+The database may contain general-access, API-only, CLI-only, local-only, special-purpose and retired
+models, but the top page defaults to active models that meet the **General access** rule.
 
-`data/models.json` uses `consumer_chat_available` for this default-scope decision.
+`data/models.json` uses `general_access_available` for this default-scope decision.
 
-- `true`: the evaluated model/profile is directly usable in a normal consumer-facing chat UI.
-- `false`: API-only, local-only, developer/special-purpose access, or no confirmed ordinary chat access.
-- A model can be `consumer_chat_available: true` and also support API or local execution.
+- `true`: the evaluated model/profile can be reached without direct API setup, terminal commands, or manually installing model files.
+- Qualifying routes include a web service, App Store / Google Play app, or normal Windows / macOS installer.
+- GUI products such as Work, Cursor or Antigravity also qualify when the model is directly selectable and usable from the app.
+- `false`: direct API/CLI access is required, the normal install path is command based, or the user must obtain/install the model itself (for example through Ollama, Bionic or LM Studio).
+- A model can be `general_access_available: true` and also support API or local execution.
 - Retired models are excluded separately by the default status filter.
 - Users can choose `All` in the access/status filters to inspect records outside the default scope.
 
-Keep this field about actual access to the evaluated model/profile, not provider popularity.
+This field describes access difficulty rather than provider popularity or technical capability.
 
 ## Public update history
 
