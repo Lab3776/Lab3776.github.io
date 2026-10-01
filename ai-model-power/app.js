@@ -70,6 +70,19 @@ function latestIso(...values) {
   return values.filter(Boolean).sort().at(-1) || null;
 }
 
+function modelFamilyKey(model) {
+  return `${String(model?.provider || "").trim().toLowerCase()}|${String(model?.name || "").trim().toLowerCase()}`;
+}
+
+function mergeCatalogModels(baseModels, historyModels) {
+  const history = historyModels || [];
+  const historyKeys = new Set(history.map(modelFamilyKey));
+  return [
+    ...(baseModels || []).filter(model => !historyKeys.has(modelFamilyKey(model))),
+    ...history
+  ];
+}
+
 function applyLanguage() {
   document.documentElement.lang = state.lang;
   document.title = state.lang === "ja" ? "AIモデル戦闘力データベース | Lab 3776" : "AI Model Power Database | Lab 3776";
@@ -85,7 +98,7 @@ async function loadData() {
     const [models, evaluations, prices, bridges, historyModels, historyEvaluations] = await Promise.all(paths.map(name =>
       fetch(`data/${name}.json`, {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
     ));
-    state.models = [...(models.models || []), ...(historyModels.models || [])];
+    state.models = mergeCatalogModels(models.models || [], historyModels.models || []);
     state.evaluations = [...(evaluations.evaluations || []), ...(historyEvaluations.evaluations || [])];
     state.prices = prices.prices || [];
     state.priceRule = prices.standard_cost_rule || {input_weight: .75, output_weight: .25};
