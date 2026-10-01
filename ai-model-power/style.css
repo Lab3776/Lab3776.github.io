@@ -151,6 +151,14 @@ input::placeholder { color: #727a8b; }
 }
 .table-head > div:nth-child(-n+4) { color: #c7ceff; }
 .model-row > div:nth-child(-n+4) { background: rgba(116,132,255,.035); }
+.table-head > div:nth-child(n+2):nth-child(-n+7) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.model-row > div:nth-child(n+2):nth-child(-n+7) {
+  justify-content: flex-end;
+  text-align: right;
+}
 .model-row { background: linear-gradient(145deg, rgba(31,34,40,.94), rgba(24,26,31,.94)); }
 .model-cell { display: flex; flex-direction: column; justify-content: center; }
 .model-name { font-size: .76rem; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
