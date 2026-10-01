@@ -7,9 +7,12 @@ The public history is for the whole database, not only model records. Record mea
 changes to model data, evaluations, prices, calculation or conversion methods, and site
 behavior/pages when they are useful to users.
 
-For new entries, prefer a stable `target_id` and a human-readable `target` such as a
-model/profile name, `計算方法`, `トップページ`, or `履歴ページ`. Existing imported
-entries that use `model_id` and `model_name` remain supported for backward compatibility.
+For new entries, prefer a stable `target_id` and a human-readable `target`. When the
+update-area label itself should be localized, use `target_ja` and `target_en`; `target`
+is the fallback. Examples include a model/profile name, `計算方法` / `Calculation method`,
+`トップページ` / `Top page`, or `履歴ページ` / `History page`. Existing imported entries
+that use `model_id` and `model_name` remain supported for backward compatibility.
+
 Each entry also stores a stable unique `id`, an ISO `updated_at` (with timezone), `type`,
 and Japanese/English `change_*` and `reason_*` fields. Useful types include
 `registration`, `evaluation`, `price`, `metadata`, `method`, and `site`; other types may be
