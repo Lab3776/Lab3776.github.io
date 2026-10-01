@@ -1,8 +1,9 @@
 const I18N = {
   ja: {
     title: "AIモデル戦闘力データベース",
-    lead: "AIモデルの現在戦闘力とコストを中心に比較するデータベースです。",
+    lead: "AIモデルの現在戦闘力とコストを中心に比較します。",
     notice: "戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。",
+    filters: "検索・絞り込み",
     listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "利用形態", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
@@ -21,8 +22,9 @@ const I18N = {
   },
   en: {
     title: "AI Model Power Database",
-    lead: "A database focused on comparing current model power and cost.",
+    lead: "Compare current model power and cost at a glance.",
     notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional seed evaluations.",
+    filters: "Search & filters",
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired",
@@ -106,12 +108,14 @@ function populateProviders() {
 }
 
 function getLatestEvaluation(modelId) {
-  return state.evaluations.filter(e => e.model_id === modelId)
+  return state.evaluations
+    .filter(e => e.model_id === modelId)
     .sort((a,b) => String(b.evaluated_at || "").localeCompare(String(a.evaluated_at || "")))[0] || null;
 }
 
 function getLatestPrice(modelId) {
-  return state.prices.filter(p => p.model_id === modelId && p.active !== false)
+  return state.prices
+    .filter(p => p.model_id === modelId && p.active !== false)
     .sort((a,b) => String(b.effective_from || "").localeCompare(String(a.effective_from || "")))[0] || null;
 }
 
@@ -130,7 +134,8 @@ function convertPower(adoptedPower, basis) {
       if (edge.type === "linear") value = Number(edge.a ?? 1) * value + Number(edge.b ?? 0);
       else if (edge.type === "multiplier") value *= Number(edge.factor ?? 1);
       else continue;
-      const visited = new Set(node.visited); visited.add(edge.to_version);
+      const visited = new Set(node.visited);
+      visited.add(edge.to_version);
       queue.push({version:edge.to_version, value, visited});
     }
   }
@@ -153,7 +158,10 @@ function buildRows() {
     const price = getLatestPrice(model.id);
     const adoptedPower = evaluation?.adopted_power ?? null;
     return {
-      ...model, evaluation, price, adoptedPower,
+      ...model,
+      evaluation,
+      price,
+      adoptedPower,
       currentPower: convertPower(adoptedPower, evaluation?.basis),
       standardCost: standardCost(price),
       inputPrice: price?.input_usd_per_million_tokens ?? null,
@@ -195,7 +203,8 @@ function statusText(status) {
 
 function formatDate(value) {
   if (!value) return t("unknown");
-  const date = new Date(`${value}T00:00:00`);
+  const dateText = String(value).slice(0, 10);
+  const date = new Date(`${dateText}T00:00:00`);
   if (Number.isNaN(date.getTime())) return value;
   return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year:"numeric", month:"short", day:"numeric"}).format(date);
 }
@@ -211,7 +220,7 @@ function formatMoney(value) {
 
 function rowHtml(row) {
   const variant = row.variant ? ` · ${escapeHtml(row.variant)}` : "";
-  const statusClass = row.status === "preview" ? "status-preview" : "status-active";
+  const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : "status-active";
   return `<div class="table-row model-row">
     <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(row.name)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}${variant}</span></div>
     <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong></div>
@@ -230,7 +239,7 @@ function render() {
   if (!$("modelList")) return;
   const rows = filteredRows();
   $("modelCount").textContent = state.models.length.toLocaleString(state.lang === "ja" ? "ja-JP" : "en-US");
-  $("updatedAt").textContent = state.updatedAt ? formatDate(state.updatedAt.slice(0,10)) : t("unknown");
+  $("updatedAt").textContent = state.updatedAt ? formatDate(state.updatedAt) : t("unknown");
   $("modelList").innerHTML = rows.map(rowHtml).join("");
   const empty = $("emptyState");
   if (rows.length === 0 && state.models.length > 0 && $("loadingState").hidden) {
@@ -241,8 +250,9 @@ function render() {
   }
 }
 
-["searchInput","providerFilter","statusFilter","accessFilter","sortSelect"].forEach(id => {
-  $(id).addEventListener(id === "searchInput" ? "input" : "change", render);
+["searchInput", "providerFilter", "statusFilter", "accessFilter", "sortSelect"].forEach(id => {
+  const eventName = id === "searchInput" ? "input" : "change";
+  $(id).addEventListener(eventName, render);
 });
 
 $("langToggle").addEventListener("click", () => {
@@ -250,6 +260,10 @@ $("langToggle").addEventListener("click", () => {
   localStorage.setItem("ai-model-power-lang", state.lang);
   applyLanguage();
 });
+
+if (window.matchMedia("(min-width: 760px)").matches) {
+  document.querySelector(".controls").open = true;
+}
 
 applyLanguage();
 loadData();
