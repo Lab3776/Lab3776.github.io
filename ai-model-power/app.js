@@ -226,9 +226,16 @@ function statusText(status) {
 
 function formatDate(value) {
   if (!value) return t("unknown");
-  const date = new Date(`${String(value).slice(0, 10)}T00:00:00`);
+  const match = String(value).match(/^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/);
+  if (!match) return value;
+  const [, year, month, day] = match;
+  if (!month) return state.lang === "ja" ? `${year}年` : year;
+  const date = new Date(Number(year), Number(month) - 1, Number(day || 1));
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year: "numeric", month: "short", day: "numeric"}).format(date);
+  const options = day
+    ? {year: "numeric", month: "short", day: "numeric"}
+    : {year: "numeric", month: "long"};
+  return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", options).format(date);
 }
 
 function formatMoney(value) {
