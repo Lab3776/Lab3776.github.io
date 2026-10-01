@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-10-01T19:12:00+09:00",
+  "schema_version": 2,
+  "updated_at": "2026-10-01T20:53:00+09:00",
   "models": [
     {
       "id": "anthropic-claude-opus-5-5-max",
@@ -11,7 +11,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -23,7 +23,7 @@
       "status": "active",
       "free_access": true,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -35,7 +35,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -47,7 +47,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1050000
     },
     {
@@ -59,7 +59,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": false,
+      "general_access_available": true,
       "context_window_tokens": 1050000
     },
     {
@@ -71,7 +71,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1000000
     },
     {
@@ -83,7 +83,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 500000
     },
     {
@@ -95,7 +95,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 984000
     },
     {
@@ -107,7 +107,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1000000
     },
     {
@@ -119,7 +119,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -131,7 +131,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -143,7 +143,7 @@
       "status": "active",
       "free_access": true,
       "local_available": false,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -155,7 +155,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 984000
     },
     {
@@ -167,7 +167,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": true,
+      "general_access_available": true,
       "context_window_tokens": 1000000
     },
     {
@@ -179,7 +179,7 @@
       "status": "active",
       "free_access": false,
       "local_available": false,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1050000
     },
     {
@@ -191,7 +191,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1000000
     },
     {
@@ -203,7 +203,7 @@
       "status": "active",
       "free_access": true,
       "local_available": false,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1000000
     },
     {
@@ -215,7 +215,7 @@
       "status": "active",
       "free_access": false,
       "local_available": true,
-      "consumer_chat_available": false,
+      "general_access_available": false,
       "context_window_tokens": 1000000
     }
   ]
