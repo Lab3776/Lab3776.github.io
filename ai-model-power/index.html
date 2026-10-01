@@ -44,7 +44,7 @@
             <span data-i18n="availability">提供状態</span>
             <select id="statusFilter">
               <option value="" data-i18n="all">すべて</option>
-              <option value="active" data-i18n="active">提供中</option>
+              <option value="active" data-i18n="active" selected>提供中</option>
               <option value="preview" data-i18n="preview">Preview</option>
               <option value="retired" data-i18n="retired">提供終了</option>
             </select>
@@ -52,6 +52,7 @@
           <label>
             <span data-i18n="access">利用形態</span>
             <select id="accessFilter">
+              <option value="consumer" data-i18n="consumerAccess" selected>一般向け</option>
               <option value="" data-i18n="all">すべて</option>
               <option value="free" data-i18n="freeAvailable">無料利用あり</option>
               <option value="local" data-i18n="localAvailable">ローカル可</option>
