@@ -589,6 +589,18 @@
       "reason_ja": "正確な公開日を確認できず、推測による日付表示を避けるため。",
       "reason_en": "An exact release date was not confirmed; removed the inferred date.",
       "source_commit": "d6d5156"
+    },
+    {
+      "id": "site-default-consumer-view-50",
+      "updated_at": "2026-10-01T19:12:00+09:00",
+      "target_id": "top-page-default-scope",
+      "target_ja": "トップページ",
+      "target_en": "Top page",
+      "type": "site",
+      "change_ja": "初期表示を一般向け現役モデルに限定",
+      "change_en": "Limited the default view to active consumer-chat models",
+      "reason_ja": "一般ユーザーが最初に知りたい比較を優先し、API-only・Local-only・特殊用途専用・提供終了モデルは「すべて」で参照する方針に変更。",
+      "reason_en": "Prioritized the comparison most users want first; API-only, local-only, special-purpose and retired models remain available through the All filter."
     }
   ]
 }
