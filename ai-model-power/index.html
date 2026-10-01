@@ -52,7 +52,8 @@
           <label>
             <span data-i18n="access">利用形態</span>
             <select id="accessFilter">
-              <option value="general" data-i18n="generalAccess" selected>一般向け</option>
+              <option value="major" data-i18n="majorServices" selected>主要サービス</option>
+              <option value="general" data-i18n="generalAccess">一般向け</option>
               <option value="" data-i18n="all">すべて</option>
               <option value="free" data-i18n="freeAvailable">無料利用あり</option>
               <option value="local" data-i18n="localAvailable">ローカル可</option>
@@ -102,7 +103,9 @@
       <p class="notice-inline" data-i18n="notice">戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。</p>
       <p data-i18n="methodBody">現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。</p>
       <p class="muted" data-i18n="methodNote">コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。</p>
-      <p class="muted" data-i18n="generalAccessNote">「一般向け」は、Web版や通常のインストーラー／アプリストアから導入できるアプリなど、API接続・ターミナル操作・モデルの自己導入なしで利用開始できるモデルです。Work、Cursor、Antigravityなど、画面上からモデルを選んで使えるアプリも含みます。</p>
+      <p class="muted" data-i18n="scopeMajorNote">主要サービス：OpenAI / Anthropic / Google / xAI（Grok）</p>
+      <p class="muted" data-i18n="scopeGeneralNote">一般向け：上記に加えて、Z.ai、DeepSeek、Kimiなど、Webやアプリから普通に導入・利用できるもの</p>
+      <p class="muted" data-i18n="scopeAllNote">すべて：API-only、Local-only、CLI-only、過去モデルも含むDB全件</p>
     </section>
   </main>
 
