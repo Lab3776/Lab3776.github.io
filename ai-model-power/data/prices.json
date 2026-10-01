@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T15:24:00+09:00",
+  "updated_at": "2026-10-01T16:35:00+09:00",
   "standard_cost_rule": {
     "version": "0.2",
     "currency": "USD",
@@ -54,7 +54,7 @@
       "free_tier": false,
       "active": true,
       "effective_from": "2026-10-01",
-      "source_url": "https://developers.openai.com/api/docs/pricing"
+      "source_url": "https://developers.openai.com/api/docs/models/gpt-6-astra"
     },
     {
       "model_id": "openai-gpt-6-1-sol-max",
@@ -69,7 +69,7 @@
     },
     {
       "model_id": "meta-muse-spark-1-3-max",
-      "provider": "Meta API",
+      "provider": "AA reference / available provider",
       "input_usd_per_million_tokens": 1.25,
       "output_usd_per_million_tokens": 4.25,
       "cached_input_usd_per_million_tokens": 0.15,
@@ -86,19 +86,20 @@
       "cached_input_usd_per_million_tokens": 0.5,
       "free_tier": false,
       "active": true,
-      "effective_from": "2026-10-01",
-      "source_url": "https://artificialanalysis.ai/models/grok-4-7"
+      "effective_from": "2026-09-21",
+      "source_url": "https://docs.x.ai/developers/models/grok-4.7"
     },
     {
       "model_id": "alibaba-qwen3-8-max-0902",
-      "provider": "Alibaba API",
-      "input_usd_per_million_tokens": 2.0,
-      "output_usd_per_million_tokens": 6.0,
-      "cached_input_usd_per_million_tokens": 0.24,
+      "provider": "Alibaba Cloud Model Studio",
+      "input_usd_per_million_tokens": 1.65,
+      "output_usd_per_million_tokens": 4.951,
+      "cached_input_usd_per_million_tokens": null,
       "free_tier": false,
       "active": true,
       "effective_from": "2026-10-01",
-      "source_url": "https://artificialanalysis.ai/models/qwen3-8-max"
+      "source_url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "note": "Global/Japan list price for qwen3.8-max-0902."
     },
     {
       "model_id": "zai-glm-5-3-max",
@@ -146,14 +147,14 @@
     },
     {
       "model_id": "alibaba-qwen3-8-2-4t-a95b",
-      "provider": "Alibaba API",
+      "provider": "Alibaba Cloud Model Studio (International)",
       "input_usd_per_million_tokens": 2.0,
       "output_usd_per_million_tokens": 6.0,
-      "cached_input_usd_per_million_tokens": 0.24,
+      "cached_input_usd_per_million_tokens": 0.25,
       "free_tier": false,
       "active": true,
       "effective_from": "2026-10-01",
-      "source_url": "https://artificialanalysis.ai/models/qwen3-8-2-4t-a95b"
+      "source_url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-2-4t-a95b"
     },
     {
       "model_id": "deepseek-v4-1-flash-max",
@@ -217,7 +218,7 @@
       "provider": "Provider median / Xiaomi available",
       "input_usd_per_million_tokens": 0.435,
       "output_usd_per_million_tokens": 0.87,
-      "cached_input_usd_per_million_tokens": 0.00435,
+      "cached_input_usd_per_million_tokens": 0.0036,
       "free_tier": false,
       "active": true,
       "effective_from": "2026-10-01",
