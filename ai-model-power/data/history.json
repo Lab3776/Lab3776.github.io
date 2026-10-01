@@ -613,6 +613,18 @@
       "change_en": "Re-audited general-access classifications",
       "reason_ja": "GUI導線の定義に照らして再確認し、GPT-6 Luna、GLM-5.3、DeepSeek V4 Pro 0813、Gemini 3.6 Flash、Muse Spark 1.3を一般向けへ修正。Qwen3.8 2.4T A95BとMiMo-V2.5-Proは除外を維持。",
       "reason_en": "Rechecked the catalog against the GUI-access definition and marked GPT-6 Luna, GLM-5.3, DeepSeek V4 Pro 0813, Gemini 3.6 Flash, and Muse Spark 1.3 as general access. Qwen3.8 2.4T A95B and MiMo-V2.5-Pro remain excluded."
+    },
+    {
+      "id": "site-display-scope-tiers-52",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "target_id": "top-page-default-scope",
+      "target_ja": "トップページ",
+      "target_en": "Top page",
+      "type": "site",
+      "change_ja": "表示範囲を3段階化し、主要サービスを初期表示に変更",
+      "change_en": "Added three display scopes and made Major services the default",
+      "reason_ja": "最初に比較されやすいOpenAI・Anthropic・Google・xAI（Grok）を優先しつつ、一般向けとDB全件へ段階的に広げられるようにするため。",
+      "reason_en": "Prioritized OpenAI, Anthropic, Google and xAI (Grok) for the initial comparison while keeping General access and All as progressively broader scopes."
     }
   ]
 }
