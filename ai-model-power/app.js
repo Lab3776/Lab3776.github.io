@@ -8,7 +8,7 @@ const I18N = {
     listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "利用形態", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
-    consumerAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
+    generalAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
     sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
     sortReleasedDesc: "公開日：新しい順", sortNameAsc: "モデル名：昇順",
     model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", costPerformance: "コスパ", adoptedPower: "採用戦闘力",
@@ -18,6 +18,7 @@ const I18N = {
     methodTitle: "表示値について",
     methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。",
     methodNote: "コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。",
+    generalAccessNote: "「一般向け」は、Web版や通常のインストーラー／アプリストアから導入できるアプリなど、API接続・ターミナル操作・モデルの自己導入なしで利用開始できるモデルです。Work、Cursor、Antigravityなど、画面上からモデルを選んで使えるアプリも含みます。",
     provisional: "仮公開", yes: "あり", no: "なし", unknown: "—",
     dataErrorTitle: "データを読み込めませんでした", dataErrorBody: "JSONファイルを確認してください。"
   },
@@ -30,7 +31,7 @@ const I18N = {
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired",
-    consumerAccess: "Consumer chat", freeAvailable: "Free access", localAvailable: "Local available",
+    generalAccess: "General access", freeAvailable: "Free access", localAvailable: "Local available",
     sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
     sortReleasedDesc: "Release date: newest", sortNameAsc: "Model name: A-Z",
     model: "Model", currentPower: "Current power", standardCost: "Standard cost", costPerformance: "Value", adoptedPower: "Adopted power",
@@ -40,6 +41,7 @@ const I18N = {
     methodTitle: "About displayed values",
     methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from currently available standard API pricing using 75% input and 25% output.",
     methodNote: "Value = current power ÷ standard cost. Higher means more reference performance per dollar.",
+    generalAccessNote: "“General access” means the model can be used through a web service or a normally installed app without direct API setup, terminal commands, or manually installing model files. Apps such as Work, Cursor and Antigravity count when the model can be selected and used from their interface.",
     provisional: "Provisional", yes: "Yes", no: "No", unknown: "—",
     dataErrorTitle: "Could not load data", dataErrorBody: "Check the JSON files."
   }
@@ -180,7 +182,7 @@ function buildRows() {
       outputPrice: price?.output_usd_per_million_tokens ?? null,
       freeAccess: Boolean(model.free_access || price?.free_tier),
       localAvailable: Boolean(model.local_available),
-      consumerChatAvailable: Boolean(model.consumer_chat_available)
+      generalAccessAvailable: Boolean(model.general_access_available)
     };
   });
 }
@@ -196,7 +198,7 @@ function filteredRows() {
     if (q && !`${row.name || ""} ${row.variant || ""} ${row.provider || ""}`.toLowerCase().includes(q)) return false;
     if (provider && row.provider !== provider) return false;
     if (status && row.status !== status) return false;
-    if (access === "consumer" && !row.consumerChatAvailable) return false;
+    if (access === "general" && !row.generalAccessAvailable) return false;
     if (access === "free" && !row.freeAccess) return false;
     if (access === "local" && !row.localAvailable) return false;
     return true;
