@@ -20,6 +20,17 @@ The Major services scope is a subset of General access: the model/profile must s
 
 This field describes access difficulty rather than provider popularity or technical capability.
 
+## Release date precision
+
+`released_at` keeps the best verified precision instead of discarding a known year or month when the exact day is unavailable.
+
+- Exact day known: `YYYY-MM-DD`
+- Month known: `YYYY-MM`
+- Year known: `YYYY`
+- Unknown: `null`
+
+The UI displays the stored precision without inventing missing components. A month-only value such as `2026-05` is shown as `2026年5月` in Japanese and `May 2026` in English.
+
 ## Public update history
 
 `history.html` displays `data/history.json`. It supports Japanese/English, text search,
