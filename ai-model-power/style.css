@@ -155,7 +155,7 @@ input::placeholder { color: #727a8b; }
 .model-cell { display: flex; flex-direction: column; justify-content: center; }
 .model-name { font-size: .76rem; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
 .model-sub { margin-top: 2px; color: var(--muted); font-size: .58rem; line-height: 1.2; }
-.metric-cell { display: flex; align-items: center; font-size: .71rem; }
+.metric-cell { display: flex; align-items: center; font-size: .71rem; font-variant-numeric: tabular-nums; }
 .metric-cell strong { font-size: .82rem; }
 .current-power strong { color: #dce0ff; font-size: .92rem; }
 .standard-cost strong { color: var(--good); }
