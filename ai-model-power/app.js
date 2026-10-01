@@ -15,15 +15,15 @@ const I18N = {
     scrollHint: "右へスクロールすると詳細を確認できます →",
     emptyTitle: "該当するモデルはありません", emptyBody: "条件を変えてください。", loading: "データを読み込んでいます…",
     methodTitle: "表示値について",
-    methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として公式API価格から自動計算します。",
-    methodNote: "戦闘力の初期値は暫定です。評価根拠と変更理由はJSONとGit履歴に残します。",
+    methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。",
+    methodNote: "将来予定価格は先取りしません。戦闘力の評価根拠と変更理由はJSONとGit履歴に残します。",
     provisional: "仮公開", yes: "あり", no: "なし", unknown: "—",
     dataErrorTitle: "データを読み込めませんでした", dataErrorBody: "JSONファイルを確認してください。"
   },
   en: {
     title: "AI Model Power Database",
     lead: "Compare current model power and cost at a glance.",
-    notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional seed evaluations.",
+    notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional evaluations.",
     filters: "Search & filters",
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
@@ -36,8 +36,8 @@ const I18N = {
     scrollHint: "Scroll right for more details →",
     emptyTitle: "No matching models", emptyBody: "Change the filters and try again.", loading: "Loading data…",
     methodTitle: "About displayed values",
-    methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from official API pricing using 75% input and 25% output.",
-    methodNote: "Initial power values are provisional. Evaluation evidence and change reasons are retained in JSON and Git history.",
+    methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from currently available standard API pricing using 75% input and 25% output.",
+    methodNote: "Scheduled future prices are not pre-applied. Evaluation evidence and change reasons are retained in JSON and Git history.",
     provisional: "Provisional", yes: "Yes", no: "No", unknown: "—",
     dataErrorTitle: "Could not load data", dataErrorBody: "Check the JSON files."
   }
@@ -45,14 +45,23 @@ const I18N = {
 
 const state = {
   lang: localStorage.getItem("ai-model-power-lang") || (navigator.language?.toLowerCase().startsWith("ja") ? "ja" : "en"),
-  models: [], evaluations: [], prices: [], priceRule: null, bridges: null, updatedAt: null
+  models: [],
+  evaluations: [],
+  prices: [],
+  priceRule: null,
+  bridges: null,
+  updatedAt: null
 };
 
 const $ = id => document.getElementById(id);
 const t = key => I18N[state.lang][key] ?? key;
 
 function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+  return String(value ?? "").replace(/[&<>'\"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'\"':"&quot;"}[c]));
+}
+
+function latestIso(...values) {
+  return values.filter(Boolean).sort().at(-1) || null;
 }
 
 function applyLanguage() {
@@ -64,22 +73,18 @@ function applyLanguage() {
   render();
 }
 
-function latestIso(...values) {
-  return values.filter(Boolean).sort().at(-1) || null;
-}
-
 async function loadData() {
   try {
     const [models, evaluations, prices, bridges] = await Promise.all([
-      fetch("data/models.json", {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/evaluations.json", {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/prices.json", {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/benchmark-bridges.json", {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
+      fetch("data/models.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
+      fetch("data/evaluations.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
+      fetch("data/prices.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
+      fetch("data/benchmark-bridges.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
     ]);
     state.models = models.models || [];
     state.evaluations = evaluations.evaluations || [];
     state.prices = prices.prices || [];
-    state.priceRule = prices.standard_cost_rule || {input_weight:.75, output_weight:.25};
+    state.priceRule = prices.standard_cost_rule || {input_weight: .75, output_weight: .25};
     state.bridges = bridges;
     state.updatedAt = latestIso(models.updated_at, evaluations.updated_at, prices.updated_at, bridges.updated_at);
     populateProviders();
@@ -95,28 +100,28 @@ async function loadData() {
 function populateProviders() {
   const select = $("providerFilter");
   const current = select.value;
-  const providers = [...new Set(state.models.map(m => m.provider).filter(Boolean))].sort((a,b) => a.localeCompare(b));
+  const providers = [...new Set(state.models.map(m => m.provider).filter(Boolean))].sort((a, b) => a.localeCompare(b));
   select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
-  providers.forEach(provider => {
+  for (const provider of providers) {
     const option = document.createElement("option");
     option.value = provider;
     option.textContent = provider;
     option.translate = false;
     select.appendChild(option);
-  });
+  }
   if (providers.includes(current)) select.value = current;
 }
 
 function getLatestEvaluation(modelId) {
   return state.evaluations
-    .filter(e => e.model_id === modelId)
-    .sort((a,b) => String(b.evaluated_at || "").localeCompare(String(a.evaluated_at || "")))[0] || null;
+    .filter(e => e.model_id === modelId && e.superseded !== true)
+    .sort((a, b) => String(b.evaluated_at || "").localeCompare(String(a.evaluated_at || "")))[0] || null;
 }
 
 function getLatestPrice(modelId) {
   return state.prices
     .filter(p => p.model_id === modelId && p.active !== false)
-    .sort((a,b) => String(b.effective_from || "").localeCompare(String(a.effective_from || "")))[0] || null;
+    .sort((a, b) => String(b.effective_from || "").localeCompare(String(a.effective_from || "")))[0] || null;
 }
 
 function convertPower(adoptedPower, basis) {
@@ -124,7 +129,7 @@ function convertPower(adoptedPower, basis) {
   const target = state.bridges.current_reference;
   if (basis.benchmark !== target.benchmark || basis.version === target.version) return adoptedPower;
   const edges = state.bridges.bridges || [];
-  const queue = [{version:basis.version, value:Number(adoptedPower), visited:new Set([basis.version])}];
+  const queue = [{version: basis.version, value: Number(adoptedPower), visited: new Set([basis.version])}];
   while (queue.length) {
     const node = queue.shift();
     if (node.version === target.version) return Math.round(node.value);
@@ -136,7 +141,7 @@ function convertPower(adoptedPower, basis) {
       else continue;
       const visited = new Set(node.visited);
       visited.add(edge.to_version);
-      queue.push({version:edge.to_version, value, visited});
+      queue.push({version: edge.to_version, value, visited});
     }
   }
   return adoptedPower;
@@ -147,9 +152,7 @@ function standardCost(price) {
   const input = Number(price.input_usd_per_million_tokens);
   const output = Number(price.output_usd_per_million_tokens);
   if (!Number.isFinite(input) || !Number.isFinite(output)) return null;
-  const iw = Number(state.priceRule?.input_weight ?? .75);
-  const ow = Number(state.priceRule?.output_weight ?? .25);
-  return input * iw + output * ow;
+  return input * Number(state.priceRule?.input_weight ?? .75) + output * Number(state.priceRule?.output_weight ?? .25);
 }
 
 function buildRows() {
@@ -186,12 +189,13 @@ function filteredRows() {
     if (access === "local" && !row.localAvailable) return false;
     return true;
   });
-  const numDesc = key => (a,b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity);
+
+  const numDesc = key => (a, b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity);
   switch (sort) {
-    case "standard_cost_asc": rows.sort((a,b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity)); break;
+    case "standard_cost_asc": rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity)); break;
     case "adopted_power_desc": rows.sort(numDesc("adoptedPower")); break;
-    case "released_desc": rows.sort((a,b) => String(b.released_at || "").localeCompare(String(a.released_at || ""))); break;
-    case "name_asc": rows.sort((a,b) => String(a.name || "").localeCompare(String(b.name || ""))); break;
+    case "released_desc": rows.sort((a, b) => String(b.released_at || "").localeCompare(String(a.released_at || ""))); break;
+    case "name_asc": rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""))); break;
     default: rows.sort(numDesc("currentPower"));
   }
   return rows;
@@ -206,7 +210,7 @@ function formatDate(value) {
   const dateText = String(value).slice(0, 10);
   const date = new Date(`${dateText}T00:00:00`);
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year:"numeric", month:"short", day:"numeric"}).format(date);
+  return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year: "numeric", month: "short", day: "numeric"}).format(date);
 }
 
 function formatMoney(value) {
@@ -219,10 +223,10 @@ function formatMoney(value) {
 }
 
 function rowHtml(row) {
-  const variant = row.variant ? ` · ${escapeHtml(row.variant)}` : "";
+  const displayName = row.variant ? `${row.name} ${row.variant}` : row.name;
   const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : "status-active";
   return `<div class="table-row model-row">
-    <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(row.name)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}${variant}</span></div>
+    <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(displayName)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
     <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong></div>
     <div class="metric-cell standard-cost"><strong>${escapeHtml(formatMoney(row.standardCost))}</strong></div>
     <div class="metric-cell"><strong>${row.adoptedPower ?? "—"}</strong></div>
@@ -251,8 +255,7 @@ function render() {
 }
 
 ["searchInput", "providerFilter", "statusFilter", "accessFilter", "sortSelect"].forEach(id => {
-  const eventName = id === "searchInput" ? "input" : "change";
-  $(id).addEventListener(eventName, render);
+  $(id).addEventListener(id === "searchInput" ? "input" : "change", render);
 });
 
 $("langToggle").addEventListener("click", () => {
@@ -260,10 +263,6 @@ $("langToggle").addEventListener("click", () => {
   localStorage.setItem("ai-model-power-lang", state.lang);
   applyLanguage();
 });
-
-if (window.matchMedia("(min-width: 760px)").matches) {
-  document.querySelector(".controls").open = true;
-}
 
 applyLanguage();
 loadData();
