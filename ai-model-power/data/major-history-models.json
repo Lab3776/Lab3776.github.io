@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-02T07:45:00+09:00",
+  "updated_at": "2026-10-02T07:55:00+09:00",
   "scope": "Major OpenAI, Anthropic, Google and xAI general-purpose/reasoning release families from 2025 onward, one representative profile per release.",
   "models": [
     {"id":"openai-gpt-6-sol-max","name":"GPT-6 Sol","variant":"max","provider":"OpenAI","released_at":"2026-09-22","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1050000},
@@ -44,13 +44,13 @@
     {"id":"google-gemini-2-5-pro","name":"Gemini 2.5 Pro","variant":null,"provider":"Google","released_at":"2025-06-17","status":"active","free_access":true,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
     {"id":"google-gemini-2-5-flash-reasoning","name":"Gemini 2.5 Flash","variant":"reasoning","provider":"Google","released_at":"2025-06-17","status":"active","free_access":true,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
 
-    {"id":"spacexai-grok-4-6-high","name":"Grok 4.6","variant":"high","provider":"SpaceXAI","released_at":"2026-08-12","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":500000},
-    {"id":"spacexai-grok-4-5-high","name":"Grok 4.5","variant":"high","provider":"SpaceXAI","released_at":"2026-07-16","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":500000},
-    {"id":"spacexai-grok-4-3-high","name":"Grok 4.3","variant":"high","provider":"SpaceXAI","released_at":"2026-04-30","status":"retired","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
+    {"id":"spacexai-grok-4-6-high","name":"Grok 4.6","variant":"high","provider":"SpaceXAI","released_at":"2026-08-12","status":"active","free_access":false,"local_available":false,"general_access_available":true,"context_window_tokens":500000},
+    {"id":"spacexai-grok-4-5-high","name":"Grok 4.5","variant":"high","provider":"SpaceXAI","released_at":"2026-07-16","status":"active","free_access":false,"local_available":false,"general_access_available":true,"context_window_tokens":500000},
+    {"id":"spacexai-grok-4-3-high","name":"Grok 4.3","variant":"high","provider":"SpaceXAI","released_at":"2026-04-30","status":"active","free_access":false,"local_available":false,"general_access_available":true,"context_window_tokens":1000000},
     {"id":"spacexai-grok-4-20-0309-v2-reasoning","name":"Grok 4.20 0309 v2","variant":"reasoning","provider":"SpaceXAI","released_at":"2026-04-07","status":"retired","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":2000000},
-    {"id":"spacexai-grok-4-20-0309-reasoning","name":"Grok 4.20 0309","variant":"reasoning","provider":"SpaceXAI","released_at":"2026-03-09","status":"retired","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":2000000},
-    {"id":"spacexai-grok-4-1-fast-reasoning","name":"Grok 4.1 Fast","variant":"reasoning","provider":"SpaceXAI","released_at":"2025-11-19","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":2000000},
-    {"id":"spacexai-grok-4","name":"Grok 4","variant":null,"provider":"SpaceXAI","released_at":"2025-07-09","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":256000},
-    {"id":"spacexai-grok-3","name":"Grok 3","variant":null,"provider":"SpaceXAI","released_at":"2025-02-19","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":131000}
+    {"id":"spacexai-grok-4-20-0309-reasoning","name":"Grok 4.20 0309","variant":"reasoning","provider":"SpaceXAI","released_at":"2026-03-09","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
+    {"id":"spacexai-grok-4-1-fast-reasoning","name":"Grok 4.1 Fast","variant":"reasoning","provider":"SpaceXAI","released_at":"2025-11-19","status":"retired","retired_at":"2026-05-15","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":2000000},
+    {"id":"spacexai-grok-4","name":"Grok 4","variant":null,"provider":"SpaceXAI","released_at":"2025-07-09","status":"retired","retired_at":"2026-05-15","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":256000},
+    {"id":"spacexai-grok-3","name":"Grok 3","variant":null,"provider":"SpaceXAI","released_at":"2025-02-19","status":"retired","retired_at":"2026-05-15","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":131000}
   ]
 }
