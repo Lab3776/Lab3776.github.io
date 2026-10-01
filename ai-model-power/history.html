@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <title>更新履歴 | AIモデル戦闘力データベース</title>
-  <meta name="description" content="AIモデルの登録・評価・料金の変更内容と変更理由を確認できます。">
+  <meta name="description" content="AIモデル戦闘力データベースのデータ・計算方法・料金・ページ等の変更内容と変更理由を確認できます。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,21 +14,21 @@
     <section class="hero">
       <a class="back-link" href="./" data-i18n="back">← モデル比較へ</a>
       <h1 data-i18n="title">更新履歴</h1>
-      <p class="lead" data-i18n="lead">モデルの登録・評価・料金の変更内容と、その理由を確認できます。</p>
+      <p class="lead" data-i18n="lead">モデル・評価方法・料金・ページなどの変更内容と、その理由を確認できます。</p>
     </section>
     <details class="controls">
       <summary data-i18n="filters">検索・絞り込み</summary>
       <div class="controls-body">
-        <label class="search-box"><span class="sr-only" data-i18n="search">履歴を検索</span><input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="モデル名・変更内容・理由で検索"></label>
+        <label class="search-box"><span class="sr-only" data-i18n="search">履歴を検索</span><input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="更新箇所・変更内容・理由で検索"></label>
         <div class="control-grid">
-          <label><span data-i18n="model">モデル名</span><select id="modelFilter"></select></label>
+          <label><span data-i18n="target">更新箇所</span><select id="targetFilter"></select></label>
           <label><span data-i18n="type">変更種別</span><select id="typeFilter"></select></label>
           <label><span data-i18n="from">更新日（開始）</span><input id="dateFrom" type="date"></label>
           <label><span data-i18n="to">更新日（終了）</span><input id="dateTo" type="date"></label>
           <label><span data-i18n="sort">並び替え</span><select id="sortSelect">
             <option value="date_desc" data-i18n="newest">更新日：新しい順</option>
             <option value="date_asc" data-i18n="oldest">更新日：古い順</option>
-            <option value="model_asc" data-i18n="modelSort">モデル名順</option>
+            <option value="target_asc" data-i18n="targetSort">更新箇所順</option>
             <option value="change_asc" data-i18n="changeSort">変更内容順</option>
             <option value="reason_asc" data-i18n="reasonSort">変更理由順</option>
           </select></label>
@@ -41,7 +41,7 @@
       <div class="table-scroll">
         <table class="history-table">
           <caption class="sr-only" data-i18n="title">更新履歴</caption>
-          <thead><tr><th scope="col" data-i18n="date">更新日</th><th scope="col" data-i18n="model">モデル名</th><th scope="col" data-i18n="change">変更内容</th><th scope="col" data-i18n="reason">変更理由</th></tr></thead>
+          <thead><tr><th scope="col" data-i18n="date">更新日</th><th scope="col" data-i18n="target">更新箇所</th><th scope="col" data-i18n="change">変更内容</th><th scope="col" data-i18n="reason">変更理由</th></tr></thead>
           <tbody id="historyList"></tbody>
         </table>
       </div>
