@@ -19,60 +19,51 @@
     <section class="hero">
       <p class="eyebrow">LAB 3776 / PUBLIC DATABASE</p>
       <h1 data-i18n="title">AIモデル戦闘力データベース</h1>
-      <p class="lead" data-i18n="lead">AIモデルの現在戦闘力とコストを中心に比較するデータベースです。</p>
-      <p class="notice" data-i18n="notice">戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。</p>
+      <p class="lead" data-i18n="lead">AIモデルの現在戦闘力とコストを中心に比較します。</p>
     </section>
 
-    <section class="summary" aria-label="Database summary">
-      <div class="summary-card">
-        <span class="summary-label" data-i18n="listedModels">掲載モデル</span>
-        <strong id="modelCount">—</strong>
+    <details class="controls">
+      <summary data-i18n="filters">検索・絞り込み</summary>
+      <div class="controls-body">
+        <label class="search-box">
+          <span class="sr-only" data-i18n="search">検索</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="モデル名・企業名で検索" data-i18n-placeholder="searchPlaceholder">
+        </label>
+        <div class="control-grid">
+          <label>
+            <span data-i18n="provider">企業</span>
+            <select id="providerFilter"><option value="" data-i18n="all">すべて</option></select>
+          </label>
+          <label>
+            <span data-i18n="availability">提供状態</span>
+            <select id="statusFilter">
+              <option value="" data-i18n="all">すべて</option>
+              <option value="active" data-i18n="active">提供中</option>
+              <option value="preview" data-i18n="preview">Preview</option>
+              <option value="retired" data-i18n="retired">提供終了</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="access">利用形態</span>
+            <select id="accessFilter">
+              <option value="" data-i18n="all">すべて</option>
+              <option value="free" data-i18n="freeAvailable">無料利用あり</option>
+              <option value="local" data-i18n="localAvailable">ローカル可</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="sort">並び順</span>
+            <select id="sortSelect">
+              <option value="current_power_desc" data-i18n="sortPowerDesc">現在戦闘力：高い順</option>
+              <option value="standard_cost_asc" data-i18n="sortCostAsc">標準コスト：安い順</option>
+              <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">採用戦闘力：高い順</option>
+              <option value="released_desc" data-i18n="sortReleasedDesc">公開日：新しい順</option>
+              <option value="name_asc" data-i18n="sortNameAsc">モデル名：昇順</option>
+            </select>
+          </label>
+        </div>
       </div>
-      <div class="summary-card">
-        <span class="summary-label" data-i18n="lastUpdated">データ更新</span>
-        <strong id="updatedAt">—</strong>
-      </div>
-    </section>
-
-    <section class="controls" aria-label="Filters">
-      <label class="search-box">
-        <span class="sr-only" data-i18n="search">検索</span>
-        <input id="searchInput" type="search" autocomplete="off" placeholder="モデル名・企業名で検索" data-i18n-placeholder="searchPlaceholder">
-      </label>
-      <div class="control-grid">
-        <label>
-          <span data-i18n="provider">企業</span>
-          <select id="providerFilter"><option value="" data-i18n="all">すべて</option></select>
-        </label>
-        <label>
-          <span data-i18n="availability">提供状態</span>
-          <select id="statusFilter">
-            <option value="" data-i18n="all">すべて</option>
-            <option value="active" data-i18n="active">提供中</option>
-            <option value="preview" data-i18n="preview">Preview</option>
-            <option value="retired" data-i18n="retired">提供終了</option>
-          </select>
-        </label>
-        <label>
-          <span data-i18n="access">利用形態</span>
-          <select id="accessFilter">
-            <option value="" data-i18n="all">すべて</option>
-            <option value="free" data-i18n="freeAvailable">無料利用あり</option>
-            <option value="local" data-i18n="localAvailable">ローカル可</option>
-          </select>
-        </label>
-        <label>
-          <span data-i18n="sort">並び順</span>
-          <select id="sortSelect">
-            <option value="current_power_desc" data-i18n="sortPowerDesc">現在戦闘力：高い順</option>
-            <option value="standard_cost_asc" data-i18n="sortCostAsc">標準コスト：安い順</option>
-            <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">採用戦闘力：高い順</option>
-            <option value="released_desc" data-i18n="sortReleasedDesc">公開日：新しい順</option>
-            <option value="name_asc" data-i18n="sortNameAsc">モデル名：昇順</option>
-          </select>
-        </label>
-      </div>
-    </section>
+    </details>
 
     <section class="results" aria-live="polite">
       <p class="scroll-hint" data-i18n="scrollHint">右へスクロールすると詳細を確認できます →</p>
@@ -97,8 +88,20 @@
       <div id="loadingState" class="empty-state"><strong data-i18n="loading">データを読み込んでいます…</strong></div>
     </section>
 
+    <section class="summary" aria-label="Database summary">
+      <div class="summary-card">
+        <span class="summary-label" data-i18n="listedModels">掲載モデル</span>
+        <strong id="modelCount">—</strong>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label" data-i18n="lastUpdated">データ更新</span>
+        <strong id="updatedAt">—</strong>
+      </div>
+    </section>
+
     <section class="method-card">
       <h2 data-i18n="methodTitle">表示値について</h2>
+      <p class="notice-inline" data-i18n="notice">戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。</p>
       <p data-i18n="methodBody">現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として公式API価格から自動計算します。</p>
       <p class="muted" data-i18n="methodNote">戦闘力の初期値は暫定です。評価根拠と変更理由はJSONとGit履歴に残します。</p>
     </section>
