@@ -2,18 +2,21 @@
 
 ## Default comparison scope
 
-The database may contain general-access, API-only, CLI-only, local-only, special-purpose and retired
-models, but the top page defaults to active models that meet the **General access** rule.
+The database may contain general-access, API-only, CLI-only, local-only, special-purpose and retired models. The top page uses three display scopes:
 
-`data/models.json` uses `general_access_available` for this default-scope decision.
+- **Major services**: OpenAI / Anthropic / Google / xAI (Grok). This is the default scope.
+- **General access**: Major services plus Z.ai, DeepSeek, Kimi and other models that can be normally installed and used through a web service or app.
+- **All**: every database record, including API-only, local-only, CLI-only and older models.
+
+The Major services scope is a subset of General access: the model/profile must satisfy `general_access_available` and its provider must be one of OpenAI, Anthropic, Google or xAI/Grok. Retired models are excluded separately by the default `active` status filter.
+
+`data/models.json` uses `general_access_available` for the General access decision.
 
 - `true`: the evaluated model/profile can be reached without direct API setup, terminal commands, or manually installing model files.
 - Qualifying routes include a web service, App Store / Google Play app, or normal Windows / macOS installer.
 - GUI products such as Work, Cursor or Antigravity also qualify when the model is directly selectable and usable from the app.
 - `false`: direct API/CLI access is required, the normal install path is command based, or the user must obtain/install the model itself (for example through Ollama, Bionic or LM Studio).
 - A model can be `general_access_available: true` and also support API or local execution.
-- Retired models are excluded separately by the default status filter.
-- Users can choose `All` in the access/status filters to inspect records outside the default scope.
 
 This field describes access difficulty rather than provider popularity or technical capability.
 
