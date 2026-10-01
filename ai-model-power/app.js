@@ -8,15 +8,15 @@ const I18N = {
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "利用形態", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
     freeAvailable: "無料利用あり", localAvailable: "ローカル可",
-    sortPowerDesc: "現在戦闘力：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
+    sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
     sortReleasedDesc: "公開日：新しい順", sortNameAsc: "モデル名：昇順",
-    model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", adoptedPower: "採用戦闘力",
+    model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", costPerformance: "コスパ", adoptedPower: "採用戦闘力",
     inputPrice: "Input", outputPrice: "Output", free: "無料", local: "Local", released: "公開",
-    scrollHint: "右へスクロールすると詳細を確認できます →",
+    scrollHint: "モデル名を固定したまま右へスクロールできます →",
     emptyTitle: "該当するモデルはありません", emptyBody: "条件を変えてください。", loading: "データを読み込んでいます…",
     methodTitle: "表示値について",
     methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。",
-    methodNote: "将来予定価格は先取りしません。戦闘力の評価根拠と変更理由はJSONとGit履歴に残します。",
+    methodNote: "コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。",
     provisional: "仮公開", yes: "あり", no: "なし", unknown: "—",
     dataErrorTitle: "データを読み込めませんでした", dataErrorBody: "JSONファイルを確認してください。"
   },
@@ -29,15 +29,15 @@ const I18N = {
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired",
     freeAvailable: "Free access", localAvailable: "Local available",
-    sortPowerDesc: "Current power: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
+    sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
     sortReleasedDesc: "Release date: newest", sortNameAsc: "Model name: A-Z",
-    model: "Model", currentPower: "Current power", standardCost: "Standard cost", adoptedPower: "Adopted power",
+    model: "Model", currentPower: "Current power", standardCost: "Standard cost", costPerformance: "Value", adoptedPower: "Adopted power",
     inputPrice: "Input", outputPrice: "Output", free: "Free", local: "Local", released: "Released",
-    scrollHint: "Scroll right for more details →",
+    scrollHint: "Model names stay fixed while you scroll right →",
     emptyTitle: "No matching models", emptyBody: "Change the filters and try again.", loading: "Loading data…",
     methodTitle: "About displayed values",
     methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from currently available standard API pricing using 75% input and 25% output.",
-    methodNote: "Scheduled future prices are not pre-applied. Evaluation evidence and change reasons are retained in JSON and Git history.",
+    methodNote: "Value = current power ÷ standard cost. Higher means more reference performance per dollar.",
     provisional: "Provisional", yes: "Yes", no: "No", unknown: "—",
     dataErrorTitle: "Could not load data", dataErrorBody: "Check the JSON files."
   }
@@ -47,6 +47,7 @@ const state = {
   lang: localStorage.getItem("ai-model-power-lang") || (navigator.language?.toLowerCase().startsWith("ja") ? "ja" : "en"),
   models: [], evaluations: [], prices: [], priceRule: null, bridges: null, updatedAt: null
 };
+
 const $ = id => document.getElementById(id);
 const t = key => I18N[state.lang][key] ?? key;
 
@@ -55,7 +56,10 @@ function escapeHtml(value) {
     "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
   })[ch]);
 }
-function latestIso(...values) { return values.filter(Boolean).sort().at(-1) || null; }
+
+function latestIso(...values) {
+  return values.filter(Boolean).sort().at(-1) || null;
+}
 
 function applyLanguage() {
   document.documentElement.lang = state.lang;
@@ -91,6 +95,7 @@ async function loadData() {
 function populateProviders() {
   const select = $("providerFilter");
   const current = select.value;
+  select.querySelectorAll("option:not(:first-child)").forEach(option => option.remove());
   [...new Set(state.models.map(m => m.provider).filter(Boolean))]
     .sort((a, b) => a.localeCompare(b))
     .forEach(provider => {
@@ -100,7 +105,7 @@ function populateProviders() {
       option.translate = false;
       select.appendChild(option);
     });
-  if (current) select.value = current;
+  if ([...select.options].some(option => option.value === current)) select.value = current;
 }
 
 function getLatestEvaluation(modelId) {
@@ -108,6 +113,7 @@ function getLatestEvaluation(modelId) {
     .filter(e => e.model_id === modelId && e.superseded !== true)
     .sort((a, b) => String(b.evaluated_at || "").localeCompare(String(a.evaluated_at || "")))[0] || null;
 }
+
 function getLatestPrice(modelId) {
   return state.prices
     .filter(p => p.model_id === modelId && p.active !== false)
@@ -118,6 +124,7 @@ function convertPower(adoptedPower, basis) {
   if (adoptedPower == null || !basis || !state.bridges?.current_reference) return adoptedPower;
   const target = state.bridges.current_reference;
   if (basis.benchmark !== target.benchmark || basis.version === target.version) return adoptedPower;
+
   const edges = state.bridges.bridges || [];
   const queue = [{version: basis.version, value: Number(adoptedPower), visited: new Set([basis.version])}];
   while (queue.length) {
@@ -129,7 +136,8 @@ function convertPower(adoptedPower, basis) {
       if (edge.type === "linear") value = Number(edge.a ?? 1) * value + Number(edge.b ?? 0);
       else if (edge.type === "multiplier") value *= Number(edge.factor ?? 1);
       else continue;
-      const visited = new Set(node.visited); visited.add(edge.to_version);
+      const visited = new Set(node.visited);
+      visited.add(edge.to_version);
       queue.push({version: edge.to_version, value, visited});
     }
   }
@@ -144,15 +152,28 @@ function standardCost(price) {
   return input * Number(state.priceRule?.input_weight ?? .75) + output * Number(state.priceRule?.output_weight ?? .25);
 }
 
+function costPerformance(currentPower, cost) {
+  const p = Number(currentPower);
+  const c = Number(cost);
+  if (!Number.isFinite(p) || !Number.isFinite(c) || c <= 0) return null;
+  return p / c;
+}
+
 function buildRows() {
   return state.models.map(model => {
     const evaluation = getLatestEvaluation(model.id);
     const price = getLatestPrice(model.id);
     const adoptedPower = evaluation?.adopted_power ?? null;
+    const currentPower = convertPower(adoptedPower, evaluation?.basis);
+    const cost = standardCost(price);
     return {
-      ...model, evaluation, price, adoptedPower,
-      currentPower: convertPower(adoptedPower, evaluation?.basis),
-      standardCost: standardCost(price),
+      ...model,
+      evaluation,
+      price,
+      adoptedPower,
+      currentPower,
+      standardCost: cost,
+      costPerformance: costPerformance(currentPower, cost),
       inputPrice: price?.input_usd_per_million_tokens ?? null,
       outputPrice: price?.output_usd_per_million_tokens ?? null,
       freeAccess: Boolean(model.free_access || price?.free_tier),
@@ -167,6 +188,7 @@ function filteredRows() {
   const status = $("statusFilter").value;
   const access = $("accessFilter").value;
   const sort = $("sortSelect").value;
+
   const rows = buildRows().filter(row => {
     if (q && !`${row.name || ""} ${row.variant || ""} ${row.provider || ""}`.toLowerCase().includes(q)) return false;
     if (provider && row.provider !== provider) return false;
@@ -175,8 +197,10 @@ function filteredRows() {
     if (access === "local" && !row.localAvailable) return false;
     return true;
   });
+
   const numDesc = key => (a, b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity);
-  if (sort === "standard_cost_asc") rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity));
+  if (sort === "cost_performance_desc") rows.sort(numDesc("costPerformance"));
+  else if (sort === "standard_cost_asc") rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity));
   else if (sort === "adopted_power_desc") rows.sort(numDesc("adoptedPower"));
   else if (sort === "released_desc") rows.sort((a, b) => String(b.released_at || "").localeCompare(String(a.released_at || "")));
   else if (sort === "name_asc") rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
@@ -184,13 +208,17 @@ function filteredRows() {
   return rows;
 }
 
-function statusText(status) { return t(status === "preview" ? "preview" : status === "retired" ? "retired" : "active"); }
+function statusText(status) {
+  return t(status === "preview" ? "preview" : status === "retired" ? "retired" : "active");
+}
+
 function formatDate(value) {
   if (!value) return t("unknown");
   const date = new Date(`${String(value).slice(0, 10)}T00:00:00`);
   if (Number.isNaN(date.getTime())) return value;
   return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year: "numeric", month: "short", day: "numeric"}).format(date);
 }
+
 function formatMoney(value) {
   if (value == null || !Number.isFinite(Number(value))) return t("unknown");
   const n = Number(value);
@@ -200,6 +228,12 @@ function formatMoney(value) {
   return `$${n.toFixed(n >= 10 ? 1 : 2).replace(/\.0$/, "").replace(/0$/, "")}`;
 }
 
+function formatCostPerformance(value) {
+  if (value == null || !Number.isFinite(Number(value))) return t("unknown");
+  const n = Number(value);
+  return n >= 100 ? Math.round(n).toString() : n.toFixed(1).replace(/\.0$/, "");
+}
+
 function rowHtml(row) {
   const displayName = row.variant ? `${row.name} ${row.variant}` : row.name;
   const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : "status-active";
@@ -207,6 +241,7 @@ function rowHtml(row) {
     <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(displayName)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
     <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong></div>
     <div class="metric-cell standard-cost"><strong>${escapeHtml(formatMoney(row.standardCost))}</strong></div>
+    <div class="metric-cell cost-performance"><strong>${escapeHtml(formatCostPerformance(row.costPerformance))}</strong></div>
     <div class="metric-cell"><strong>${row.adoptedPower ?? "—"}</strong></div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.inputPrice))}</div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.outputPrice))}</div>
@@ -223,16 +258,20 @@ function render() {
   $("modelCount").textContent = state.models.length.toLocaleString(state.lang === "ja" ? "ja-JP" : "en-US");
   $("updatedAt").textContent = state.updatedAt ? formatDate(state.updatedAt) : t("unknown");
   $("modelList").innerHTML = rows.map(rowHtml).join("");
+
   const empty = $("emptyState");
   if (rows.length === 0 && state.models.length > 0 && $("loadingState").hidden) {
     empty.hidden = false;
     empty.innerHTML = `<strong>${escapeHtml(t("emptyTitle"))}</strong><p>${escapeHtml(t("emptyBody"))}</p>`;
-  } else empty.hidden = true;
+  } else {
+    empty.hidden = true;
+  }
 }
 
 ["searchInput", "providerFilter", "statusFilter", "accessFilter", "sortSelect"].forEach(id => {
   $(id).addEventListener(id === "searchInput" ? "input" : "change", render);
 });
+
 $("langToggle").addEventListener("click", () => {
   state.lang = state.lang === "ja" ? "en" : "ja";
   localStorage.setItem("ai-model-power-lang", state.lang);
