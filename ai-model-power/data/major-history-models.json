@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-02T00:35:00+09:00",
+  "updated_at": "2026-10-02T01:15:00+09:00",
   "scope": "Major OpenAI, Anthropic, Google and xAI general-purpose/reasoning release families from 2025 onward, one representative profile per release.",
   "models": [
     {"id":"openai-gpt-6-sol-max","name":"GPT-6 Sol","variant":"max","provider":"OpenAI","released_at":"2026-09-22","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1050000},
@@ -30,10 +30,10 @@
     {"id":"anthropic-claude-opus-4-5-max","name":"Claude Opus 4.5","variant":"max","provider":"Anthropic","released_at":"2025-11-24","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
     {"id":"anthropic-claude-haiku-4-5-max","name":"Claude Haiku 4.5","variant":"max","provider":"Anthropic","released_at":"2025-10-15","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
     {"id":"anthropic-claude-sonnet-4-5-max","name":"Claude Sonnet 4.5","variant":"max","provider":"Anthropic","released_at":"2025-09-29","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
-    {"id":"anthropic-claude-opus-4-1-max","name":"Claude Opus 4.1","variant":"max","provider":"Anthropic","released_at":"2025-08-05","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
-    {"id":"anthropic-claude-opus-4-max","name":"Claude Opus 4","variant":"max","provider":"Anthropic","released_at":"2025-05-22","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
-    {"id":"anthropic-claude-sonnet-4-max","name":"Claude Sonnet 4","variant":"max","provider":"Anthropic","released_at":"2025-05-22","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
-    {"id":"anthropic-claude-3-7-sonnet-reasoning","name":"Claude 3.7 Sonnet","variant":"reasoning","provider":"Anthropic","released_at":"2025-02-24","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
+    {"id":"anthropic-claude-opus-4-1-max","name":"Claude Opus 4.1","variant":"max","provider":"Anthropic","released_at":"2025-08-05","status":"retired","retired_at":"2026-08-05","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
+    {"id":"anthropic-claude-opus-4-max","name":"Claude Opus 4","variant":"max","provider":"Anthropic","released_at":"2025-05-22","status":"retired","retired_at":"2026-06-15","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
+    {"id":"anthropic-claude-sonnet-4-max","name":"Claude Sonnet 4","variant":"max","provider":"Anthropic","released_at":"2025-05-22","status":"retired","retired_at":"2026-06-15","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
+    {"id":"anthropic-claude-3-7-sonnet-reasoning","name":"Claude 3.7 Sonnet","variant":"reasoning","provider":"Anthropic","released_at":"2025-02-24","status":"retired","retired_at":"2026-02-19","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":200000},
 
     {"id":"google-gemini-3-7-flash-medium","name":"Gemini 3.7 Flash","variant":"medium","provider":"Google","released_at":"2026-08-13","status":"active","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
     {"id":"google-gemini-3-5-flash-medium","name":"Gemini 3.5 Flash","variant":"medium","provider":"Google","released_at":"2026-05-19","status":"retired","free_access":false,"local_available":false,"general_access_available":false,"context_window_tokens":1000000},
