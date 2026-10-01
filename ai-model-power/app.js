@@ -45,24 +45,17 @@ const I18N = {
 
 const state = {
   lang: localStorage.getItem("ai-model-power-lang") || (navigator.language?.toLowerCase().startsWith("ja") ? "ja" : "en"),
-  models: [],
-  evaluations: [],
-  prices: [],
-  priceRule: null,
-  bridges: null,
-  updatedAt: null
+  models: [], evaluations: [], prices: [], priceRule: null, bridges: null, updatedAt: null
 };
-
 const $ = id => document.getElementById(id);
 const t = key => I18N[state.lang][key] ?? key;
 
 function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>'\"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'\"':"&quot;"}[c]));
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+  })[ch]);
 }
-
-function latestIso(...values) {
-  return values.filter(Boolean).sort().at(-1) || null;
-}
+function latestIso(...values) { return values.filter(Boolean).sort().at(-1) || null; }
 
 function applyLanguage() {
   document.documentElement.lang = state.lang;
@@ -75,12 +68,10 @@ function applyLanguage() {
 
 async function loadData() {
   try {
-    const [models, evaluations, prices, bridges] = await Promise.all([
-      fetch("data/models.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/evaluations.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/prices.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status)),
-      fetch("data/benchmark-bridges.json", {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
-    ]);
+    const paths = ["models", "evaluations", "prices", "benchmark-bridges"];
+    const [models, evaluations, prices, bridges] = await Promise.all(paths.map(name =>
+      fetch(`data/${name}.json`, {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
+    ));
     state.models = models.models || [];
     state.evaluations = evaluations.evaluations || [];
     state.prices = prices.prices || [];
@@ -100,16 +91,16 @@ async function loadData() {
 function populateProviders() {
   const select = $("providerFilter");
   const current = select.value;
-  const providers = [...new Set(state.models.map(m => m.provider).filter(Boolean))].sort((a, b) => a.localeCompare(b));
-  select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
-  for (const provider of providers) {
-    const option = document.createElement("option");
-    option.value = provider;
-    option.textContent = provider;
-    option.translate = false;
-    select.appendChild(option);
-  }
-  if (providers.includes(current)) select.value = current;
+  [...new Set(state.models.map(m => m.provider).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b))
+    .forEach(provider => {
+      const option = document.createElement("option");
+      option.value = provider;
+      option.textContent = provider;
+      option.translate = false;
+      select.appendChild(option);
+    });
+  if (current) select.value = current;
 }
 
 function getLatestEvaluation(modelId) {
@@ -117,7 +108,6 @@ function getLatestEvaluation(modelId) {
     .filter(e => e.model_id === modelId && e.superseded !== true)
     .sort((a, b) => String(b.evaluated_at || "").localeCompare(String(a.evaluated_at || "")))[0] || null;
 }
-
 function getLatestPrice(modelId) {
   return state.prices
     .filter(p => p.model_id === modelId && p.active !== false)
@@ -139,8 +129,7 @@ function convertPower(adoptedPower, basis) {
       if (edge.type === "linear") value = Number(edge.a ?? 1) * value + Number(edge.b ?? 0);
       else if (edge.type === "multiplier") value *= Number(edge.factor ?? 1);
       else continue;
-      const visited = new Set(node.visited);
-      visited.add(edge.to_version);
+      const visited = new Set(node.visited); visited.add(edge.to_version);
       queue.push({version: edge.to_version, value, visited});
     }
   }
@@ -161,10 +150,7 @@ function buildRows() {
     const price = getLatestPrice(model.id);
     const adoptedPower = evaluation?.adopted_power ?? null;
     return {
-      ...model,
-      evaluation,
-      price,
-      adoptedPower,
+      ...model, evaluation, price, adoptedPower,
       currentPower: convertPower(adoptedPower, evaluation?.basis),
       standardCost: standardCost(price),
       inputPrice: price?.input_usd_per_million_tokens ?? null,
@@ -189,30 +175,22 @@ function filteredRows() {
     if (access === "local" && !row.localAvailable) return false;
     return true;
   });
-
   const numDesc = key => (a, b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity);
-  switch (sort) {
-    case "standard_cost_asc": rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity)); break;
-    case "adopted_power_desc": rows.sort(numDesc("adoptedPower")); break;
-    case "released_desc": rows.sort((a, b) => String(b.released_at || "").localeCompare(String(a.released_at || ""))); break;
-    case "name_asc": rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""))); break;
-    default: rows.sort(numDesc("currentPower"));
-  }
+  if (sort === "standard_cost_asc") rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity));
+  else if (sort === "adopted_power_desc") rows.sort(numDesc("adoptedPower"));
+  else if (sort === "released_desc") rows.sort((a, b) => String(b.released_at || "").localeCompare(String(a.released_at || "")));
+  else if (sort === "name_asc") rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
+  else rows.sort(numDesc("currentPower"));
   return rows;
 }
 
-function statusText(status) {
-  return t(status === "preview" ? "preview" : status === "retired" ? "retired" : "active");
-}
-
+function statusText(status) { return t(status === "preview" ? "preview" : status === "retired" ? "retired" : "active"); }
 function formatDate(value) {
   if (!value) return t("unknown");
-  const dateText = String(value).slice(0, 10);
-  const date = new Date(`${dateText}T00:00:00`);
+  const date = new Date(`${String(value).slice(0, 10)}T00:00:00`);
   if (Number.isNaN(date.getTime())) return value;
   return new Intl.DateTimeFormat(state.lang === "ja" ? "ja-JP" : "en-US", {year: "numeric", month: "short", day: "numeric"}).format(date);
 }
-
 function formatMoney(value) {
   if (value == null || !Number.isFinite(Number(value))) return t("unknown");
   const n = Number(value);
@@ -249,15 +227,12 @@ function render() {
   if (rows.length === 0 && state.models.length > 0 && $("loadingState").hidden) {
     empty.hidden = false;
     empty.innerHTML = `<strong>${escapeHtml(t("emptyTitle"))}</strong><p>${escapeHtml(t("emptyBody"))}</p>`;
-  } else {
-    empty.hidden = true;
-  }
+  } else empty.hidden = true;
 }
 
 ["searchInput", "providerFilter", "statusFilter", "accessFilter", "sortSelect"].forEach(id => {
   $(id).addEventListener(id === "searchInput" ? "input" : "change", render);
 });
-
 $("langToggle").addEventListener("click", () => {
   state.lang = state.lang === "ja" ? "en" : "ja";
   localStorage.setItem("ai-model-power-lang", state.lang);
