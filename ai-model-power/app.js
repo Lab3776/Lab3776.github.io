@@ -223,9 +223,9 @@ function formatMoney(value) {
   if (value == null || !Number.isFinite(Number(value))) return t("unknown");
   const n = Number(value);
   if (n === 0) return "$0";
-  if (n < .1) return `$${n.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}`;
-  if (n < 1) return `$${n.toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}`;
-  return `$${n.toFixed(n >= 10 ? 1 : 2).replace(/\.0$/, "").replace(/0$/, "")}`;
+  const decimals = n < .1 ? 3 : n < 10 ? 2 : 1;
+  const formatted = n.toFixed(decimals).replace(/\.0+$|(?<=\.[0-9]*?)0+$/g, "").replace(/\.$/, "");
+  return `$${formatted}`;
 }
 
 function formatCostPerformance(value) {
