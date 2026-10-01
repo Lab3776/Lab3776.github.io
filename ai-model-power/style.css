@@ -126,11 +126,11 @@ input::placeholder { color: #727a8b; }
   background: rgba(25,27,32,.78);
   box-shadow: var(--shadow);
 }
-.compare-table { min-width: 815px; }
+.compare-table { min-width: 887px; }
 .table-row {
   display: grid;
-  grid-template-columns: 142px 72px 82px 76px 74px 74px 52px 52px 94px 67px;
-  min-width: 815px;
+  grid-template-columns: 142px 72px 82px 72px 76px 74px 74px 52px 52px 94px 67px;
+  min-width: 887px;
   align-items: stretch;
 }
 .table-row + .table-row { border-top: 1px solid var(--border); }
@@ -149,8 +149,8 @@ input::placeholder { color: #727a8b; }
   padding: 8px 7px;
   border-right: 1px solid rgba(255,255,255,.045);
 }
-.table-head > div:nth-child(-n+3) { color: #c7ceff; }
-.model-row > div:nth-child(-n+3) { background: rgba(116,132,255,.035); }
+.table-head > div:nth-child(-n+4) { color: #c7ceff; }
+.model-row > div:nth-child(-n+4) { background: rgba(116,132,255,.035); }
 .model-row { background: linear-gradient(145deg, rgba(31,34,40,.94), rgba(24,26,31,.94)); }
 .model-cell { display: flex; flex-direction: column; justify-content: center; }
 .model-name { font-size: .76rem; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
@@ -159,10 +159,26 @@ input::placeholder { color: #727a8b; }
 .metric-cell strong { font-size: .82rem; }
 .current-power strong { color: #dce0ff; font-size: .92rem; }
 .standard-cost strong { color: var(--good); }
+.cost-performance strong { color: #aab3ff; }
 .yes { color: var(--good); }
 .no { color: var(--muted); }
 .status-active { color: var(--good); }
 .status-preview { color: var(--warn); }
+
+.table-head > div:first-child,
+.model-row > div:first-child {
+  position: sticky;
+  left: 0;
+  box-shadow: 7px 0 12px rgba(0,0,0,.22);
+}
+.table-head > div:first-child {
+  z-index: 5;
+  background: #15171c;
+}
+.model-row > div:first-child {
+  z-index: 3;
+  background: #1d2026;
+}
 
 .empty-state {
   margin-top: 8px;
@@ -230,8 +246,8 @@ footer {
 
 @media (max-width: 380px) {
   .control-grid { grid-template-columns: 1fr; }
-  .table-row { grid-template-columns: 136px 70px 78px 74px 72px 72px 50px 50px 90px 65px; }
-  .compare-table, .table-row { min-width: 787px; }
+  .table-row { grid-template-columns: 136px 70px 78px 68px 74px 72px 72px 50px 50px 90px 65px; }
+  .compare-table, .table-row { min-width: 825px; }
 }
 
 @media (min-width: 760px) {
@@ -251,7 +267,7 @@ footer {
   .compare-table { min-width: 100%; }
   .table-row {
     min-width: 100%;
-    grid-template-columns: minmax(180px, 1.8fr) 100px 110px 100px 100px 100px 70px 70px 110px 80px;
+    grid-template-columns: minmax(180px, 1.8fr) 92px 104px 86px 92px 92px 92px 64px 64px 104px 76px;
   }
   .table-head > div, .model-row > div { padding: 12px 10px; }
   .model-name { font-size: .88rem; }
