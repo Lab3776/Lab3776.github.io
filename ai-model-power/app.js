@@ -81,16 +81,16 @@ function applyLanguage() {
 
 async function loadData() {
   try {
-    const paths = ["models", "evaluations", "prices", "benchmark-bridges"];
-    const [models, evaluations, prices, bridges] = await Promise.all(paths.map(name =>
+    const paths = ["models", "evaluations", "prices", "benchmark-bridges", "major-history-models", "major-history-evaluations"];
+    const [models, evaluations, prices, bridges, historyModels, historyEvaluations] = await Promise.all(paths.map(name =>
       fetch(`data/${name}.json`, {cache: "no-store"}).then(r => r.ok ? r.json() : Promise.reject(r.status))
     ));
-    state.models = models.models || [];
-    state.evaluations = evaluations.evaluations || [];
+    state.models = [...(models.models || []), ...(historyModels.models || [])];
+    state.evaluations = [...(evaluations.evaluations || []), ...(historyEvaluations.evaluations || [])];
     state.prices = prices.prices || [];
     state.priceRule = prices.standard_cost_rule || {input_weight: .75, output_weight: .25};
     state.bridges = bridges;
-    state.updatedAt = latestIso(models.updated_at, evaluations.updated_at, prices.updated_at, bridges.updated_at);
+    state.updatedAt = latestIso(models.updated_at, evaluations.updated_at, prices.updated_at, bridges.updated_at, historyModels.updated_at, historyEvaluations.updated_at);
     populateProviders();
     $("loadingState").hidden = true;
     render();
