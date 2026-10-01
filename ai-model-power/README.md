@@ -1,4 +1,22 @@
-# AI model comparison: update history
+# AI model comparison: data and update history
+
+## Default comparison scope
+
+The database may contain consumer-chat, API-only, local-only, special-purpose and retired
+models, but the top page defaults to active models that can be used directly from a normal
+consumer-facing web/app chat UI.
+
+`data/models.json` uses `consumer_chat_available` for this default-scope decision.
+
+- `true`: the evaluated model/profile is directly usable in a normal consumer-facing chat UI.
+- `false`: API-only, local-only, developer/special-purpose access, or no confirmed ordinary chat access.
+- A model can be `consumer_chat_available: true` and also support API or local execution.
+- Retired models are excluded separately by the default status filter.
+- Users can choose `All` in the access/status filters to inspect records outside the default scope.
+
+Keep this field about actual access to the evaluated model/profile, not provider popularity.
+
+## Public update history
 
 `history.html` displays `data/history.json`. It supports Japanese/English, text search,
 update-area/type/date filters and sorting by date, update area, change or reason.
