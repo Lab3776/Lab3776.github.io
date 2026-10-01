@@ -4,6 +4,7 @@ const I18N = {
     lead: "AIモデルの現在戦闘力とコストを中心に比較します。",
     notice: "戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。",
     filters: "検索・絞り込み",
+    history: "更新履歴",
     listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "利用形態", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
@@ -25,6 +26,7 @@ const I18N = {
     lead: "Compare current model power and cost at a glance.",
     notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional evaluations.",
     filters: "Search & filters",
+    history: "History",
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired",
@@ -274,4 +276,8 @@ $("langToggle").addEventListener("click", () => {
 });
 
 applyLanguage();
+const desktopControls = window.matchMedia("(min-width: 760px)");
+const syncControls = () => { document.querySelector(".controls").open = desktopControls.matches; };
+desktopControls.addEventListener("change", syncControls);
+syncControls();
 loadData();

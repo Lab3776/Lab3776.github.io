@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>更新履歴 | AIモデル戦闘力データベース</title>
+  <meta name="description" content="AIモデルの登録・評価・料金の変更内容と変更理由を確認できます。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../">LAB 3776</a><button id="langToggle" class="lang-button" type="button">EN</button></header>
+  <main class="page-shell">
+    <section class="hero">
+      <a class="back-link" href="./" data-i18n="back">← モデル比較へ</a>
+      <h1 data-i18n="title">更新履歴</h1>
+      <p class="lead" data-i18n="lead">モデルの登録・評価・料金の変更内容と、その理由を確認できます。</p>
+    </section>
+    <details class="controls">
+      <summary data-i18n="filters">検索・絞り込み</summary>
+      <div class="controls-body">
+        <label class="search-box"><span class="sr-only" data-i18n="search">履歴を検索</span><input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="モデル名・変更内容・理由で検索"></label>
+        <div class="control-grid">
+          <label><span data-i18n="model">モデル名</span><select id="modelFilter"></select></label>
+          <label><span data-i18n="type">変更種別</span><select id="typeFilter"></select></label>
+          <label><span data-i18n="from">更新日（開始）</span><input id="dateFrom" type="date"></label>
+          <label><span data-i18n="to">更新日（終了）</span><input id="dateTo" type="date"></label>
+          <label><span data-i18n="sort">並び替え</span><select id="sortSelect">
+            <option value="date_desc" data-i18n="newest">更新日：新しい順</option>
+            <option value="date_asc" data-i18n="oldest">更新日：古い順</option>
+            <option value="model_asc" data-i18n="modelSort">モデル名順</option>
+            <option value="change_asc" data-i18n="changeSort">変更内容順</option>
+            <option value="reason_asc" data-i18n="reasonSort">変更理由順</option>
+          </select></label>
+        </div>
+      </div>
+    </details>
+    <section class="results" aria-live="polite">
+      <p class="history-count" id="resultCount"></p>
+      <p class="scroll-hint" data-i18n="scroll">横スクロールで変更理由まで確認できます →</p>
+      <div class="table-scroll">
+        <table class="history-table">
+          <caption class="sr-only" data-i18n="title">更新履歴</caption>
+          <thead><tr><th scope="col" data-i18n="date">更新日</th><th scope="col" data-i18n="model">モデル名</th><th scope="col" data-i18n="change">変更内容</th><th scope="col" data-i18n="reason">変更理由</th></tr></thead>
+          <tbody id="historyList"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state" hidden data-i18n="empty">条件に一致する履歴はありません。</div>
+      <p id="loadingState" class="history-count" data-i18n="loading">読み込み中…</p>
+    </section>
+  </main>
+  <footer><span>© Lab 3776</span><a href="./" data-i18n="back">← モデル比較へ</a></footer>
+  <script src="history.js" defer></script>
+</body>
+</html>
