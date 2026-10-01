@@ -625,6 +625,78 @@
       "change_en": "Added three display scopes and made Major services the default",
       "reason_ja": "最初に比較されやすいOpenAI・Anthropic・Google・xAI（Grok）を優先しつつ、一般向けとDB全件へ段階的に広げられるようにするため。",
       "reason_en": "Prioritized OpenAI, Anthropic, Google and xAI (Grok) for the initial comparison while keeping General access and All as progressively broader scopes."
+    },
+    {
+      "id": "metadata-openai-gpt-6-astra-max-53",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "openai-gpt-6-astra-max",
+      "model_name": "GPT-6 Astra max",
+      "type": "metadata",
+      "change_ja": "公開日を2026年9月3日に補完",
+      "change_en": "Set release date to September 3, 2026",
+      "reason_ja": "OpenAI公式の公開記事で2026年9月3日を確認。",
+      "reason_en": "Confirmed September 3, 2026 from OpenAI's official release material.",
+      "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-meta-muse-spark-1-3-max-54",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "meta-muse-spark-1-3-max",
+      "model_name": "Muse Spark 1.3 max",
+      "type": "metadata",
+      "change_ja": "公開日を2026年9月2日に補完",
+      "change_en": "Set release date to September 2, 2026",
+      "reason_ja": "Meta公式の公開情報で2026年9月2日を確認。",
+      "reason_en": "Confirmed September 2, 2026 from Meta's official release information.",
+      "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-zai-glm-5-3-max-55",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "zai-glm-5-3-max",
+      "model_name": "GLM-5.3 max",
+      "type": "metadata",
+      "change_ja": "公開日を2026年8月14日に補完",
+      "change_en": "Set release date to August 14, 2026",
+      "reason_ja": "Z.ai公式のGLM-5.3公開記事で2026年8月14日を確認。",
+      "reason_en": "Confirmed August 14, 2026 from Z.ai's official GLM-5.3 release post.",
+      "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-google-gemini-3-8-flash-high-56",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "google-gemini-3-8-flash-high",
+      "model_name": "Gemini 3.8 Flash high",
+      "type": "metadata",
+      "change_ja": "公開日を2026年9月2日に補完",
+      "change_en": "Set release date to September 2, 2026",
+      "reason_ja": "Google公式英語版の公開記事で2026年9月2日を確認。",
+      "reason_en": "Confirmed September 2, 2026 from Google's official English release post.",
+      "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-deepseek-v4-1-flash-max-57",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "deepseek-v4-1-flash-max",
+      "model_name": "DeepSeek V4.1 Flash max",
+      "type": "metadata",
+      "change_ja": "公開日を2026年9月10日に補完",
+      "change_en": "Set release date to September 10, 2026",
+      "reason_ja": "DeepSeek公式Change Logで2026年9月10日の正式リリースを確認。",
+      "reason_en": "Confirmed the September 10, 2026 official release in DeepSeek's change log.",
+      "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-xiaomi-mimo-v2-5-pro-58",
+      "updated_at": "2026-10-01T22:16:00+09:00",
+      "model_id": "xiaomi-mimo-v2-5-pro",
+      "model_name": "MiMo-V2.5-Pro reasoning",
+      "type": "metadata",
+      "change_ja": "公開時期を2026年5月として補完",
+      "change_en": "Set known release period to May 2026",
+      "reason_ja": "Xiaomi公式の2026年5月30日資料でMiMo-V2.5-Proの存在を確認できるが、正式公開日は未確定のため年月のみ登録。",
+      "reason_en": "Xiaomi's official May 30, 2026 material confirms MiMo-V2.5-Pro existed by May; the exact release day remains unconfirmed, so only year and month are stored.",
+      "source_commit": "c725a78"
     }
   ]
 }
