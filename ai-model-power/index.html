@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#121212">
+  <title>AIモデル戦闘力データベース | Lab 3776</title>
+  <meta name="description" content="AIモデルの参考性能（戦闘力）、価格、無料利用、ローカル実行可否などを比較するLab 3776のデータベース。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Lab 3776">LAB 3776</a>
+    <button class="lang-button" id="langToggle" type="button" aria-label="Switch language">EN</button>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow" data-i18n="eyebrow">LAB 3776 / PUBLIC DATABASE</p>
+      <h1 data-i18n="title">AIモデル戦闘力データベース</h1>
+      <p class="lead" data-i18n="lead">各社AIモデルの参考性能、価格、無料利用、ローカル実行可否を横断比較するためのデータベースです。</p>
+      <p class="notice" data-i18n="notice">戦闘力は複数の公開資料から相対的に推定する独自の参考指標です。絶対的なベンチマーク値ではありません。</p>
+    </section>
+
+    <section class="summary" aria-label="Database summary">
+      <div class="summary-card">
+        <span class="summary-label" data-i18n="listedModels">掲載モデル</span>
+        <strong id="modelCount">—</strong>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label" data-i18n="lastUpdated">データ更新</span>
+        <strong id="updatedAt">—</strong>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Filters">
+      <label class="search-box">
+        <span class="sr-only" data-i18n="search">検索</span>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="モデル名・企業名で検索" data-i18n-placeholder="searchPlaceholder">
+      </label>
+
+      <div class="control-grid">
+        <label>
+          <span data-i18n="provider">企業</span>
+          <select id="providerFilter">
+            <option value="" data-i18n="all">すべて</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="availability">提供状態</span>
+          <select id="statusFilter">
+            <option value="" data-i18n="all">すべて</option>
+            <option value="active" data-i18n="active">提供中</option>
+            <option value="preview" data-i18n="preview">Preview</option>
+            <option value="retired" data-i18n="retired">提供終了</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="access">利用形態</span>
+          <select id="accessFilter">
+            <option value="" data-i18n="all">すべて</option>
+            <option value="free" data-i18n="freeAvailable">無料利用あり</option>
+            <option value="local" data-i18n="localAvailable">ローカル可</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="sort">並び順</span>
+          <select id="sortSelect">
+            <option value="current_power_desc" data-i18n="sortPowerDesc">現在戦闘力：高い順</option>
+            <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">採用戦闘力：高い順</option>
+            <option value="price_asc" data-i18n="sortPriceAsc">出力価格：安い順</option>
+            <option value="released_desc" data-i18n="sortReleasedDesc">公開日：新しい順</option>
+            <option value="name_asc" data-i18n="sortNameAsc">モデル名：昇順</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <div class="desktop-head" aria-hidden="true">
+        <span data-i18n="model">モデル</span>
+        <span data-i18n="currentPower">現在戦闘力</span>
+        <span data-i18n="adoptedPower">採用戦闘力</span>
+        <span data-i18n="outputPrice">出力価格</span>
+        <span data-i18n="free">無料</span>
+        <span data-i18n="local">Local</span>
+        <span data-i18n="released">公開</span>
+      </div>
+      <div id="modelList" class="model-list"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <strong data-i18n="emptyTitle">該当するモデルはありません</strong>
+        <p data-i18n="emptyBody">条件を変えてください。</p>
+      </div>
+      <div id="loadingState" class="empty-state">
+        <strong data-i18n="loading">データを読み込んでいます…</strong>
+      </div>
+    </section>
+
+    <section class="method-card">
+      <h2 data-i18n="methodTitle">戦闘力について</h2>
+      <p data-i18n="methodBody">採用戦闘力は、公式情報や信頼できる第三者ベンチマークを複数参照して相対的に決めます。現在戦闘力は、ベンチマークの世代差を共通モデルから換算して再計算します。</p>
+      <p class="muted" data-i18n="methodNote">評価根拠と変更履歴はモデルごとに追跡できる構成を予定しています。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Lab 3776</span>
+    <span>·</span>
+    <span data-i18n="provisional">Provisional</span>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
