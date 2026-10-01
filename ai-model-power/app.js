@@ -8,7 +8,7 @@ const I18N = {
     listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "利用形態", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
-    freeAvailable: "無料利用あり", localAvailable: "ローカル可",
+    consumerAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
     sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
     sortReleasedDesc: "公開日：新しい順", sortNameAsc: "モデル名：昇順",
     model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", costPerformance: "コスパ", adoptedPower: "採用戦闘力",
@@ -30,7 +30,7 @@ const I18N = {
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Access", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired",
-    freeAvailable: "Free access", localAvailable: "Local available",
+    consumerAccess: "Consumer chat", freeAvailable: "Free access", localAvailable: "Local available",
     sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
     sortReleasedDesc: "Release date: newest", sortNameAsc: "Model name: A-Z",
     model: "Model", currentPower: "Current power", standardCost: "Standard cost", costPerformance: "Value", adoptedPower: "Adopted power",
@@ -179,7 +179,8 @@ function buildRows() {
       inputPrice: price?.input_usd_per_million_tokens ?? null,
       outputPrice: price?.output_usd_per_million_tokens ?? null,
       freeAccess: Boolean(model.free_access || price?.free_tier),
-      localAvailable: Boolean(model.local_available)
+      localAvailable: Boolean(model.local_available),
+      consumerChatAvailable: Boolean(model.consumer_chat_available)
     };
   });
 }
@@ -195,6 +196,7 @@ function filteredRows() {
     if (q && !`${row.name || ""} ${row.variant || ""} ${row.provider || ""}`.toLowerCase().includes(q)) return false;
     if (provider && row.provider !== provider) return false;
     if (status && row.status !== status) return false;
+    if (access === "consumer" && !row.consumerChatAvailable) return false;
     if (access === "free" && !row.freeAccess) return false;
     if (access === "local" && !row.localAvailable) return false;
     return true;
