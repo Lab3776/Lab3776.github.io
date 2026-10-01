@@ -8,6 +8,11 @@
   <title>AIモデル戦闘力データベース | Lab 3776</title>
   <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、コスパ、無料利用、ローカル実行可否などを比較するLab 3776のデータベース。">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .history-label-en { display: none; }
+    html[lang="en"] .history-label-ja { display: none; }
+    html[lang="en"] .history-label-en { display: inline; }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -20,7 +25,7 @@
       <p class="eyebrow">LAB 3776 / PUBLIC DATABASE</p>
       <h1 data-i18n="title">AIモデル戦闘力データベース</h1>
       <p class="lead" data-i18n="lead">AIモデルの現在戦闘力とコストを中心に比較します。</p>
-      <p class="database-meta"><span><span data-i18n="listedModels">掲載モデル</span> <strong id="modelCount">—</strong></span><span><span data-i18n="lastUpdated">データ更新</span> <span id="updatedAt">—</span></span><a class="history-link" href="history.html" aria-label="History"><span class="history-label-ja">(履歴)</span><span class="history-label-en">(History)</span></a></p>
+      <p class="database-meta"><span><span data-i18n="listedModels">掲載モデル</span> <strong id="modelCount">—</strong></span><span><span data-i18n="lastUpdated">データ更新</span> <span id="updatedAt">—</span></span><a class="history-link" href="history.html" aria-label="更新履歴 / Update history"><span class="history-label-ja">(履歴)</span><span class="history-label-en">(History)</span></a></p>
     </section>
 
     <details class="controls">
