@@ -221,16 +221,12 @@ function formatDate(value) {
 
 function formatMoney(value) {
   if (value == null || !Number.isFinite(Number(value))) return t("unknown");
-  const n = Number(value);
-  if (n === 0) return "$0";
-  const decimals = n < .1 ? 3 : n < 10 ? 2 : 1;
-  return `$${Number(n.toFixed(decimals)).toString()}`;
+  return `$${Number(value).toFixed(2)}`;
 }
 
 function formatCostPerformance(value) {
   if (value == null || !Number.isFinite(Number(value))) return t("unknown");
-  const n = Number(value);
-  return n >= 100 ? Math.round(n).toString() : n.toFixed(1).replace(/\.0$/, "");
+  return Math.round(Number(value)).toString();
 }
 
 function rowHtml(row) {
