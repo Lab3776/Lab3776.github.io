@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated_at": "2026-10-01T15:24:00+09:00",
   "evaluation_method": {
-    "version": "provisional-0.2",
-    "note_ja": "初期データ投入用の暫定基準。Artificial Analysis Intelligence Index v4.3.2 を主要アンカーとし、人工的な10倍拡張を行わず概ね同じ桁で採用戦闘力を置く。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
-    "note_en": "Provisional seed calibration. Artificial Analysis Intelligence Index v4.3.2 is the primary anchor, without an artificial 10x expansion. Adopted power stays roughly on the same magnitude and will be re-evaluated as more evidence is added."
+    "version": "provisional-0.3",
+    "note_ja": "主要現役モデルを一括投入するための暫定基準。Artificial Analysis Intelligence Index v4.3.2 を主要アンカーとし、現段階ではIndex値を概ねそのまま採用戦闘力に置く。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
+    "note_en": "Provisional bulk-seed calibration for major active models. Artificial Analysis Intelligence Index v4.3.2 is the primary anchor and adopted power currently stays close to the Index value. Values will be re-evaluated as additional evidence is added."
   },
   "evaluations": [
     {
@@ -16,10 +16,7 @@
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 56},
       "change_reason_ja": "初回暫定登録。AA Intelligence Index 56を10倍する provisional-0.1 で戦闘力560とした。",
       "change_reason_en": "Initial provisional registration. provisional-0.1 multiplied AA Intelligence Index 56 by 10 to power 560.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/claude-sonnet-5-5-vs-gpt-6-luna", "note": "AA Intelligence Index 56 (max effort)"},
-        {"type": "official", "url": "https://www.anthropic.com/claude-sonnet-5-5", "note": "Release, positioning and pricing"}
-      ]
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5", "note": "AA Intelligence Index 56 (max effort)"}]
     },
     {
       "model_id": "anthropic-claude-sonnet-5-5-max",
@@ -27,11 +24,9 @@
       "adopted_power": 56,
       "confidence": "provisional",
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 56},
-      "change_reason_ja": "10倍しても比較情報は増えず、戦闘力は上限なしで将来自然にインフレできるため、人工的な10倍拡張を廃止して56へ変更。",
-      "change_reason_en": "Removed the artificial 10x expansion because it adds no comparison information and the unbounded power scale can grow naturally over time.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/claude-sonnet-5-5-vs-gpt-6-luna", "note": "AA Intelligence Index 56 (max effort)"}
-      ]
+      "change_reason_ja": "人工的な10倍拡張を廃止してAA Indexと同程度の桁へ変更。",
+      "change_reason_en": "Removed the artificial 10x expansion and returned to roughly the AA Index magnitude.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5", "note": "AA Intelligence Index 56 (max effort)"}]
     },
     {
       "model_id": "openai-gpt-6-1-sol-max",
@@ -42,10 +37,7 @@
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 52},
       "change_reason_ja": "初回暫定登録。AA Intelligence Index 52を10倍する provisional-0.1 で戦闘力520とした。",
       "change_reason_en": "Initial provisional registration. provisional-0.1 multiplied AA Intelligence Index 52 by 10 to power 520.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/gpt-6-1-sol-vs-gpt-6-luna", "note": "AA Intelligence Index 52 (max effort)"},
-        {"type": "official", "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol", "note": "Official model positioning and pricing"}
-      ]
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gpt-6-1-sol", "note": "AA Intelligence Index 52 (max effort)"}]
     },
     {
       "model_id": "openai-gpt-6-1-sol-max",
@@ -53,11 +45,9 @@
       "adopted_power": 52,
       "confidence": "provisional",
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 52},
-      "change_reason_ja": "10倍しても比較情報は増えず、戦闘力は上限なしで将来自然にインフレできるため、人工的な10倍拡張を廃止して52へ変更。",
-      "change_reason_en": "Removed the artificial 10x expansion because it adds no comparison information and the unbounded power scale can grow naturally over time.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/gpt-6-1-sol-vs-gpt-6-luna", "note": "AA Intelligence Index 52 (max effort)"}
-      ]
+      "change_reason_ja": "人工的な10倍拡張を廃止してAA Indexと同程度の桁へ変更。",
+      "change_reason_en": "Removed the artificial 10x expansion and returned to roughly the AA Index magnitude.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gpt-6-1-sol", "note": "AA Intelligence Index 52 (max effort)"}]
     },
     {
       "model_id": "openai-gpt-6-luna-max",
@@ -68,10 +58,7 @@
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 37},
       "change_reason_ja": "初回暫定登録。AA Intelligence Index 37を10倍する provisional-0.1 で戦闘力370とした。",
       "change_reason_en": "Initial provisional registration. provisional-0.1 multiplied AA Intelligence Index 37 by 10 to power 370.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/gpt-6-1-sol-vs-gpt-6-luna", "note": "AA Intelligence Index 37 (max effort)"},
-        {"type": "official", "url": "https://developers.openai.com/api/docs/models/gpt-6-luna", "note": "Official model positioning and pricing"}
-      ]
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gpt-6-luna", "note": "AA Intelligence Index 37 (max effort)"}]
     },
     {
       "model_id": "openai-gpt-6-luna-max",
@@ -79,11 +66,9 @@
       "adopted_power": 37,
       "confidence": "provisional",
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 37},
-      "change_reason_ja": "10倍しても比較情報は増えず、戦闘力は上限なしで将来自然にインフレできるため、人工的な10倍拡張を廃止して37へ変更。",
-      "change_reason_en": "Removed the artificial 10x expansion because it adds no comparison information and the unbounded power scale can grow naturally over time.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/comparisons/gpt-6-1-sol-vs-gpt-6-luna", "note": "AA Intelligence Index 37 (max effort)"}
-      ]
+      "change_reason_ja": "人工的な10倍拡張を廃止してAA Indexと同程度の桁へ変更。",
+      "change_reason_en": "Removed the artificial 10x expansion and returned to roughly the AA Index magnitude.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gpt-6-luna", "note": "AA Intelligence Index 37 (max effort)"}]
     },
     {
       "model_id": "google-gemini-3-6-flash-high",
@@ -94,10 +79,7 @@
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 34},
       "change_reason_ja": "初回暫定登録。AA Intelligence Index 34を10倍する provisional-0.1 で戦闘力340とした。",
       "change_reason_en": "Initial provisional registration. provisional-0.1 multiplied AA Intelligence Index 34 by 10 to power 340.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/gemini-3-6-flash", "note": "AA Intelligence Index 34 (high reasoning)"},
-        {"type": "official", "url": "https://ai.google.dev/gemini-api/docs/pricing", "note": "Official API pricing and free tier"}
-      ]
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gemini-3-6-flash", "note": "AA Intelligence Index 34 (high reasoning)"}]
     },
     {
       "model_id": "google-gemini-3-6-flash-high",
@@ -105,11 +87,149 @@
       "adopted_power": 34,
       "confidence": "provisional",
       "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 34},
-      "change_reason_ja": "10倍しても比較情報は増えず、戦闘力は上限なしで将来自然にインフレできるため、人工的な10倍拡張を廃止して34へ変更。",
-      "change_reason_en": "Removed the artificial 10x expansion because it adds no comparison information and the unbounded power scale can grow naturally over time.",
-      "evidence": [
-        {"type": "benchmark", "url": "https://artificialanalysis.ai/models/gemini-3-6-flash", "note": "AA Intelligence Index 34 (high reasoning)"}
-      ]
+      "change_reason_ja": "人工的な10倍拡張を廃止してAA Indexと同程度の桁へ変更。",
+      "change_reason_en": "Removed the artificial 10x expansion and returned to roughly the AA Index magnitude.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gemini-3-6-flash", "note": "AA Intelligence Index 34 (high reasoning)"}]
+    },
+    {
+      "model_id": "anthropic-claude-opus-5-5-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 58,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 58},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/claude-opus-5-5", "note": "AA Intelligence Index 58 (max effort)"}]
+    },
+    {
+      "model_id": "anthropic-claude-fable-5-1-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 53,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 53},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/claude-fable-5-1", "note": "AA Intelligence Index 53 (max effort)"}]
+    },
+    {
+      "model_id": "openai-gpt-6-astra-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 53,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 53},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/releases/gpt-6-astra", "note": "AA Intelligence Index 53 (max effort)"}]
+    },
+    {
+      "model_id": "meta-muse-spark-1-3-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 48,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 48},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/muse-spark-1-3", "note": "AA Intelligence Index 48 (max effort)"}]
+    },
+    {
+      "model_id": "spacexai-grok-4-7-xhigh",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 46,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 46},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/grok-4-7", "note": "AA Intelligence Index 46 (xhigh effort)"}]
+    },
+    {
+      "model_id": "alibaba-qwen3-8-max-0902",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 45,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 45},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/qwen3-8-max", "note": "AA Intelligence Index 45"}]
+    },
+    {
+      "model_id": "zai-glm-5-3-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 45,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 45},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/glm-5-3", "note": "AA Intelligence Index 45 (max effort)"}]
+    },
+    {
+      "model_id": "kimi-kimi-k3-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 44,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 44},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/kimi-k3", "note": "AA Intelligence Index 44 (max effort)"}]
+    },
+    {
+      "model_id": "zai-glm-5-3-flash",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 42,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 42},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/glm-5-3-flash", "note": "AA Intelligence Index 42"}]
+    },
+    {
+      "model_id": "google-gemini-3-8-flash-high",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 41,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 41},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/gemini-3-8-flash", "note": "AA Intelligence Index 41 (high reasoning)"}]
+    },
+    {
+      "model_id": "alibaba-qwen3-8-2-4t-a95b",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 40,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 40},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/qwen3-8-2-4t-a95b", "note": "AA Intelligence Index 40"}]
+    },
+    {
+      "model_id": "deepseek-v4-1-flash-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 39,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 39},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash", "note": "AA Intelligence Index 39 (max effort)"}]
+    },
+    {
+      "model_id": "deepseek-v4-pro-0813-max",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 36,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 36},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/deepseek-v4-pro", "note": "AA Intelligence Index 36 (max effort)"}]
+    },
+    {
+      "model_id": "xiaomi-mimo-v2-5-pro",
+      "evaluated_at": "2026-10-01T15:24:00+09:00",
+      "adopted_power": 26,
+      "confidence": "provisional",
+      "basis": {"benchmark": "Artificial Analysis Intelligence Index", "version": "4.3.2", "observed_score": 26},
+      "change_reason_ja": "主要現役モデル一括投入の初回暫定登録。",
+      "change_reason_en": "Initial provisional registration during the major active-model seed expansion.",
+      "evidence": [{"type": "benchmark", "url": "https://artificialanalysis.ai/models/mimo-v2-5-pro", "note": "AA Intelligence Index 26 (reasoning)"}]
     }
   ]
 }
