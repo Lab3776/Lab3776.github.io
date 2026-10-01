@@ -271,9 +271,13 @@ footer {
 
 .database-meta { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 0; white-space: nowrap; font-size: clamp(.58rem, 2.65vw, .78rem); color: var(--muted); }
 .database-meta strong { font-weight: 600; color: var(--text); }
-.database-meta a, .back-link { color: #aab3ff; text-decoration: underline; text-underline-offset: 3px; }
-.database-meta a:hover, .back-link:hover { color: var(--text); }
-.back-link { display: inline-block; margin: 0 0 12px; font-size: .78rem; }
+.database-meta a { color: #8ab4f8; text-decoration: underline; text-underline-offset: 3px; }
+.database-meta a:hover { color: #b9d2ff; }
+.history-label-en { display: none; }
+html[lang="en"] .history-label-ja { display: none; }
+html[lang="en"] .history-label-en { display: inline; }
+.back-link { color: #aab3ff; text-decoration: underline; text-underline-offset: 3px; display: inline-block; margin: 0 0 12px; font-size: .78rem; }
+.back-link:hover { color: var(--text); }
 .history-count { margin: 8px 1px; font-size: .75rem; color: var(--muted); }
 .history-table { width: 100%; min-width: 720px; border-collapse: collapse; text-align: left; font-size: .78rem; }
 .history-table th { background: #15171c; color: #c7ceff; font-size: .72rem; }
