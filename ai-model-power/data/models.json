@@ -1,7 +1,18 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T15:00:00+09:00",
+  "updated_at": "2026-10-01T15:24:00+09:00",
   "models": [
+    {
+      "id": "anthropic-claude-opus-5-5-max",
+      "name": "Claude Opus 5.5",
+      "variant": "max",
+      "provider": "Anthropic",
+      "released_at": "2026-09-22",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 1000000
+    },
     {
       "id": "anthropic-claude-sonnet-5-5-max",
       "name": "Claude Sonnet 5.5",
@@ -12,6 +23,28 @@
       "free_access": true,
       "local_available": false,
       "context_window_tokens": 1000000
+    },
+    {
+      "id": "anthropic-claude-fable-5-1-max",
+      "name": "Claude Fable 5.1",
+      "variant": "max",
+      "provider": "Anthropic",
+      "released_at": "2026-09-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "openai-gpt-6-astra-max",
+      "name": "GPT-6 Astra",
+      "variant": "max",
+      "provider": "OpenAI",
+      "released_at": "2026-09-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 1050000
     },
     {
       "id": "openai-gpt-6-1-sol-max",
@@ -25,15 +58,125 @@
       "context_window_tokens": 1050000
     },
     {
+      "id": "meta-muse-spark-1-3-max",
+      "name": "Muse Spark 1.3",
+      "variant": "max",
+      "provider": "Meta",
+      "released_at": "2026-09-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "spacexai-grok-4-7-xhigh",
+      "name": "Grok 4.7",
+      "variant": "xhigh",
+      "provider": "SpaceXAI",
+      "released_at": "2026-09-21",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 500000
+    },
+    {
+      "id": "alibaba-qwen3-8-max-0902",
+      "name": "Qwen3.8 Max (0902)",
+      "variant": null,
+      "provider": "Alibaba",
+      "released_at": "2026-09-02",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "context_window_tokens": 984000
+    },
+    {
+      "id": "zai-glm-5-3-max",
+      "name": "GLM-5.3",
+      "variant": "max",
+      "provider": "Z AI",
+      "released_at": "2026-08-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "kimi-kimi-k3-max",
+      "name": "Kimi K3",
+      "variant": "max",
+      "provider": "Kimi",
+      "released_at": "2026-07-16",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "zai-glm-5-3-flash",
+      "name": "GLM-5.3 Flash",
+      "variant": null,
+      "provider": "Z AI",
+      "released_at": "2026-08-26",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "google-gemini-3-8-flash-high",
+      "name": "Gemini 3.8 Flash",
+      "variant": "high",
+      "provider": "Google",
+      "released_at": "2026-09-01",
+      "status": "active",
+      "free_access": true,
+      "local_available": false,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "alibaba-qwen3-8-2-4t-a95b",
+      "name": "Qwen3.8 2.4T A95B",
+      "variant": null,
+      "provider": "Alibaba",
+      "released_at": "2026-08-12",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 984000
+    },
+    {
+      "id": "deepseek-v4-1-flash-max",
+      "name": "DeepSeek V4.1 Flash",
+      "variant": "max",
+      "provider": "DeepSeek",
+      "released_at": "2026-09-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
       "id": "openai-gpt-6-luna-max",
       "name": "GPT-6 Luna",
       "variant": "max",
       "provider": "OpenAI",
       "released_at": "2026-09-22",
       "status": "active",
-      "free_access": true,
+      "free_access": false,
       "local_available": false,
       "context_window_tokens": 1050000
+    },
+    {
+      "id": "deepseek-v4-pro-0813-max",
+      "name": "DeepSeek V4 Pro 0813",
+      "variant": "max",
+      "provider": "DeepSeek",
+      "released_at": "2026-08-13",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "context_window_tokens": 1000000
     },
     {
       "id": "google-gemini-3-6-flash-high",
@@ -44,6 +187,17 @@
       "status": "active",
       "free_access": true,
       "local_available": false,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "xiaomi-mimo-v2-5-pro",
+      "name": "MiMo-V2.5-Pro",
+      "variant": "reasoning",
+      "provider": "Xiaomi",
+      "released_at": "2026-04-01",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
       "context_window_tokens": 1000000
     }
   ]
