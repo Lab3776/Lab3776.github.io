@@ -20,6 +20,20 @@ The Major services scope is a subset of General access: the model/profile must s
 
 This field describes access difficulty rather than provider popularity or technical capability.
 
+## Major-four historical backfill
+
+OpenAI, Anthropic, Google and xAI model families are also backfilled chronologically from the newest releases down through 2025 so the historical comparison does not consist of isolated famous models with large gaps.
+
+- `data/major-history-models.json`: supplementary 2025+ model/release records for the four major providers.
+- `data/major-history-evaluations.json`: one representative evaluation profile per supplementary release, provisionally anchored to Artificial Analysis Intelligence Index v4.3.2.
+- Distinct product models such as Sol / Terra / Luna, Opus / Sonnet / Haiku / Fable and Pro / Flash / Flash-Lite remain separate rows.
+- Multiple reasoning-effort settings for the same release are not exhaustively duplicated; the highest useful representative profile is normally kept.
+- Audio-only, image/video-generation-only and realtime-only models are outside this backfill.
+- Historical rows do not automatically enter the default Major services view. The default remains focused on models with a currently verified general-access GUI route.
+- Historical API prices are not presented as current prices. If a comparable current API price is not verified, standard cost and value remain `—`.
+
+The current backfill floor is January 2025. Earlier models can be added later if they become useful as historical anchors.
+
 ## Release date precision
 
 `released_at` keeps the best verified precision instead of discarding a known year or month when the exact day is unavailable.
