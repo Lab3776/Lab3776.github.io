@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#101114">
   <title>AIモデル戦闘力データベース | Lab 3776</title>
-  <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、無料利用、ローカル実行可否などを比較するLab 3776のデータベース。">
+  <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、コスパ、無料利用、ローカル実行可否などを比較するLab 3776のデータベース。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -55,6 +55,7 @@
             <span data-i18n="sort">並び順</span>
             <select id="sortSelect">
               <option value="current_power_desc" data-i18n="sortPowerDesc">現在戦闘力：高い順</option>
+              <option value="cost_performance_desc" data-i18n="sortCostPerformanceDesc">コスパ：高い順</option>
               <option value="standard_cost_asc" data-i18n="sortCostAsc">標準コスト：安い順</option>
               <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">採用戦闘力：高い順</option>
               <option value="released_desc" data-i18n="sortReleasedDesc">公開日：新しい順</option>
@@ -66,13 +67,14 @@
     </details>
 
     <section class="results" aria-live="polite">
-      <p class="scroll-hint" data-i18n="scrollHint">右へスクロールすると詳細を確認できます →</p>
+      <p class="scroll-hint" data-i18n="scrollHint">モデル名を固定したまま右へスクロールできます →</p>
       <div class="table-scroll">
         <div class="compare-table">
           <div class="table-row table-head" aria-hidden="true">
             <div data-i18n="model">モデル</div>
             <div data-i18n="currentPower">現在戦闘力</div>
             <div data-i18n="standardCost">標準コスト</div>
+            <div data-i18n="costPerformance">コスパ</div>
             <div data-i18n="adoptedPower">採用戦闘力</div>
             <div data-i18n="inputPrice">Input</div>
             <div data-i18n="outputPrice">Output</div>
@@ -102,8 +104,8 @@
     <section class="method-card">
       <h2 data-i18n="methodTitle">表示値について</h2>
       <p class="notice-inline" data-i18n="notice">戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。</p>
-      <p data-i18n="methodBody">現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として公式API価格から自動計算します。</p>
-      <p class="muted" data-i18n="methodNote">戦闘力の初期値は暫定です。評価根拠と変更理由はJSONとGit履歴に残します。</p>
+      <p data-i18n="methodBody">現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。</p>
+      <p class="muted" data-i18n="methodNote">コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。</p>
     </section>
   </main>
 
