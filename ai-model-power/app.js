@@ -7,7 +7,7 @@ const I18N = {
     history: "更新履歴",
     listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "表示範囲", sort: "並び順",
-    all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了",
+    all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了", unknownStatus: "未確認",
     majorServices: "主要サービス", generalAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
     sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
     sortReleasedDesc: "公開日：新しい順", sortNameAsc: "モデル名：昇順",
@@ -32,7 +32,7 @@ const I18N = {
     history: "History",
     listedModels: "Models", lastUpdated: "Data updated", search: "Search",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Scope", sort: "Sort",
-    all: "All", active: "Active", preview: "Preview", retired: "Retired",
+    all: "All", active: "Active", preview: "Preview", retired: "Retired", unknownStatus: "Unverified",
     majorServices: "Major services", generalAccess: "General access", freeAvailable: "Free access", localAvailable: "Local available",
     sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
     sortReleasedDesc: "Release date: newest", sortNameAsc: "Model name: A-Z",
@@ -168,6 +168,23 @@ function costPerformance(currentPower, cost) {
   return p / c;
 }
 
+function nullableBool(modelValue, priceValue = null) {
+  if (modelValue === true || priceValue === true) return true;
+  if (modelValue === false) return false;
+  return null;
+}
+
+function availabilityText(value) {
+  if (value == null) return t("unknown");
+  return value ? t("yes") : t("no");
+}
+
+function availabilityClass(value) {
+  if (value === true) return "yes";
+  if (value === false) return "no";
+  return "";
+}
+
 function buildRows() {
   return state.models.map(model => {
     const evaluation = getLatestEvaluation(model.id);
@@ -185,9 +202,9 @@ function buildRows() {
       costPerformance: costPerformance(currentPower, cost),
       inputPrice: price?.input_usd_per_million_tokens ?? null,
       outputPrice: price?.output_usd_per_million_tokens ?? null,
-      freeAccess: Boolean(model.free_access || price?.free_tier),
-      localAvailable: Boolean(model.local_available),
-      generalAccessAvailable: Boolean(model.general_access_available)
+      freeAccess: nullableBool(model.free_access, price?.free_tier),
+      localAvailable: model.local_available == null ? null : Boolean(model.local_available),
+      generalAccessAvailable: model.general_access_available === true
     };
   });
 }
@@ -205,8 +222,8 @@ function filteredRows() {
     if (status && row.status !== status) return false;
     if (access === "major" && !(row.generalAccessAvailable && MAJOR_PROVIDERS.has(row.provider))) return false;
     if (access === "general" && !row.generalAccessAvailable) return false;
-    if (access === "free" && !row.freeAccess) return false;
-    if (access === "local" && !row.localAvailable) return false;
+    if (access === "free" && row.freeAccess !== true) return false;
+    if (access === "local" && row.localAvailable !== true) return false;
     return true;
   });
 
@@ -221,7 +238,10 @@ function filteredRows() {
 }
 
 function statusText(status) {
-  return t(status === "preview" ? "preview" : status === "retired" ? "retired" : "active");
+  if (status === "active") return t("active");
+  if (status === "preview") return t("preview");
+  if (status === "retired") return t("retired");
+  return t("unknownStatus");
 }
 
 function formatDate(value) {
@@ -250,7 +270,7 @@ function formatCostPerformance(value) {
 
 function rowHtml(row) {
   const displayName = row.variant ? `${row.name} ${row.variant}` : row.name;
-  const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : "status-active";
+  const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : row.status === "active" ? "status-active" : "";
   return `<div class="table-row model-row">
     <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(displayName)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
     <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong></div>
@@ -259,8 +279,8 @@ function rowHtml(row) {
     <div class="metric-cell"><strong>${row.adoptedPower ?? "—"}</strong></div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.inputPrice))}</div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.outputPrice))}</div>
-    <div class="metric-cell ${row.freeAccess ? "yes" : "no"}">${escapeHtml(row.freeAccess ? t("yes") : t("no"))}</div>
-    <div class="metric-cell ${row.localAvailable ? "yes" : "no"}">${escapeHtml(row.localAvailable ? t("yes") : t("no"))}</div>
+    <div class="metric-cell ${availabilityClass(row.freeAccess)}">${escapeHtml(availabilityText(row.freeAccess))}</div>
+    <div class="metric-cell ${availabilityClass(row.localAvailable)}">${escapeHtml(availabilityText(row.localAvailable))}</div>
     <div class="metric-cell">${escapeHtml(formatDate(row.released_at))}</div>
     <div class="metric-cell ${statusClass}">${escapeHtml(statusText(row.status))}</div>
   </div>`;
