@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-02",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -697,6 +697,19 @@
       "reason_ja": "Xiaomi公式の2026年5月30日資料でMiMo-V2.5-Proの存在を確認できるが、正式公開日は未確定のため年月のみ登録。",
       "reason_en": "Xiaomi's official May 30, 2026 material confirms MiMo-V2.5-Pro existed by May; the exact release day remains unconfirmed, so only year and month are stored.",
       "source_commit": "c725a78"
+    },
+    {
+      "id": "metadata-openai-access-audit-59",
+      "updated_at": "2026-10-02T11:14:00+09:00",
+      "target_id": "openai-backfill-access",
+      "target_ja": "OpenAIバックフィル",
+      "target_en": "OpenAI backfill",
+      "type": "metadata",
+      "change_ja": "一般向け・無料利用判定を再監査",
+      "change_en": "Re-audited general and free access",
+      "reason_ja": "現在のChatGPT / Work / CodexのGUI導線に合わせ、GPT-6 Sol、GPT-5.6 Sol/Terra/Luna、GPT-5.5を一般向けへ修正。GPT-5.6 Terra/LunaはFreeプランの現行導線を確認したため無料利用ありへ修正。",
+      "reason_en": "Aligned classifications with current ChatGPT, Work and Codex GUI access. GPT-6 Sol, GPT-5.6 Sol/Terra/Luna and GPT-5.5 are now general access; GPT-5.6 Terra/Luna are marked free-access based on current Free-plan paths.",
+      "source_commit": "b778e939f4f8e574996fbd48cc03005469299711"
     }
   ]
 }
