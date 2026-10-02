@@ -70,7 +70,22 @@ function latestIso(...values) {
   return values.filter(Boolean).sort().at(-1) || null;
 }
 
+const MODEL_FAMILY_ALIASES = new Map([
+  ["google-gemini-3-1-pro", "google-gemini-3-1-pro-preview"],
+  ["google-gemini-3-flash", "google-gemini-3-flash-preview-reasoning"],
+  ["google-gemini-3-pro", "google-gemini-3-pro-preview-high"],
+  ["openai-o4-mini", "openai-o4-mini-high"],
+  ["openai-gpt-4-5", "openai-gpt-4-5-preview"],
+  ["anthropic-claude-sonnet-3-7", "anthropic-claude-3-7-sonnet-reasoning"],
+  ["openai-o3-mini", "openai-o3-mini-high"]
+]);
+const CANONICAL_MODEL_FAMILY_IDS = new Set(MODEL_FAMILY_ALIASES.values());
+
 function modelFamilyKey(model) {
+  const id = String(model?.id || "").trim().toLowerCase();
+  const canonicalId = MODEL_FAMILY_ALIASES.get(id) || (CANONICAL_MODEL_FAMILY_IDS.has(id) ? id : null);
+  if (canonicalId) return `canonical|${canonicalId}`;
+  if (id === "openai-o3" || id === "openai-o3-pro") return `canonical|${id}`;
   return `${String(model?.provider || "").trim().toLowerCase()}|${String(model?.name || "").trim().toLowerCase()}`;
 }
 
