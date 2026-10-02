@@ -710,6 +710,19 @@
       "reason_ja": "現在のChatGPT / Work / CodexのGUI導線に合わせ、GPT-6 Sol、GPT-5.6 Sol/Terra/Luna、GPT-5.5を一般向けへ修正。GPT-5.6 Terra/LunaはFreeプランの現行導線を確認したため無料利用ありへ修正。",
       "reason_en": "Aligned classifications with current ChatGPT, Work and Codex GUI access. GPT-6 Sol, GPT-5.6 Sol/Terra/Luna and GPT-5.5 are now general access; GPT-5.6 Terra/Luna are marked free-access based on current Free-plan paths.",
       "source_commit": "b778e939f4f8e574996fbd48cc03005469299711"
+    },
+    {
+      "id": "metadata-major-four-hole-fill-60",
+      "updated_at": "2026-10-02T15:46:00+09:00",
+      "target_id": "major-four-2025-plus-catalog",
+      "target_ja": "主要4社の2025年以降カタログ",
+      "target_en": "2025+ major-four catalog",
+      "type": "metadata",
+      "change_ja": "未処理行を一括補完し、意味上の重複を統合",
+      "change_en": "Filled unprocessed rows and merged semantic duplicates",
+      "reason_ja": "代表profileだけを追加した最初のバックフィルでは、既存models.jsonの追加モデルが未評価・未監査のまま残っていたため。Gemini 3.5 Flash-Lite、GPT-5.4 mini/nano、GPT-5 mini/nano、GPT-4.1 mini/nano、Grok 3 mini、Gemini 2.0系などを補完し、GPT-4.5 / o4-mini / o3-mini / Gemini 3系 / Claude 3.7等の別表記重複をcanonical familyへ統合。",
+      "reason_en": "The original representative-profile backfill left additional models already present in models.json unevaluated and unaudited. Filled rows such as Gemini 3.5 Flash-Lite, GPT-5.4 mini/nano, GPT-5 mini/nano, GPT-4.1 mini/nano, Grok 3 mini and Gemini 2.0 models, and canonicalized alternate labels for GPT-4.5, o4-mini, o3-mini, Gemini 3 and Claude 3.7 families.",
+      "source_commit": "fa9b3e40593666bded420d6319626bdb28ddd74f"
     }
   ]
 }
