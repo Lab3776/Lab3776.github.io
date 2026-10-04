@@ -7,70 +7,38 @@
   <link rel="stylesheet" href="../site.css">
 </head>
 <body>
-  <main class="page">
-    <div class="nav">
-      <a class="nav-home" href="../">Back to Applications</a>
-      <span>Lab 3776</span>
-    </div>
+<main class="page">
+  <div class="nav"><a class="nav-home" href="../">Back to Applications</a><span>Lab 3776</span></div>
+  <article class="sheet">
+    <div class="eyebrow">Privacy Policy</div>
+    <h1>QR3776</h1>
+    <p class="lede">How QR3776 handles user information.</p>
+    <div class="meta"><span>Effective: December 16, 2025</span><span>Updated: October 4, 2026</span></div>
 
-    <article class="sheet">
-      <div class="eyebrow">Privacy Policy</div>
-      <h1>QR3776</h1>
-      <p class="lede">How QR3776 handles user information.</p>
-      <div class="meta">
-        <span>Effective date: December 16, 2025</span>
-        <span>Last updated: December 16, 2025</span>
-      </div>
+    <h2>1. Scanning</h2>
+    <p>QR3776 uses the camera or a user-selected image to scan QR codes and barcodes. Recognition uses Google ML Kit Barcode Scanning and runs on-device. Lab 3776 does not send camera images, selected images, or decoded scan contents to a Lab 3776 server.</p>
+    <p>Google's ML Kit disclosure states that the SDK may collect device/app information, per-installation identifiers, performance and API metrics, feature/event information, and error codes for diagnostics and usage analytics. Google states that this data is encrypted in transit and is not shared by ML Kit with third parties.</p>
+    <p><a href="https://developers.google.com/ml-kit/android-data-disclosure">ML Kit data disclosure</a></p>
 
-      <h2>1. Overview</h2>
-      <p>
-        QR3776 is a smartphone application provided by Lab 3776. This policy describes how user
-        information is handled within the app.
-      </p>
+    <h2>2. Local history</h2>
+    <p>Normal scan results are stored in an on-device database for the History feature and can be deleted in the app. The database is excluded from Android cloud backup and device-to-device transfer.</p>
+    <p>TOTP/HOTP authentication QR codes are not saved by default. If saving is enabled, authentication data is encrypted with AES-GCM using an Android Keystore-protected key. Unsupported authentication/migration QR codes are transient.</p>
+    <p>Wi-Fi QR codes may contain passwords, so supported versions do not save them to normal history. They are kept only in memory for immediate post-scan actions. Wi-Fi QR history saved by older versions is removed on upgrade.</p>
 
-      <h2>2. Information Collected and Purpose of Use</h2>
-      <h3>2.1 Camera access</h3>
-      <p>
-        The app uses the device camera to scan QR codes and barcodes. Camera image data is processed
-        temporarily on the device only and is never transmitted to or stored on Lab 3776 servers.
-      </p>
+    <h2>3. Settings and external actions</h2>
+    <p>Theme, language, behavior settings, and a local Supporter Badge ownership cache are stored on-device. These settings do not contain authentication secrets or Wi-Fi passwords. Preference data may participate in Android backup or device transfer.</p>
+    <p>When the user explicitly chooses an action, a scanned value may be passed to a browser, share target, authenticator app, or Android Wi-Fi functionality. The receiving app or service then controls further handling.</p>
 
-      <h3>2.2 Image loading</h3>
-      <p>
-        The app can read codes from images selected by the user. This processing is completed on the
-        device and image data is not sent externally.
-      </p>
+    <h2>4. Google Play Billing</h2>
+    <p>QR3776 offers an optional one-time Supporter Badge through Google Play Billing. Google Play handles payment processing. QR3776 receives product and purchase-state information but does not access or store credit-card or bank-account details.</p>
 
-      <h3>2.3 Advertising (AdMob)</h3>
-      <p>
-        The app uses Google AdMob for advertising. AdMob may automatically collect information such
-        as advertising identifiers, cookies, and approximate location data according to Google
-        policies.
-      </p>
-      <p>
-        See the <a href="https://policies.google.com/technologies/ads?hl=en">Google Ads Policy</a>
-        for more details.
-      </p>
+    <h2>5. Advertising</h2>
+    <p>The current QR3776 source does not include an advertising SDK. Some earlier versions used Google AdMob and may still be subject to AdMob data processing.</p>
 
-      <h2>3. Personal Information</h2>
-      <p>
-        Except for ad delivery by AdMob, the app does not collect or store personal information such
-        as your name, address, phone number, or email address.
-      </p>
-
-      <h2>4. Disclaimer</h2>
-      <p>
-        Lab 3776 is not responsible for damages caused by unexpected app malfunctions.
-      </p>
-
-      <h2>5. Contact</h2>
-      <p>
-        Developer: Lab 3776<br>
-        Email: <a href="mailto:lab3776.tokyo@gmail.com">lab3776.tokyo@gmail.com</a>
-      </p>
-
-      <div class="footer">&copy; Lab 3776</div>
-    </article>
-  </main>
+    <h2>6. Contact</h2>
+    <p>Developer: Lab 3776<br>Email: lab3776.tokyo@gmail.com</p>
+    <div class="footer">&copy; Lab 3776</div>
+  </article>
+</main>
 </body>
 </html>
