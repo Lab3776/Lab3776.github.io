@@ -13,7 +13,7 @@
     <div class="eyebrow">Privacy Policy</div>
     <h1>QR3776</h1>
     <p class="lede">How QR3776 handles user information.</p>
-    <div class="meta"><span>Effective: December 16, 2025</span><span>Updated: October 4, 2026</span></div>
+    <div class="meta"><span>Effective: December 16, 2025</span><span>Updated: October 9, 2026</span></div>
 
     <h2>1. Scanning</h2>
     <p>QR3776 uses the camera or a user-selected image to scan QR codes and barcodes. Recognition uses Google ML Kit Barcode Scanning and runs on-device. Lab 3776 does not send camera images, selected images, or decoded scan contents to a Lab 3776 server.</p>
@@ -22,8 +22,8 @@
 
     <h2>2. Local history</h2>
     <p>Normal scan results are stored in an on-device database for the History feature and can be deleted in the app. The database is excluded from Android cloud backup and device-to-device transfer.</p>
-    <p>TOTP/HOTP authentication QR codes are not saved by default. If saving is enabled, authentication data is encrypted with AES-GCM using an Android Keystore-protected key. Unsupported authentication/migration QR codes are transient.</p>
-    <p>Wi-Fi QR codes may contain passwords, so supported versions do not save them to normal history. They are kept only in memory for immediate post-scan actions. Wi-Fi QR history saved by older versions is removed on upgrade.</p>
+    <p>Supported TOTP/HOTP authentication QR codes and valid Wi-Fi connection QR codes are not saved to history by default. If the user enables the sensitive-QR history setting, their QR contents (which may include authentication secrets or Wi-Fi passwords) are encrypted with AES-GCM using an Android Keystore-protected key and stored in the on-device history database. The History screen shows limited metadata instead of the raw sensitive QR contents.</p>
+    <p>When sensitive-history saving is disabled, a QR is unsupported or invalid, or encryption or saving fails, sensitive QR contents are handled temporarily rather than saved in plaintext history. Stored Wi-Fi QR contents are decrypted for user-selected actions such as connecting, copying, or sharing. Legacy plaintext authentication and Wi-Fi QR history entries are removed during database migration. The history database is excluded from Android cloud backup and device-to-device transfer.</p>
 
     <h2>3. Settings and external actions</h2>
     <p>Theme, language, behavior settings, and a local Supporter Badge ownership cache are stored on-device. These settings do not contain authentication secrets or Wi-Fi passwords. Preference data may participate in Android backup or device transfer.</p>
