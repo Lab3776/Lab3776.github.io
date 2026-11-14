@@ -2,13 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
     <title>見取り算練習</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <!-- フォントは外部から読み込まない。WebフォントのCSSは読み込みが終わるまで
+         初回描画を止めるため、アプリ内ブラウザで再オープンしたときに取得が滞ると
+         背景色だけが出て中身が真っ暗なままになる。端末内フォントだけで即座に描く。 -->
     <style>
       button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
 
@@ -42,8 +42,8 @@
       @media (prefers-color-scheme: dark) {
         :root {
           --bg: #211812;
-          --surface: #2e2118;
-          --surface-2: #3a2a1d;
+          --surface: #382a1c;
+          --surface-2: #46351f;
           --ink: #f6ead3;
           --ink-soft: #c9ae8b;
           --line: #54402a;
@@ -63,13 +63,14 @@
         }
       }
 
-      * { box-sizing: border-box; }
-      html { -webkit-text-size-adjust: 100%; }
+      * { box-sizing: border-box; touch-action: manipulation; }
+      html { -webkit-text-size-adjust: 100%; overflow-x: hidden; background: var(--bg); color-scheme: light dark; }
       body {
         margin: 0;
+        overflow-x: hidden;
         background: var(--bg);
         color: var(--ink);
-        font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", sans-serif;
+        font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", sans-serif;
         line-height: 1.6;
       }
       main {
@@ -209,6 +210,32 @@
         padding: 6px 14px;
         font-size: .95rem;
       }
+      .exam-summary {
+        background: var(--accent-soft);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-weight: 700;
+        font-size: .98rem;
+        margin: 0 0 22px;
+      }
+      .setting-emph {
+        background: var(--surface-2);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 14px 4px;
+      }
+      .pass-banner {
+        display: inline-block;
+        font-size: 1.5rem;
+        font-weight: 800;
+        padding: 8px 28px;
+        border-radius: 999px;
+        margin: 12px 0 2px;
+        letter-spacing: .06em;
+      }
+      .pass-banner.pass { background: var(--good-bg); color: var(--good); border: 3px solid var(--good); }
+      .pass-banner.fail { background: var(--surface-2); color: var(--ink-soft); border: 3px solid var(--line); font-size: 1.1rem; }
+
       .howto {
         margin-top: 18px;
         background: var(--surface-2);
@@ -254,6 +281,8 @@
         gap: 14px;
         flex: 1;
         min-height: 0;
+        min-width: 0;
+        width: 100%;
         align-items: stretch;
       }
       .problem-card {
@@ -262,6 +291,7 @@
         border-radius: 18px;
         padding: 14px 12px 12px;
         flex: 0 0 clamp(168px, 30%, 300px);
+        min-width: 0;
         display: flex;
         flex-direction: column;
       }
@@ -340,6 +370,44 @@
       .play-actions .btn { flex: 1; }
       .btn-next { background: var(--accent); color: var(--accent-ink); font-size: 1.25rem; min-height: 64px; box-shadow: 0 4px 0 var(--key-shadow); }
       .btn-next:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--key-shadow); }
+
+      /* ---- 紙モード（がめんのそろばんなし・5問ずつ） ---- */
+      body.paper .play-main, body.paper .play-actions, body.paper .dots { display: none; }
+      #paper-main { display: none; }
+      body.paper #paper-main { display: flex; flex-direction: column; flex: 1; min-height: 0; width: 100%; }
+      .paper-grid {
+        flex: 1; min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 12px;
+        overflow-y: auto;
+      }
+      .paper-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        padding: 10px 10px 12px;
+        display: flex; flex-direction: column;
+        min-width: 0;
+      }
+      .paper-no { text-align: center; font-weight: 800; color: var(--ink-soft); font-size: .85rem; margin: 0 0 4px; }
+      .paper-card .numbers {
+        font-size: clamp(1.15rem, 3.9vh, 1.95rem);
+        flex: 1;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .paper-answer { flex: none; width: 100%; min-height: 54px; font-size: 1.5rem; margin-top: 8px; }
+      .paper-actions { display: flex; gap: 10px; margin-top: 12px; }
+      .paper-actions .btn { flex: 1; }
+      @media (max-width: 640px) {
+        .paper-grid { gap: 7px; }
+        .paper-card { padding: 8px 5px 9px; border-radius: 12px; }
+        .paper-card .numbers { font-size: clamp(1rem, 3.4vh, 1.5rem); padding: 2px 1px 6px; }
+        .paper-answer { min-height: 48px; font-size: 1.25rem; }
+        .paper-no { font-size: .72rem; }
+      }
+
       /* ---- 結果画面 ---- */
       .result-head { text-align: center; }
       .stars { font-size: 2.6rem; letter-spacing: .15em; color: var(--gold); line-height: 1.2; min-height: 1.2em; }
@@ -388,23 +456,54 @@
           --soro-top: 48px;
           --soro-earth: 158px;
         }
-        .problem-card { flex-basis: 38%; padding: 10px 8px; }
+        body.playing main { padding: 10px 10px 8px; }
+        .play-main { gap: 10px; }
+        .problem-card { flex: 0 1 34%; padding: 10px 8px; min-width: 0; }
+        .soroban-card { padding: 10px 8px 10px; }
+        .soroban-frame { padding: 9px 7px; }
+        .soroban-inner { padding: 6px 1px 5px; }
+        .soroban-head { margin-bottom: 8px; gap: 6px; }
+        .soroban-title { font-size: .95rem; }
       }
       @media (max-height: 660px) {
         :root { --soro-top: 44px; --soro-earth: 146px; --soro-step: 29px; --soro-bead-h: 28px; }
       }
       @media (max-width: 430px) {
         :root {
-          --soro-bead-w: 46px;
+          --soro-bead-w: clamp(34px, 11vw, 46px);
           --soro-bead-h: 31px;
           --soro-step: 32px;
           --soro-cell: 56px;
           --soro-top: 48px;
           --soro-earth: 160px;
         }
+        body.playing main { padding: 8px 8px 8px; }
+        #screen-play { height: calc(100vh - 16px); height: calc(100dvh - 16px); }
+        .play-main { gap: 8px; }
+        .problem-card { flex: 0 1 30%; padding: 8px 5px 8px; border-radius: 14px; }
+        .problem-title { font-size: .78rem; }
+        .numbers { font-size: clamp(1.35rem, 5.6vh, 2rem); padding: 2px 2px 8px; max-width: 100%; }
+        .answer-row { gap: 5px; }
+        .answer-label { font-size: .88rem; }
+        .answer-box { min-height: 52px; font-size: 1.5rem; padding: 2px 4px; border-radius: 10px; }
+        .answer-hint { font-size: .68rem; }
+        .soroban-card { padding: 8px 6px 8px; border-radius: 14px; }
+        .soroban-frame { padding: 7px 5px; border-radius: 11px; }
+        .soroban-inner { padding: 5px 0 4px; border-radius: 6px; }
+        .soroban-note { font-size: .72rem; margin-top: 7px; }
+        .soroban-head .btn { min-height: 42px; padding: 4px 12px; font-size: .9rem; }
+      }
+      @media (max-width: 360px) {
+        :root { --soro-bead-w: clamp(30px, 11vw, 40px); }
+        body.playing main { padding: 6px 6px 6px; }
+        .play-main { gap: 6px; }
+        .problem-card { flex-basis: 29%; }
+        .soroban-card { padding: 7px 5px; }
+        .soroban-frame { padding: 6px 4px; }
       }
       .soroban-card {
-        flex: 1;
+        flex: 1 1 0;
+        width: 100%;
         min-width: 0;
         display: flex;
         flex-direction: column;
@@ -421,6 +520,9 @@
       .soroban-head .btn { min-height: 48px; padding: 6px 20px; }
       .soroban-frame {
         flex: 1;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -429,9 +531,9 @@
         padding: 12px 10px;
         box-shadow: inset 0 2px 4px rgba(255,255,255,.25), inset 0 -3px 6px rgba(0,0,0,.3);
       }
-      .soroban-inner { background: var(--soro-bg); border-radius: 8px; padding: 8px 2px 6px; width: 100%; }
-      .soro-row { display: flex; justify-content: space-around; }
-      .soro-cell { position: relative; flex: 0 0 var(--soro-cell); }
+      .soroban-inner { background: var(--soro-bg); border-radius: 8px; padding: 8px 2px 6px; width: 100%; min-width: 0; box-sizing: border-box; }
+      .soro-row { display: flex; justify-content: space-around; width: 100%; min-width: 0; }
+      .soro-cell { position: relative; flex: 1 1 0; min-width: 0; }
       .soro-cell::before {
         content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
         width: 4px; margin-left: -2px; border-radius: 2px;
@@ -441,8 +543,11 @@
       .soro-cell.bottom { height: var(--soro-earth); }
       .s-bead {
         position: absolute; left: 50%;
-        margin-left: calc(var(--soro-bead-w) / -2);
-        width: var(--soro-bead-w); height: var(--soro-bead-h);
+        margin-left: 0;
+        transform: translateX(-50%);
+        width: min(var(--soro-bead-w), 88%);
+        max-width: 100%;
+        height: var(--soro-bead-h);
         border: none; padding: 0; cursor: pointer; z-index: 1; min-height: 0;
         background: linear-gradient(180deg, var(--bead) 0%, var(--bead-2) 100%);
         border-radius: 50% / 62%;
@@ -455,7 +560,7 @@
         height: 12px; border-radius: 3px; margin: 2px 0;
         background: linear-gradient(180deg, #8a5a28, #6e4520);
       }
-      .bar-cell { flex: 0 0 var(--soro-cell); position: relative; }
+      .bar-cell { flex: 1 1 0; min-width: 0; position: relative; }
       .bar-dot {
         position: absolute; left: 50%; top: 50%;
         width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
@@ -505,6 +610,26 @@
 
         <div class="card">
           <div class="setting">
+            <p class="setting-label">しゅもく <span class="note">全珠連（ぜんしゅれん）10級</span></p>
+            <div class="choices" role="group" aria-label="しゅもく" id="grp-exam">
+              <button type="button" class="choice" data-value="A" aria-pressed="true">みとりざん A<small>1けた・6口</small></button>
+              <button type="button" class="choice" data-value="B" aria-pressed="false">みとりざん B<small>2けた まじり・4口</small></button>
+              <button type="button" class="choice" data-value="free" aria-pressed="false">じゆう<small>したで えらぶ</small></button>
+            </div>
+          </div>
+
+          <div class="setting setting-emph">
+            <p class="setting-label">がめんの そろばん <span class="note">おうちでは ほんものを つかおう</span></p>
+            <div class="choices" role="group" aria-label="がめんのそろばん" id="grp-soroban">
+              <button type="button" class="choice" data-value="none" aria-pressed="true">つかわない<small>ほんものの そろばんで けいさん（おうち用）・問題が 5もんずつ ならぶ</small></button>
+              <button type="button" class="choice" data-value="use" aria-pressed="false">つかう<small>がめんの珠を タップして けいさん（おでかけ用）</small></button>
+            </div>
+          </div>
+
+          <p class="exam-summary" id="exam-summary"></p>
+
+          <div id="free-settings" hidden>
+          <div class="setting">
             <p class="setting-label">けた <span class="note">数字の大きさ</span></p>
             <div class="choices" role="group" aria-label="けた" id="grp-digits">
               <button type="button" class="choice" data-value="1" aria-pressed="true">1けた<small>1〜9 の数字</small></button>
@@ -547,10 +672,12 @@
             </div>
           </div>
 
+          </div><!-- /free-settings -->
+
           <button type="button" class="btn btn-primary" id="btn-start">スタート</button>
 
           <div class="howto">
-            <p><strong>使い方：</strong>問題の数字を上から順に、本物のそろばんで足して（引いて）いきます。答えが出たら画面のボタンで入力して「つぎへ」を押してください。最後に全部の答え合わせができます。初期設定は全珠連10級の形式（1けた・6口・たし算ひき算・15問・制限時間7分）です。制限時間が来ると、自動で答え合わせになります。練習画面では、問題の数字の横にバーチャルそろばん（4けた）があり、問題を見ながら珠をタップして使えます（珠を動かすと音が鳴ります）。答えは「答え」の枠をタップすると出てくる数字ボタンで入力します。</p>
+            <p><strong>使い方：</strong>問題の数字を上から順に、本物のそろばんで足して（引いて）いきます。答えが出たら画面のボタンで入力して「つぎへ」を押してください。最後に全部の答え合わせができます。「しゅもく」で全珠連10級のみとりざんA（1けた・6口）かB（2けたまじり・4口）を選べます。どちらも15問・制限時間7分・1問10点で150点満点、100点から合格です。問題は、途中の合計がマイナスにならないように作っています。制限時間が来ると、自動で答え合わせになります。「がめんの そろばん」を「つかう」にすると、問題の横にバーチャルそろばん（4けた）が出て、珠をタップして使えます（音も鳴ります）。「つかわない」にすると画面のそろばんが消えて問題が5問ずつ並ぶので、家で本物のそろばんを使う練習に向いています。答えは「答え」の枠をタップすると出てくる数字ボタンで入力します。</p>
           </div>
         </div>
       </section>
@@ -558,7 +685,7 @@
       <!-- ============ 練習画面 ============ -->
       <section id="screen-play" hidden>
         <div class="play-head">
-          <span class="progress-text"><span id="cur-num">1</span> <span class="total">/ <span id="total-num">10</span> もんめ</span></span>
+          <span class="progress-text"><span id="progress-single"><span id="cur-num">1</span> <span class="total">/ <span id="total-num">10</span> もんめ</span></span><span id="progress-range" hidden></span></span>
           <span class="timer"><span class="t-label" id="timer-label">のこり</span><span id="timer">7:00</span></span>
           <button type="button" class="btn-ghost" id="btn-quit">やめる</button>
         </div>
@@ -593,6 +720,15 @@
               </div>
             </div>
             <p class="soroban-note">珠をタップすると「カチッ」と音が鳴るよ。数は自分で数えてみよう。</p>
+          </div>
+        </div>
+
+        <div id="paper-main">
+          <div class="paper-grid" id="paper-grid"></div>
+          <div class="paper-actions">
+            <button type="button" class="btn btn-sub" id="btn-group-prev">まえの 5もん</button>
+            <button type="button" class="btn btn-next" id="btn-group-next">つぎの 5もん</button>
+            <button type="button" class="btn btn-next" id="btn-group-finish">答え合わせ</button>
           </div>
         </div>
 
@@ -631,7 +767,8 @@
       <section id="screen-result" hidden>
         <div class="result-head">
           <div class="stars" id="stars" aria-hidden="true"></div>
-          <p class="score-big"><span id="score-num">0</span><small> 点</small></p>
+          <p class="score-big"><span id="score-num">0</span><small> 点 ／ <span id="score-max">150</span>点</small></p>
+          <p class="pass-banner pass" id="pass-banner" hidden></p>
           <p class="result-msg" id="result-msg"></p>
           <p class="result-time" id="result-time"></p>
         </div>
@@ -647,10 +784,32 @@
       (function () {
         "use strict";
 
-        var settings = { digits: 1, rows: 6, mode: "mix", count: 15, limit: 7 };
+        /* ---------- ダブルタップ拡大・ピンチ拡大の防止（iOS Safari対策） ---------- */
+        // touch-action: manipulation と合わせ、タップ反応を遅らせずに拡大だけを止める
+        document.addEventListener("gesturestart", function (e) { e.preventDefault(); }, { passive: false });
+        document.addEventListener("gesturechange", function (e) { e.preventDefault(); }, { passive: false });
+        document.addEventListener("gestureend", function (e) { e.preventDefault(); }, { passive: false });
+        document.addEventListener("dblclick", function (e) { e.preventDefault(); }, { passive: false });
+        var lastTouchEnd = 0;
+        var lastTouchTarget = null;
+        document.addEventListener("touchend", function (e) {
+          var now = Date.now();
+          var target = e.target;
+          // 珠・ボタン・キーは素早い連打が必要なので、そこのタップは止めない（拡大防止は touch-action が担う）
+          var interactive = target && target.closest && target.closest(".s-bead, button, .key, .choice, .answer-box");
+          if (!interactive && now - lastTouchEnd <= 350 && target === lastTouchTarget) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+          lastTouchTarget = target;
+        }, { passive: false });
+
+        var settings = { exam: "A", digits: 1, rows: 6, mode: "mix", count: 15, limit: 7, soroban: "none" };
         var problems = [];   // [{nums:[...], answer:Number}]
         var answers = [];    // 入力した答え（文字列）問題ごと
         var current = 0;
+        var paperGroup = 0;          // 紙モードで表示中のグループ（0始まり）
+        var GROUP_SIZE = 5;          // 紙モードは5問ずつ表示
         var timerId = null;
         var startAt = 0;
         var elapsedSec = 0;
@@ -681,34 +840,83 @@
         bindGroup("grp-mode", "mode");
         bindGroup("grp-count", "count");
         bindGroup("grp-limit", "limit");
+        bindGroup("grp-soroban", "soroban");
+
+        /* ---------- 種目（全珠連10級 A／B／じゆう） ---------- */
+        function setGroupValue(id, value) {
+          $(id).querySelectorAll(".choice").forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b.dataset.value === String(value)));
+          });
+        }
+        function applyExam() {
+          var ex = settings.exam;
+          $("free-settings").hidden = ex !== "free";
+          var sum = $("exam-summary");
+          if (ex === "A") {
+            settings.digits = 1; settings.rows = 6; settings.mode = "mix"; settings.count = 15; settings.limit = 7;
+            setGroupValue("grp-digits", 1); setGroupValue("grp-rows", 6); setGroupValue("grp-mode", "mix");
+            setGroupValue("grp-count", 15); setGroupValue("grp-limit", 7);
+            sum.textContent = "みとりざん A：1けたの 数字が 6口（6つ）。たし算・ひき算 まじり。15もん・7分・1もん10点で 150点 まんてん。100点から ごうかく。とちゅうの 合計が マイナスに ならない 問題だよ。";
+          } else if (ex === "B") {
+            settings.rows = 4; settings.mode = "mix"; settings.count = 15; settings.limit = 7;
+            setGroupValue("grp-rows", 4); setGroupValue("grp-mode", "mix");
+            setGroupValue("grp-count", 15); setGroupValue("grp-limit", 7);
+            sum.textContent = "みとりざん B：4口で、2けたが 2つ・1けたが 2つ（じゅんばんは バラバラ）。たし算・ひき算 まじり。15もん・7分・1もん10点で 150点 まんてん。100点から ごうかく。とちゅうの 合計が マイナスに ならない 問題だよ。";
+          } else {
+            sum.textContent = "じゆう れんしゅう：したの 設定で、けた・口数・計算の種類・問題の数・制限時間を すきに えらんでね。1もん10点。";
+          }
+        }
+        $("grp-exam").addEventListener("click", function (e) {
+          var btn = e.target.closest(".choice");
+          if (!btn) return;
+          $("grp-exam").querySelectorAll(".choice").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+          btn.setAttribute("aria-pressed", "true");
+          settings.exam = btn.dataset.value;
+          applyExam();
+        });
+        applyExam();
 
         /* ---------- 問題生成 ---------- */
-        function randOperand() {
-          if (settings.digits === 1) return 1 + Math.floor(Math.random() * 9);        // 1〜9
-          return 10 + Math.floor(Math.random() * 90);                                 // 10〜99
+        // 全形式共通の作問ルール（全珠連10級の実問題に合わせる）：
+        // ・1つ目の数は必ず正
+        // ・上から累計した途中の合計が一度もマイナスにならない（0は可）
+        // ・最終の答えもマイナスにならない
+        // ひき算にすると途中合計がマイナスになる場合は、その口をたし算に切り替える。
+        function randByDigits(d) {
+          if (d === 1) return 1 + Math.floor(Math.random() * 9);        // 1〜9
+          return 10 + Math.floor(Math.random() * 90);                   // 10〜99
+        }
+        function shuffle(arr) {
+          for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+          }
+          return arr;
+        }
+        // specs: 口ごとの桁数の並び（例 A=[1,1,1,1,1,1]、B=[2,2,1,1]をシャッフル）
+        function genFromSpecs(specs, useMix) {
+          var nums = [], total = 0;
+          specs.forEach(function (d, i) {
+            var v = randByDigits(d);
+            if (i === 0) { nums.push(v); total = v; return; }
+            if (useMix && Math.random() < 0.38 && total - v >= 0) {
+              nums.push(-v); total -= v;
+            } else {
+              nums.push(v); total += v;
+            }
+          });
+          return { nums: nums, answer: total };
         }
         function genProblem() {
-          var nums = [], total = 0;
-          for (var i = 0; i < settings.rows; i++) {
-            var n = randOperand();
-            if (i === 0) {
-              nums.push(n); total = n; continue;
-            }
-            var sub = false;
-            if (settings.mode === "mix" && Math.random() < 0.38) {
-              // 途中の合計がマイナスにならない引く数だけ許可
-              var maxSub = settings.digits === 1 ? Math.min(9, total - 1) : Math.min(99, total - 10);
-              if (maxSub >= (settings.digits === 1 ? 1 : 10)) {
-                n = settings.digits === 1
-                  ? 1 + Math.floor(Math.random() * maxSub)
-                  : 10 + Math.floor(Math.random() * (maxSub - 9));
-                sub = true;
-              }
-            }
-            if (sub) { nums.push(-n); total -= n; }
-            else { nums.push(n); total += n; }
+          if (settings.exam === "A") {
+            return genFromSpecs([1, 1, 1, 1, 1, 1], true);              // 1桁のみ・6口
           }
-          return { nums: nums, answer: total };
+          if (settings.exam === "B") {
+            return genFromSpecs(shuffle([2, 2, 1, 1]), true);           // 2桁×2＋1桁×2・4口、順序ランダム
+          }
+          var specs = [];
+          for (var i = 0; i < settings.rows; i++) specs.push(settings.digits);
+          return genFromSpecs(specs, settings.mode === "mix");
         }
 
         /* ---------- タイマー ---------- */
@@ -751,13 +959,17 @@
           var v = answers[current] || "";
           $("answer-box").textContent = v;
           $("sheet-answer-box").textContent = v;
+          var pb = document.querySelector('.paper-answer[data-idx="' + current + '"]');
+          if (pb) pb.textContent = v;
         }
         function renderProblem() {
           var p = problems[current];
+          $("progress-single").hidden = false;
+          $("progress-range").hidden = true;
           $("cur-num").textContent = current + 1;
           $("total-num").textContent = problems.length;
           var numsEl = $("numbers");
-          numsEl.className = "numbers" + (settings.digits === 2 ? " d2" : "");
+          numsEl.className = "numbers" + ((settings.digits === 2 || settings.exam === "B") ? " d2" : "");
           numsEl.innerHTML = numRowsHTML(p.nums, true);
           syncAnswer();
           resetSoroban();
@@ -770,13 +982,49 @@
           $("dots").innerHTML = dots;
         }
 
+        /* ---------- 紙モード（そろばんなし・5問ずつ） ---------- */
+        function renderPaper() {
+          var start = paperGroup * GROUP_SIZE;
+          var end = Math.min(start + GROUP_SIZE, problems.length);
+          var html = "";
+          for (var i = start; i < end; i++) {
+            html += '<div class="paper-card"><p class="paper-no">' + (i + 1) + 'もんめ</p>' +
+              '<div class="numbers' + ((settings.digits === 2 || settings.exam === "B") ? " d2" : "") + '">' + numRowsHTML(problems[i].nums, true) + "</div>" +
+              '<button type="button" class="answer-box paper-answer" data-idx="' + i + '" aria-label="' + (i + 1) + 'もんめの答え">' + (answers[i] || "") + "</button></div>";
+          }
+          $("paper-grid").innerHTML = html;
+          $("progress-single").hidden = true;
+          var range = $("progress-range");
+          range.hidden = false;
+          range.textContent = (start + 1) + "〜" + end + "もんめ ／ ぜんぶで " + problems.length + "もん";
+          var lastGroup = end >= problems.length;
+          $("btn-group-prev").hidden = paperGroup === 0;
+          $("btn-group-next").hidden = lastGroup;
+          $("btn-group-finish").hidden = !lastGroup;
+        }
+        $("paper-grid").addEventListener("click", function (e) {
+          var btn = e.target.closest(".paper-answer");
+          if (!btn) return;
+          current = Number(btn.dataset.idx);
+          openSheet();
+        });
+        $("btn-group-prev").addEventListener("click", function () {
+          if (paperGroup > 0) { paperGroup--; renderPaper(); }
+        });
+        $("btn-group-next").addEventListener("click", function () {
+          if ((paperGroup + 1) * GROUP_SIZE < problems.length) { paperGroup++; renderPaper(); }
+        });
+        $("btn-group-finish").addEventListener("click", function () { finish(); });
+
         function startPractice() {
           problems = [];
           for (var i = 0; i < settings.count; i++) problems.push(genProblem());
           answers = problems.map(function () { return ""; });
           current = 0;
           show(scrPlay);
-          renderProblem();
+          document.body.classList.toggle("paper", settings.soroban === "none");
+          if (settings.soroban === "none") { paperGroup = 0; renderPaper(); }
+          else renderProblem();
           startTimer();
         }
 
@@ -806,6 +1054,10 @@
         }
         function closeSheet() {
           sheet.hidden = true;
+          if (document.body.classList.contains("paper")) {
+            var pb = document.querySelector('.paper-answer[data-idx="' + current + '"]');
+            if (pb) { pb.focus(); return; }
+          }
           $("answer-box").focus();
         }
         $("answer-box").addEventListener("click", openSheet);
@@ -844,7 +1096,7 @@
           } else if (e.key === "Enter") {
             e.preventDefault();
             if (!sheet.hidden) closeSheet();
-            else $("btn-next").click();
+            else if (!document.body.classList.contains("paper")) $("btn-next").click();
           }
         });
 
@@ -873,9 +1125,26 @@
                   ' → <span class="right">' + p.answer + '</span></div><div class="r-verdict">ざんねん</div>') +
               "</div>";
           });
-          var score = Math.round(correct / problems.length * 100);
+          var score = correct * 10;                       // 1問10点
+          var maxScore = problems.length * 10;            // A・Bは15問で150点満点
           $("score-num").textContent = score;
+          $("score-max").textContent = maxScore;
           $("result-list").innerHTML = listHtml;
+
+          // 全珠連10級（A・B）は100点以上で合格
+          var banner = $("pass-banner");
+          if (settings.exam === "A" || settings.exam === "B") {
+            banner.hidden = false;
+            if (score >= 100) {
+              banner.textContent = "ごうかく！";
+              banner.className = "pass-banner pass";
+            } else {
+              banner.textContent = "ごうかくまで あと " + (100 - score) + "点（100点から ごうかく）";
+              banner.className = "pass-banner fail";
+            }
+          } else {
+            banner.hidden = true;
+          }
 
           var ratio = correct / problems.length;
           var starCount = ratio === 1 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.4 ? 1 : 0;
@@ -999,6 +1268,32 @@
         $("btn-start").addEventListener("click", startPractice);
         $("btn-again").addEventListener("click", startPractice);
         $("btn-tosetup").addEventListener("click", function () { show(scrSetup); });
+
+        /* ---------- 真っ暗対策：復帰時の再描画と画面の復旧 ---------- */
+        // アプリ内ブラウザ（WebView）では、アプリに戻ってから再度開いたときに
+        // ページの再描画が行われず背景色だけが残ることがある。
+        // 復元・再表示のタイミングで強制的にリフローさせて描き直させる。
+        function forceRepaint() {
+          var b = document.body;
+          if (!b) return;
+          b.style.visibility = "hidden";
+          void b.offsetHeight;               // リフローを強制
+          b.style.visibility = "";
+        }
+        window.addEventListener("pageshow", function (e) {
+          if (e.persisted) forceRepaint();   // bfcache から復元されたとき
+        });
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) forceRepaint();
+        });
+        // どの画面も表示されていない異常状態なら、スタート画面を復旧する
+        setTimeout(function () {
+          if (scrSetup.hidden && scrPlay.hidden && scrResult.hidden) {
+            document.body.classList.remove("playing", "paper");
+            show(scrSetup);
+          }
+          forceRepaint();
+        }, 600);
       })();
     </script>
   </body>
