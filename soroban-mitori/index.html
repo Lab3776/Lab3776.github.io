@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>見取り算練習</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
+
+      :root {
+        --bg: #faf3e3;
+        --surface: #fffdf7;
+        --surface-2: #f7ecd4;
+        --ink: #3b2a1a;
+        --ink-soft: #7a6248;
+        --line: #e3d3b4;
+        --accent: #b4531d;
+        --accent-ink: #ffffff;
+        --accent-soft: #fbe9d7;
+        --bead: #c9711f;
+        --bead-2: #8a4b16;
+        --good: #1e7d46;
+        --good-bg: #e2f3e7;
+        --bad: #c0392b;
+        --bad-bg: #fbe7e2;
+        --key-bg: #fffdf7;
+        --key-shadow: #d9c69c;
+        --gold: #e0a100;
+        --soro-bg: #f6e7c8;
+        --soro-bead-w: 54px;
+        --soro-bead-h: 36px;
+        --soro-step: 37px;
+        --soro-cell: 64px;
+        --soro-top: 56px;
+        --soro-earth: 180px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #211812;
+          --surface: #2e2118;
+          --surface-2: #3a2a1d;
+          --ink: #f6ead3;
+          --ink-soft: #c9ae8b;
+          --line: #54402a;
+          --accent: #e07f35;
+          --accent-ink: #241708;
+          --accent-soft: #453019;
+          --bead: #d98a37;
+          --bead-2: #a5681f;
+          --good: #6fce93;
+          --good-bg: #1e3a28;
+          --bad: #ff9a8a;
+          --bad-bg: #452520;
+          --key-bg: #3a2a1d;
+          --key-shadow: #17100a;
+          --gold: #f0b92e;
+          --soro-bg: #43331f;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 20px 16px 48px;
+      }
+      /* 練習画面はスクロールなしで1画面に収める */
+      body.playing main { max-width: 1120px; padding: 12px 12px 10px; }
+      body.playing .beads { display: none; }
+      #screen-play {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 22px);
+        height: calc(100dvh - 22px);
+      }
+
+      /* ---- そろばんの珠ストリップ（装飾） ---- */
+      .beads {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 0 4px;
+        position: relative;
+      }
+      .beads::before {
+        content: "";
+        position: absolute;
+        left: 4%;
+        right: 4%;
+        top: 50%;
+        height: 4px;
+        background: var(--bead-2);
+        border-radius: 2px;
+        opacity: .55;
+      }
+      .bead {
+        width: 34px; height: 24px;
+        background: linear-gradient(180deg, var(--bead) 0%, var(--bead-2) 100%);
+        border-radius: 50% / 62%;
+        position: relative;
+        z-index: 1;
+        box-shadow: inset 0 -3px 5px rgba(0,0,0,.25), inset 0 3px 4px rgba(255,255,255,.35);
+      }
+      .bead.off { margin-top: 22px; opacity: .85; }
+      @media (max-width: 560px) { .bead { width: 26px; height: 19px; } .beads { gap: 7px; } }
+
+      h1 {
+        font-size: clamp(1.7rem, 5vw, 2.4rem);
+        font-weight: 800;
+        text-align: center;
+        margin: 10px 0 2px;
+        letter-spacing: .04em;
+      }
+      .lead {
+        text-align: center;
+        color: var(--ink-soft);
+        font-weight: 500;
+        margin: 0 0 22px;
+        font-size: 1.02rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 20px;
+      }
+
+      .setting { margin-bottom: 22px; }
+      .setting:last-of-type { margin-bottom: 8px; }
+      .setting-label {
+        font-weight: 800;
+        font-size: 1.05rem;
+        margin: 0 0 10px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .setting-label .note { font-size: .82rem; color: var(--ink-soft); font-weight: 500; }
+      .choices { display: flex; flex-wrap: wrap; gap: 10px; }
+      .choice {
+        flex: 1 1 0;
+        min-width: 96px;
+        min-height: 56px;
+        font: inherit;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink);
+        background: var(--surface);
+        border: 2.5px solid var(--line);
+        border-radius: 14px;
+        cursor: pointer;
+        padding: 8px 6px;
+        transition: border-color .12s, background .12s;
+      }
+      .choice small { display: block; font-size: .74rem; font-weight: 500; color: var(--ink-soft); }
+      .choice[aria-pressed="true"] {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        color: var(--ink);
+      }
+      .choice[aria-pressed="true"] small { color: var(--ink-soft); }
+      .choice:focus-visible, .btn:focus-visible, .key:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+      .btn {
+        font: inherit;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+        border-radius: 14px;
+        min-height: 56px;
+        padding: 10px 22px;
+        font-size: 1.1rem;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: var(--accent-ink);
+        width: 100%;
+        font-size: 1.35rem;
+        min-height: 68px;
+        letter-spacing: .06em;
+        box-shadow: 0 4px 0 var(--key-shadow);
+      }
+      .btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--key-shadow); }
+      .btn-sub {
+        background: var(--surface-2);
+        color: var(--ink);
+        border: 2px solid var(--line);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink-soft);
+        font-weight: 700;
+        min-height: 48px;
+        padding: 6px 14px;
+        font-size: .95rem;
+      }
+      .howto {
+        margin-top: 18px;
+        background: var(--surface-2);
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-size: .95rem;
+      }
+      .howto p { margin: 0; }
+      .howto strong { color: var(--accent); }
+
+      /* ---- 練習画面 ---- */
+      .play-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .progress-text { font-weight: 800; font-size: 1.2rem; }
+      .progress-text .total { color: var(--ink-soft); font-size: 1rem; }
+      .timer {
+        font-weight: 800;
+        font-size: 1.15rem;
+        font-variant-numeric: tabular-nums;
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 18px;
+      }
+      .timer .t-label { font-size: .78rem; color: var(--ink-soft); font-weight: 700; margin-right: 6px; }
+      .dots { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }
+      .dot {
+        width: 15px; height: 15px; border-radius: 50%;
+        border: 2px solid var(--line);
+        background: var(--surface);
+      }
+      .dot.done { background: var(--bead); border-color: var(--bead-2); }
+      .dot.now { border-color: var(--accent); border-width: 3px; width: 17px; height: 17px; }
+
+      .play-main {
+        display: flex;
+        gap: 14px;
+        flex: 1;
+        min-height: 0;
+        align-items: stretch;
+      }
+      .problem-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 12px 12px;
+        flex: 0 0 clamp(168px, 30%, 300px);
+        display: flex;
+        flex-direction: column;
+      }
+      .problem-card .numbers {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .problem-title {
+        text-align: center;
+        font-weight: 800;
+        color: var(--ink-soft);
+        font-size: .92rem;
+        margin: 0 0 6px;
+      }
+      .numbers {
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+        font-size: clamp(1.7rem, 6.2vh, 3rem);
+        line-height: 1.28;
+        width: fit-content;
+        margin: 0 auto;
+        padding: 4px 10px 10px;
+      }
+      .numbers .row { display: flex; justify-content: flex-end; align-items: baseline; }
+      .numbers .sign { width: .8em; text-align: center; color: var(--accent); }
+      .numbers .val { text-align: right; min-width: 1.2em; }
+      .numbers.d2 .val { min-width: 2.2em; }
+      .sum-line { border-bottom: 5px solid var(--ink); border-radius: 2px; margin-top: 4px; }
+      .answer-row {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        margin-top: 10px;
+      }
+      .answer-label { font-weight: 800; font-size: 1.05rem; }
+      .answer-box {
+        flex: 1;
+        min-width: 0;
+        min-height: 60px;
+        border: 3px solid var(--accent);
+        border-radius: 12px;
+        background: var(--accent-soft);
+        display: flex; align-items: center; justify-content: center;
+        font: inherit;
+        font-size: 2rem; font-weight: 800;
+        color: var(--ink);
+        cursor: pointer;
+        font-variant-numeric: tabular-nums;
+        padding: 2px 10px;
+      }
+      .answer-box:empty::before { content: "？"; color: var(--ink-soft); font-size: 1.4rem; }
+      .answer-hint { text-align: center; font-size: .8rem; color: var(--ink-soft); margin: 6px 0 0; }
+
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .key {
+        font: inherit;
+        font-size: 1.7rem;
+        font-weight: 800;
+        min-height: 64px;
+        border-radius: 14px;
+        border: 2px solid var(--line);
+        background: var(--key-bg);
+        color: var(--ink);
+        cursor: pointer;
+        box-shadow: 0 3px 0 var(--key-shadow);
+        font-variant-numeric: tabular-nums;
+        padding: 4px;
+      }
+      .key:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--key-shadow); }
+      .key.util { font-size: 1.05rem; background: var(--surface-2); }
+      .play-actions { display: flex; gap: 10px; margin-top: 12px; }
+      .play-actions .btn { flex: 1; }
+      .btn-next { background: var(--accent); color: var(--accent-ink); font-size: 1.25rem; min-height: 64px; box-shadow: 0 4px 0 var(--key-shadow); }
+      .btn-next:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--key-shadow); }
+      /* ---- 結果画面 ---- */
+      .result-head { text-align: center; }
+      .stars { font-size: 2.6rem; letter-spacing: .15em; color: var(--gold); line-height: 1.2; min-height: 1.2em; }
+      .stars .off { color: var(--line); }
+      .score-big { font-size: clamp(2.4rem, 8vw, 3.4rem); font-weight: 800; margin: 4px 0 0; font-variant-numeric: tabular-nums; }
+      .score-big small { font-size: 1.2rem; color: var(--ink-soft); }
+      .result-msg { font-size: 1.25rem; font-weight: 800; margin: 6px 0 2px; }
+      .result-time { color: var(--ink-soft); font-weight: 700; margin: 0 0 18px; font-variant-numeric: tabular-nums; }
+      .result-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 22px; }
+      .result-item {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .result-item.ok { border-color: var(--good); }
+      .result-item.ng { border-color: var(--bad); }
+      .result-item .r-nums {
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+        font-size: 1.3rem;
+        line-height: 1.35;
+        text-align: right;
+        width: fit-content;
+        margin: 0 auto;
+      }
+      .result-item .r-nums .row { display: flex; justify-content: flex-end; }
+      .result-item .r-nums .sign { width: .8em; text-align: center; color: var(--accent); }
+      .result-item .r-line { border-bottom: 3px solid var(--ink); margin: 2px 0 6px; }
+      .r-verdict { text-align: center; font-weight: 800; font-size: 1.05rem; margin-top: 4px; }
+      .result-item.ok .r-verdict { color: var(--good); }
+      .result-item.ng .r-verdict { color: var(--bad); }
+      .r-answers { text-align: center; font-size: .92rem; font-variant-numeric: tabular-nums; }
+      .r-answers .wrong { color: var(--bad); font-weight: 800; text-decoration: line-through; }
+      .r-answers .right { font-weight: 800; }
+      .result-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+      .result-actions .btn { flex: 1 1 200px; }
+
+      /* ---- バーチャルそろばん ---- */
+      @media (max-width: 640px) {
+        :root {
+          --soro-bead-w: 46px;
+          --soro-bead-h: 31px;
+          --soro-step: 32px;
+          --soro-cell: 56px;
+          --soro-top: 48px;
+          --soro-earth: 158px;
+        }
+        .problem-card { flex-basis: 38%; padding: 10px 8px; }
+      }
+      @media (max-height: 660px) {
+        :root { --soro-top: 44px; --soro-earth: 146px; --soro-step: 29px; --soro-bead-h: 28px; }
+      }
+      @media (max-width: 430px) {
+        :root {
+          --soro-bead-w: 46px;
+          --soro-bead-h: 31px;
+          --soro-step: 32px;
+          --soro-cell: 56px;
+          --soro-top: 48px;
+          --soro-earth: 160px;
+        }
+      }
+      .soroban-card {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 14px 12px;
+      }
+      .soroban-head {
+        display: flex; justify-content: space-between; align-items: center;
+        flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
+      }
+      .soroban-title { font-weight: 800; font-size: 1.05rem; margin: 0; }
+      .soroban-head .btn { min-height: 48px; padding: 6px 20px; }
+      .soroban-frame {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(180deg, #a5712f, #7d5220);
+        border-radius: 14px;
+        padding: 12px 10px;
+        box-shadow: inset 0 2px 4px rgba(255,255,255,.25), inset 0 -3px 6px rgba(0,0,0,.3);
+      }
+      .soroban-inner { background: var(--soro-bg); border-radius: 8px; padding: 8px 2px 6px; width: 100%; }
+      .soro-row { display: flex; justify-content: space-around; }
+      .soro-cell { position: relative; flex: 0 0 var(--soro-cell); }
+      .soro-cell::before {
+        content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
+        width: 4px; margin-left: -2px; border-radius: 2px;
+        background: rgba(96, 62, 18, .45);
+      }
+      .soro-cell.top { height: var(--soro-top); }
+      .soro-cell.bottom { height: var(--soro-earth); }
+      .s-bead {
+        position: absolute; left: 50%;
+        margin-left: calc(var(--soro-bead-w) / -2);
+        width: var(--soro-bead-w); height: var(--soro-bead-h);
+        border: none; padding: 0; cursor: pointer; z-index: 1; min-height: 0;
+        background: linear-gradient(180deg, var(--bead) 0%, var(--bead-2) 100%);
+        border-radius: 50% / 62%;
+        box-shadow: inset 0 -3px 5px rgba(0,0,0,.25), inset 0 3px 4px rgba(255,255,255,.35);
+        transition: top .13s ease;
+      }
+      .s-bead:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+      .soro-bar {
+        display: flex; justify-content: space-around;
+        height: 12px; border-radius: 3px; margin: 2px 0;
+        background: linear-gradient(180deg, #8a5a28, #6e4520);
+      }
+      .bar-cell { flex: 0 0 var(--soro-cell); position: relative; }
+      .bar-dot {
+        position: absolute; left: 50%; top: 50%;
+        width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+        border-radius: 50%; background: #fff6dd;
+      }
+      .soroban-note { font-size: .85rem; color: var(--ink-soft); margin: 10px 0 0; text-align: center; }
+
+      /* ---- 答え入力シート ---- */
+      .sheet-backdrop {
+        position: fixed; inset: 0; z-index: 60;
+        background: rgba(43, 28, 12, .5);
+        display: flex; align-items: flex-end; justify-content: center;
+      }
+      .sheet {
+        background: var(--surface);
+        width: min(460px, 100%);
+        border-radius: 20px 20px 0 0;
+        padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+        box-shadow: 0 -8px 28px rgba(0,0,0,.3);
+      }
+      .sheet-answer-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+      .sheet-answer-row .answer-box { flex: 0 1 200px; cursor: default; }
+      .sheet .btn-next { width: 100%; margin-top: 14px; }
+      @media (min-width: 700px) {
+        .sheet-backdrop { align-items: center; padding: 16px; }
+        .sheet { border-radius: 20px; }
+      }
+
+      [hidden] { display: none !important; }
+      @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="beads" aria-hidden="true">
+        <span class="bead"></span><span class="bead off"></span><span class="bead"></span>
+        <span class="bead"></span><span class="bead off"></span><span class="bead"></span>
+        <span class="bead off"></span><span class="bead"></span><span class="bead"></span>
+      </div>
+
+      <!-- ============ 設定画面 ============ -->
+      <section id="screen-setup">
+        <h1>見取り算 練習</h1>
+        <p class="lead">数字を見て、本物のそろばんで計算しよう。<br />答えはこの画面に入力してね。</p>
+
+        <div class="card">
+          <div class="setting">
+            <p class="setting-label">けた <span class="note">数字の大きさ</span></p>
+            <div class="choices" role="group" aria-label="けた" id="grp-digits">
+              <button type="button" class="choice" data-value="1" aria-pressed="true">1けた<small>1〜9 の数字</small></button>
+              <button type="button" class="choice" data-value="2" aria-pressed="false">2けた<small>10〜99 の数字</small></button>
+            </div>
+          </div>
+
+          <div class="setting">
+            <p class="setting-label">口数（くちすう） <span class="note">1問に並ぶ数字の数</span></p>
+            <div class="choices" role="group" aria-label="口数" id="grp-rows">
+              <button type="button" class="choice" data-value="3" aria-pressed="false">3口</button>
+              <button type="button" class="choice" data-value="4" aria-pressed="false">4口</button>
+              <button type="button" class="choice" data-value="5" aria-pressed="false">5口</button>
+              <button type="button" class="choice" data-value="6" aria-pressed="true">6口<small>全珠連10級</small></button>
+            </div>
+          </div>
+
+          <div class="setting">
+            <p class="setting-label">計算の種類</p>
+            <div class="choices" role="group" aria-label="計算の種類" id="grp-mode">
+              <button type="button" class="choice" data-value="add" aria-pressed="false">たし算だけ</button>
+              <button type="button" class="choice" data-value="mix" aria-pressed="true">たし算・ひき算<small>全珠連10級</small></button>
+            </div>
+          </div>
+
+          <div class="setting">
+            <p class="setting-label">問題の数</p>
+            <div class="choices" role="group" aria-label="問題の数" id="grp-count">
+              <button type="button" class="choice" data-value="5" aria-pressed="false">5問</button>
+              <button type="button" class="choice" data-value="10" aria-pressed="false">10問</button>
+              <button type="button" class="choice" data-value="15" aria-pressed="true">15問<small>全珠連10級</small></button>
+            </div>
+          </div>
+
+          <div class="setting">
+            <p class="setting-label">制限時間 <span class="note">時間が来たら自動で答え合わせ</span></p>
+            <div class="choices" role="group" aria-label="制限時間" id="grp-limit">
+              <button type="button" class="choice" data-value="7" aria-pressed="true">7分<small>全珠連10級</small></button>
+              <button type="button" class="choice" data-value="0" aria-pressed="false">なし<small>じっくり練習</small></button>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="btn-start">スタート</button>
+
+          <div class="howto">
+            <p><strong>使い方：</strong>問題の数字を上から順に、本物のそろばんで足して（引いて）いきます。答えが出たら画面のボタンで入力して「つぎへ」を押してください。最後に全部の答え合わせができます。初期設定は全珠連10級の形式（1けた・6口・たし算ひき算・15問・制限時間7分）です。制限時間が来ると、自動で答え合わせになります。練習画面では、問題の数字の横にバーチャルそろばん（4けた）があり、問題を見ながら珠をタップして使えます（珠を動かすと音が鳴ります）。答えは「答え」の枠をタップすると出てくる数字ボタンで入力します。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 練習画面 ============ -->
+      <section id="screen-play" hidden>
+        <div class="play-head">
+          <span class="progress-text"><span id="cur-num">1</span> <span class="total">/ <span id="total-num">10</span> もんめ</span></span>
+          <span class="timer"><span class="t-label" id="timer-label">のこり</span><span id="timer">7:00</span></span>
+          <button type="button" class="btn-ghost" id="btn-quit">やめる</button>
+        </div>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+
+        <div class="play-main">
+          <div class="problem-card">
+            <p class="problem-title">そろばんで けいさんしてね</p>
+            <div class="numbers" id="numbers"></div>
+            <div class="answer-row">
+              <span class="answer-label">答え</span>
+              <button type="button" class="answer-box" id="answer-box" aria-live="polite" aria-haspopup="dialog"></button>
+            </div>
+            <p class="answer-hint">枠をタップすると 数字ボタンが 出るよ</p>
+          </div>
+
+          <div class="soroban-card">
+            <div class="soroban-head">
+              <p class="soroban-title">バーチャルそろばん</p>
+              <button type="button" class="btn btn-sub" id="btn-soro-clear">0にする</button>
+            </div>
+            <div class="soroban-frame">
+              <div class="soroban-inner">
+                <div class="soro-row" id="soro-top"></div>
+                <div class="soro-bar" aria-hidden="true">
+                  <span class="bar-cell"><span class="bar-dot"></span></span>
+                  <span class="bar-cell"></span>
+                  <span class="bar-cell"></span>
+                  <span class="bar-cell"><span class="bar-dot"></span></span>
+                </div>
+                <div class="soro-row" id="soro-bottom"></div>
+              </div>
+            </div>
+            <p class="soroban-note">珠をタップすると「カチッ」と音が鳴るよ。数は自分で数えてみよう。</p>
+          </div>
+        </div>
+
+        <div class="play-actions">
+          <button type="button" class="btn btn-sub" id="btn-prev">もどる</button>
+          <button type="button" class="btn btn-next" id="btn-next">つぎへ</button>
+        </div>
+      </section>
+
+      <!-- ============ 答え入力シート ============ -->
+      <div class="sheet-backdrop" id="keypad-sheet" hidden>
+        <div class="sheet" role="dialog" aria-modal="true" aria-label="答えを入力する">
+          <div class="sheet-answer-row">
+            <span class="answer-label">答え</span>
+            <div class="answer-box" id="sheet-answer-box"></div>
+          </div>
+          <div class="keypad" id="keypad">
+            <button type="button" class="key" data-k="1">1</button>
+            <button type="button" class="key" data-k="2">2</button>
+            <button type="button" class="key" data-k="3">3</button>
+            <button type="button" class="key" data-k="4">4</button>
+            <button type="button" class="key" data-k="5">5</button>
+            <button type="button" class="key" data-k="6">6</button>
+            <button type="button" class="key" data-k="7">7</button>
+            <button type="button" class="key" data-k="8">8</button>
+            <button type="button" class="key" data-k="9">9</button>
+            <button type="button" class="key util" data-k="clear">全部消す</button>
+            <button type="button" class="key" data-k="0">0</button>
+            <button type="button" class="key util" data-k="back">1つ消す</button>
+          </div>
+          <button type="button" class="btn btn-next" id="btn-sheet-done">できた</button>
+        </div>
+      </div>
+
+      <!-- ============ 結果画面 ============ -->
+      <section id="screen-result" hidden>
+        <div class="result-head">
+          <div class="stars" id="stars" aria-hidden="true"></div>
+          <p class="score-big"><span id="score-num">0</span><small> 点</small></p>
+          <p class="result-msg" id="result-msg"></p>
+          <p class="result-time" id="result-time"></p>
+        </div>
+        <div class="result-list" id="result-list"></div>
+        <div class="result-actions">
+          <button type="button" class="btn btn-primary" id="btn-again" style="width:auto;">もう一回れんしゅう</button>
+          <button type="button" class="btn btn-sub" id="btn-tosetup">設定をかえる</button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var settings = { digits: 1, rows: 6, mode: "mix", count: 15, limit: 7 };
+        var problems = [];   // [{nums:[...], answer:Number}]
+        var answers = [];    // 入力した答え（文字列）問題ごと
+        var current = 0;
+        var timerId = null;
+        var startAt = 0;
+        var elapsedSec = 0;
+
+        var $ = function (id) { return document.getElementById(id); };
+        var scrSetup = $("screen-setup"), scrPlay = $("screen-play"), scrResult = $("screen-result");
+
+        function show(el) {
+          [scrSetup, scrPlay, scrResult].forEach(function (s) { s.hidden = s !== el; });
+          document.body.classList.toggle("playing", el === scrPlay);
+          window.scrollTo(0, 0);
+        }
+
+        /* ---------- 設定の選択ボタン ---------- */
+        function bindGroup(id, key) {
+          var grp = $(id);
+          grp.addEventListener("click", function (e) {
+            var btn = e.target.closest(".choice");
+            if (!btn) return;
+            grp.querySelectorAll(".choice").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+            btn.setAttribute("aria-pressed", "true");
+            settings[key] = isNaN(Number(btn.dataset.value)) ? btn.dataset.value : Number(btn.dataset.value);
+            if (key === "mode") settings.mode = btn.dataset.value;
+          });
+        }
+        bindGroup("grp-digits", "digits");
+        bindGroup("grp-rows", "rows");
+        bindGroup("grp-mode", "mode");
+        bindGroup("grp-count", "count");
+        bindGroup("grp-limit", "limit");
+
+        /* ---------- 問題生成 ---------- */
+        function randOperand() {
+          if (settings.digits === 1) return 1 + Math.floor(Math.random() * 9);        // 1〜9
+          return 10 + Math.floor(Math.random() * 90);                                 // 10〜99
+        }
+        function genProblem() {
+          var nums = [], total = 0;
+          for (var i = 0; i < settings.rows; i++) {
+            var n = randOperand();
+            if (i === 0) {
+              nums.push(n); total = n; continue;
+            }
+            var sub = false;
+            if (settings.mode === "mix" && Math.random() < 0.38) {
+              // 途中の合計がマイナスにならない引く数だけ許可
+              var maxSub = settings.digits === 1 ? Math.min(9, total - 1) : Math.min(99, total - 10);
+              if (maxSub >= (settings.digits === 1 ? 1 : 10)) {
+                n = settings.digits === 1
+                  ? 1 + Math.floor(Math.random() * maxSub)
+                  : 10 + Math.floor(Math.random() * (maxSub - 9));
+                sub = true;
+              }
+            }
+            if (sub) { nums.push(-n); total -= n; }
+            else { nums.push(n); total += n; }
+          }
+          return { nums: nums, answer: total };
+        }
+
+        /* ---------- タイマー ---------- */
+        function fmtTime(sec) {
+          var m = Math.floor(sec / 60), s = sec % 60;
+          return m + ":" + (s < 10 ? "0" : "") + s;
+        }
+        function startTimer() {
+          startAt = Date.now(); elapsedSec = 0;
+          stopTimer();
+          $("timer-label").textContent = settings.limit > 0 ? "のこり" : "じかん";
+          $("timer").textContent = settings.limit > 0 ? fmtTime(settings.limit * 60) : "0:00";
+          timerId = setInterval(function () {
+            elapsedSec = Math.floor((Date.now() - startAt) / 1000);
+            if (settings.limit > 0) {
+              var remain = settings.limit * 60 - elapsedSec;
+              if (remain <= 0) {
+                $("timer").textContent = "0:00";
+                finish();
+                return;
+              }
+              $("timer").textContent = fmtTime(remain);
+            } else {
+              $("timer").textContent = fmtTime(elapsedSec);
+            }
+          }, 500);
+        }
+        function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+
+        /* ---------- 練習画面の描画 ---------- */
+        function numRowsHTML(nums, withLine) {
+          var html = "";
+          nums.forEach(function (n, i) {
+            html += '<div class="row"><span class="sign">' + (n < 0 ? "−" : (i === 0 ? "" : "")) + '</span><span class="val">' + Math.abs(n) + "</span></div>";
+          });
+          if (withLine) html += '<div class="sum-line"></div>';
+          return html;
+        }
+        function syncAnswer() {
+          var v = answers[current] || "";
+          $("answer-box").textContent = v;
+          $("sheet-answer-box").textContent = v;
+        }
+        function renderProblem() {
+          var p = problems[current];
+          $("cur-num").textContent = current + 1;
+          $("total-num").textContent = problems.length;
+          var numsEl = $("numbers");
+          numsEl.className = "numbers" + (settings.digits === 2 ? " d2" : "");
+          numsEl.innerHTML = numRowsHTML(p.nums, true);
+          syncAnswer();
+          resetSoroban();
+          $("btn-next").textContent = current === problems.length - 1 ? "答え合わせ" : "つぎへ";
+          $("btn-prev").style.visibility = current === 0 ? "hidden" : "visible";
+          var dots = "";
+          for (var i = 0; i < problems.length; i++) {
+            dots += '<span class="dot' + (i === current ? " now" : (answers[i] ? " done" : "")) + '"></span>';
+          }
+          $("dots").innerHTML = dots;
+        }
+
+        function startPractice() {
+          problems = [];
+          for (var i = 0; i < settings.count; i++) problems.push(genProblem());
+          answers = problems.map(function () { return ""; });
+          current = 0;
+          show(scrPlay);
+          renderProblem();
+          startTimer();
+        }
+
+        /* ---------- キーパッド ---------- */
+        $("keypad").addEventListener("click", function (e) {
+          var btn = e.target.closest(".key");
+          if (!btn) return;
+          var k = btn.dataset.k;
+          var cur = answers[current] || "";
+          if (k === "clear") cur = "";
+          else if (k === "back") cur = cur.slice(0, -1);
+          else {
+            if (cur.replace(/^0+/, "").length >= 3) return;      // 答えは最大3けた
+            cur = (cur === "0") ? k : cur + k;
+          }
+          answers[current] = cur;
+          syncAnswer();
+          renderDotsOnly();
+        });
+
+        /* ---------- 答え入力シート ---------- */
+        var sheet = $("keypad-sheet");
+        function openSheet() {
+          syncAnswer();
+          sheet.hidden = false;
+          $("btn-sheet-done").focus();
+        }
+        function closeSheet() {
+          sheet.hidden = true;
+          $("answer-box").focus();
+        }
+        $("answer-box").addEventListener("click", openSheet);
+        $("btn-sheet-done").addEventListener("click", closeSheet);
+        sheet.addEventListener("click", function (e) { if (e.target === sheet) closeSheet(); });
+        function renderDotsOnly() {
+          var dots = $("dots").children;
+          for (var i = 0; i < dots.length; i++) {
+            dots[i].className = "dot" + (i === current ? " now" : (answers[i] ? " done" : ""));
+          }
+        }
+
+        $("btn-next").addEventListener("click", function () {
+          if (current < problems.length - 1) { current++; renderProblem(); }
+          else finish();
+        });
+        $("btn-prev").addEventListener("click", function () {
+          if (current > 0) { current--; renderProblem(); }
+        });
+        $("btn-quit").addEventListener("click", function () { stopTimer(); show(scrSetup); });
+
+        document.addEventListener("keydown", function (e) {
+          if (scrPlay.hidden) return;
+          if (e.key === "Escape" && !sheet.hidden) { closeSheet(); return; }
+          if (/^[0-9]$/.test(e.key)) {
+            var cur = answers[current] || "";
+            if (cur.replace(/^0+/, "").length < 3) {
+              answers[current] = (cur === "0") ? e.key : cur + e.key;
+              syncAnswer();
+              renderDotsOnly();
+            }
+          } else if (e.key === "Backspace") {
+            answers[current] = (answers[current] || "").slice(0, -1);
+            syncAnswer();
+            renderDotsOnly();
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            if (!sheet.hidden) closeSheet();
+            else $("btn-next").click();
+          }
+        });
+
+        /* ---------- 結果 ---------- */
+        function finish() {
+          stopTimer();
+          sheet.hidden = true;
+          elapsedSec = Math.floor((Date.now() - startAt) / 1000);
+          var timeUp = settings.limit > 0 && elapsedSec >= settings.limit * 60;
+          if (timeUp) elapsedSec = settings.limit * 60;
+          var correct = 0;
+          var listHtml = "";
+          problems.forEach(function (p, i) {
+            var mine = answers[i] === "" ? null : Number(answers[i]);
+            var ok = mine === p.answer;
+            if (ok) correct++;
+            var rows = "";
+            p.nums.forEach(function (n) {
+              rows += '<div class="row"><span class="sign">' + (n < 0 ? "−" : "") + '</span><span>' + Math.abs(n) + "</span></div>";
+            });
+            listHtml += '<div class="result-item ' + (ok ? "ok" : "ng") + '">' +
+              '<div class="r-nums">' + rows + '<div class="r-line"></div></div>' +
+              (ok
+                ? '<div class="r-answers"><span class="right">' + p.answer + '</span></div><div class="r-verdict">せいかい！</div>'
+                : '<div class="r-answers">' + (mine === null ? "答えなし" : '<span class="wrong">' + mine + "</span>") +
+                  ' → <span class="right">' + p.answer + '</span></div><div class="r-verdict">ざんねん</div>') +
+              "</div>";
+          });
+          var score = Math.round(correct / problems.length * 100);
+          $("score-num").textContent = score;
+          $("result-list").innerHTML = listHtml;
+
+          var ratio = correct / problems.length;
+          var starCount = ratio === 1 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.4 ? 1 : 0;
+          var stars = "";
+          for (var s = 0; s < 3; s++) stars += s < starCount ? "★" : '<span class="off">★</span>';
+          $("stars").innerHTML = stars;
+
+          var msg;
+          if (ratio === 1) msg = "全問せいかい！すごい！";
+          else if (ratio >= 0.7) msg = "よくできました！";
+          else if (ratio >= 0.4) msg = "がんばったね。もう一回やってみよう。";
+          else msg = "ゆっくりで大丈夫。そろばんをはじいて、もう一回！";
+          $("result-msg").textContent = msg;
+          $("result-time").textContent = problems.length + "問中 " + correct + "問せいかい ・ かかった時間 " + fmtTime(elapsedSec) + (timeUp ? "（時間切れ）" : "");
+          show(scrResult);
+        }
+
+        /* ---------- バーチャルそろばん ---------- */
+        var soroDigits = [0, 0, 0, 0];
+        var soroPlaces = ["千の位", "百の位", "十の位", "一の位"];
+        var heavenBtns = [], earthBtns = [[], [], [], []];
+        var audioCtx = null;
+
+        function ensureAudio() {
+          if (!audioCtx) {
+            var AC = window.AudioContext || window.webkitAudioContext;
+            if (AC) { try { audioCtx = new AC(); } catch (e) { audioCtx = null; } }
+          }
+          if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+        }
+        function clickSound(high) {
+          if (!audioCtx) return;
+          var t = audioCtx.currentTime;
+          var dur = 0.05;
+          var len = Math.max(1, Math.floor(audioCtx.sampleRate * dur));
+          var buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+          var d = buf.getChannelData(0);
+          for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+          var src = audioCtx.createBufferSource(); src.buffer = buf;
+          var f = audioCtx.createBiquadFilter(); f.type = "bandpass";
+          f.frequency.value = high ? 2500 : 1700; f.Q.value = 1.1;
+          var g = audioCtx.createGain();
+          g.gain.setValueAtTime(0.45, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+          src.connect(f); f.connect(g); g.connect(audioCtx.destination);
+          src.start(t);
+          var o = audioCtx.createOscillator(); o.type = "triangle";
+          o.frequency.value = high ? 840 : 620;
+          var g2 = audioCtx.createGain();
+          g2.gain.setValueAtTime(0.12, t);
+          g2.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+          o.connect(g2); g2.connect(audioCtx.destination);
+          o.start(t); o.stop(t + 0.08);
+        }
+        function soroMetrics() {
+          var cs = getComputedStyle(document.documentElement);
+          function num(name, fb) { var v = parseFloat(cs.getPropertyValue(name)); return isNaN(v) ? fb : v; }
+          return { step: num("--soro-step", 37), earthH: num("--soro-earth", 180), topH: num("--soro-top", 56), beadH: num("--soro-bead-h", 36) };
+        }
+        function buildSoroban() {
+          var top = $("soro-top"), bottom = $("soro-bottom");
+          for (var c = 0; c < 4; c++) {
+            (function (c) {
+              var tcell = document.createElement("div"); tcell.className = "soro-cell top";
+              var hb = document.createElement("button");
+              hb.type = "button"; hb.className = "s-bead";
+              hb.setAttribute("aria-label", soroPlaces[c] + "の5の珠");
+              hb.addEventListener("click", function () {
+                ensureAudio();
+                soroDigits[c] = soroDigits[c] >= 5 ? soroDigits[c] - 5 : soroDigits[c] + 5;
+                clickSound(true); renderSoroban();
+              });
+              tcell.appendChild(hb); top.appendChild(tcell); heavenBtns[c] = hb;
+
+              var bcell = document.createElement("div"); bcell.className = "soro-cell bottom";
+              for (var i = 0; i < 4; i++) {
+                (function (i) {
+                  var eb = document.createElement("button");
+                  eb.type = "button"; eb.className = "s-bead";
+                  eb.setAttribute("aria-label", soroPlaces[c] + "の" + (i + 1) + "番目の珠");
+                  eb.addEventListener("click", function () {
+                    ensureAudio();
+                    var ones = soroDigits[c] % 5;
+                    ones = (ones === i + 1) ? i : i + 1;
+                    soroDigits[c] = (soroDigits[c] >= 5 ? 5 : 0) + ones;
+                    clickSound(false); renderSoroban();
+                  });
+                  bcell.appendChild(eb); earthBtns[c][i] = eb;
+                })(i);
+              }
+              bottom.appendChild(bcell);
+            })(c);
+          }
+        }
+        function renderSoroban() {
+          if (!heavenBtns.length) return;
+          var m = soroMetrics();
+          for (var c = 0; c < 4; c++) {
+            var v = soroDigits[c];
+            heavenBtns[c].style.top = (v >= 5 ? m.topH - m.beadH : 2) + "px";
+            var ones = v % 5;
+            for (var i = 0; i < 4; i++) {
+              earthBtns[c][i].style.top = (i < ones ? i * m.step : m.earthH - (4 - i) * m.step) + "px";
+            }
+          }
+        }
+        function resetSoroban() {
+          soroDigits = [0, 0, 0, 0];
+          renderSoroban();
+        }
+        $("btn-soro-clear").addEventListener("click", function () {
+          ensureAudio();
+          resetSoroban();
+          clickSound(true);
+          setTimeout(function () { clickSound(false); }, 70);
+        });
+        window.addEventListener("resize", renderSoroban);
+        buildSoroban();
+        renderSoroban();
+
+        $("btn-start").addEventListener("click", startPractice);
+        $("btn-again").addEventListener("click", startPractice);
+        $("btn-tosetup").addEventListener("click", function () { show(scrSetup); });
+      })();
+    </script>
+  </body>
+</html>
