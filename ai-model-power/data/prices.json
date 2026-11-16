@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-02T15:46:00+09:00",
+  "updated_at": "2026-11-16T23:42:00+09:00",
   "standard_cost_rule": {
     "version": "0.2",
     "currency": "USD",
@@ -727,6 +727,39 @@
       "effective_from": "2026-10-02",
       "source_url": "https://docs.x.ai/developers/rest-api-reference/management/auth",
       "note": "Current Management API model metadata lists grok-3-mini at 131072 prompt tokens and 0.30/0.50 USD-equivalent token rates."
+    },
+    {
+      "model_id": "google-gemini-4-hydrogen-xhigh",
+      "provider": "Gemini Developer API",
+      "input_usd_per_million_tokens": 1.5,
+      "output_usd_per_million_tokens": 7.5,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": true,
+      "active": true,
+      "effective_from": "2026-11-12",
+      "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+      "model_id": "google-gemini-4-argon-high",
+      "provider": "Gemini Developer API",
+      "input_usd_per_million_tokens": 2,
+      "output_usd_per_million_tokens": 10,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-09-30",
+      "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+      "model_id": "google-gemini-4-carbon-high",
+      "provider": "Gemini Developer API",
+      "input_usd_per_million_tokens": 2,
+      "output_usd_per_million_tokens": 10,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-10-28",
+      "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
     }
   ]
 }

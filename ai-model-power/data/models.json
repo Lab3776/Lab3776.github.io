@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-10-02T15:46:00+09:00",
+  "updated_at": "2026-11-16T23:42:00+09:00",
   "models": [
     {
       "id": "openai-gpt-6-1-sol-max",
@@ -954,6 +954,42 @@
       "local_available": false,
       "general_access_available": null,
       "context_window_tokens": null
+    },
+    {
+      "id": "google-gemini-4-hydrogen-xhigh",
+      "name": "Gemini 4 Hydrogen",
+      "variant": "xhigh",
+      "provider": "Google",
+      "released_at": "2026-11-12",
+      "status": "active",
+      "free_access": true,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1048576
+    },
+    {
+      "id": "google-gemini-4-argon-high",
+      "name": "Gemini 4 Argon",
+      "variant": "high",
+      "provider": "Google",
+      "released_at": "2026-09-30",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "google-gemini-4-carbon-high",
+      "name": "Gemini 4 Carbon",
+      "variant": "high",
+      "provider": "Google",
+      "released_at": "2026-10-28",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
     }
   ]
 }

@@ -1,9 +1,20 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T15:00:00+09:00",
+  "updated_at": "2026-11-16T23:42:00+09:00",
   "current_reference": {
     "benchmark": "Artificial Analysis Intelligence Index",
-    "version": "4.3.2"
+    "version": "5.0.1"
   },
-  "bridges": []
+  "bridges": [
+    {
+      "benchmark": "Artificial Analysis Intelligence Index",
+      "from_version": "4.3.2",
+      "to_version": "5.0.1",
+      "type": "linear",
+      "a": 1.2978,
+      "b": -20.17,
+      "note_ja": "同一profileで両版の実測がある15件への最小二乗フィット（平均絶対誤差 4.3、最大残差 8.4）。ペア範囲（16〜58）の外は外挿であり、旧スコア14未満では換算値が0以下になりうるため参考値として扱うこと。",
+      "note_en": "Least-squares fit over 15 models measured on both versions at matched profiles (MAE 4.3, max residual 8.4). Outside the paired range (16-58) the conversion is an extrapolation; below an old score of 14 it can yield zero or negative values and must be treated as a rough reference only."
+    }
+  ]
 }

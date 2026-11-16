@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-02",
+  "updated_at": "2026-11-16",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -723,6 +723,42 @@
       "reason_ja": "代表profileだけを追加した最初のバックフィルでは、既存models.jsonの追加モデルが未評価・未監査のまま残っていたため。Gemini 3.5 Flash-Lite、GPT-5.4 mini/nano、GPT-5 mini/nano、GPT-4.1 mini/nano、Grok 3 mini、Gemini 2.0系などを補完し、GPT-4.5 / o4-mini / o3-mini / Gemini 3系 / Claude 3.7等の別表記重複をcanonical familyへ統合。",
       "reason_en": "The original representative-profile backfill left additional models already present in models.json unevaluated and unaudited. Filled rows such as Gemini 3.5 Flash-Lite, GPT-5.4 mini/nano, GPT-5 mini/nano, GPT-4.1 mini/nano, Grok 3 mini and Gemini 2.0 models, and canonicalized alternate labels for GPT-4.5, o4-mini, o3-mini, Gemini 3 and Claude 3.7 families.",
       "source_commit": "fa9b3e40593666bded420d6319626bdb28ddd74f"
+    },
+    {
+      "id": "method-aa-index-v5-reanchor-61",
+      "updated_at": "2026-11-16T23:42:00+09:00",
+      "target_id": "calculation-method",
+      "target_ja": "計算方法",
+      "target_en": "Calculation method",
+      "type": "method",
+      "change_ja": "主要アンカーをAA Intelligence Index v5.0.1へ移行し、v4.3.2→v5.0.1の線形ブリッジ（ペア15件フィット）を登録",
+      "change_en": "Moved the primary anchor to AA Intelligence Index v5.0.1 and registered a linear v4.3.2 to v5.0.1 bridge fitted on 15 paired models",
+      "reason_ja": "AAがIndexをv5.0.1へ更新し、v4.3.2の新規測定が得られなくなったため。実測のあるモデルは実測を採用し、測定のない旧モデルはブリッジ換算の参考値で補う方針とした。",
+      "reason_en": "Artificial Analysis moved the Index to v5.0.1 and no new v4.3.2 measurements are available. Measured models adopt measured values; unmeasured older models are covered by bridge-converted reference values."
+    },
+    {
+      "id": "registration-google-gemini-4-family-62",
+      "updated_at": "2026-11-16T23:42:00+09:00",
+      "target_id": "google-gemini-4-hydrogen-xhigh",
+      "target_ja": "Gemini 4 Hydrogen / Argon / Carbon",
+      "target_en": "Gemini 4 Hydrogen / Argon / Carbon",
+      "type": "registration",
+      "change_ja": "Gemini 4ファミリーを新規登録（Hydrogen xhigh 54、Argon high 50、Carbon high 60、いずれもAA v5.0.1実測）",
+      "change_en": "Registered the Gemini 4 family (Hydrogen xhigh 54, Argon high 50, Carbon high 60; all measured on AA v5.0.1)",
+      "reason_ja": "Gemini 4ファミリーが発売され、特にHydrogenがAntigravityの実行役として実用段階に入ったため。",
+      "reason_en": "The Gemini 4 family has been released, and Hydrogen in particular has entered practical use as the Antigravity execution model."
+    },
+    {
+      "id": "evaluation-aa-v5-remeasurement-63",
+      "updated_at": "2026-11-16T23:42:00+09:00",
+      "target_id": "evaluated-models-v5",
+      "target_ja": "評価済みモデル15件",
+      "target_en": "15 evaluated models",
+      "type": "evaluation",
+      "change_ja": "v5.0.1の実測値で15件を再登録し、旧評価をsupersededにした",
+      "change_en": "Re-registered 15 models with measured v5.0.1 values and marked the previous evaluations superseded",
+      "reason_ja": "再アンカーに伴い、実測が得られたモデルは換算ではなく実測へ置き換えるため。",
+      "reason_en": "As part of the re-anchor, models with fresh measurements were replaced with measured values rather than converted ones."
     }
   ]
 }
