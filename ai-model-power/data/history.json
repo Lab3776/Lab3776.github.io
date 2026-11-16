@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-17",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -759,6 +759,18 @@
       "change_en": "Re-registered 15 models with measured v5.0.1 values and marked the previous evaluations superseded",
       "reason_ja": "再アンカーに伴い、実測が得られたモデルは換算ではなく実測へ置き換えるため。",
       "reason_en": "As part of the re-anchor, models with fresh measurements were replaced with measured values rather than converted ones."
+    },
+    {
+      "id": "registration-openai-gpt-6-1-terra-64",
+      "updated_at": "2026-11-17T00:05:00+09:00",
+      "target_id": "openai-gpt-6-1-terra-max",
+      "target_ja": "GPT-6.1 Terra",
+      "target_en": "GPT-6.1 Terra",
+      "type": "registration",
+      "change_ja": "GPT-6.1 Terra（max）を新規登録。戦闘力51（AA v5.0.1実測）、価格 $1.00/$5.00",
+      "change_en": "Registered GPT-6.1 Terra (max): power 51 (measured on AA v5.0.1), priced at $1.00/$5.00",
+      "reason_ja": "GPT-6.1系列の中位モデルが未登録だったため、ユーザーの指摘で追加した。",
+      "reason_en": "The mid-tier model of the GPT-6.1 family was missing; added at the user's request."
     }
   ]
 }
