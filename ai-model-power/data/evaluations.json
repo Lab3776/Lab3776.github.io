@@ -1301,7 +1301,7 @@
       "evidence": [
         {
           "type": "benchmark",
-          "url": "https://artificialanalysis.ai/models/qwen4",
+          "url": "https://artificialanalysis.ai/models/qwen4-max",
           "note": "AA Intelligence Index v5.0.1: 42.9 (max)"
         }
       ]
