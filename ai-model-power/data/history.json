@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17",
+  "updated_at": "2026-11-18",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -771,6 +771,30 @@
       "change_en": "Registered GPT-6.1 Terra (max): power 51 (measured on AA v5.0.1), priced at $1.00/$5.00",
       "reason_ja": "GPT-6.1系列の中位モデルが未登録だったため、ユーザーの指摘で追加した。",
       "reason_en": "The mid-tier model of the GPT-6.1 family was missing; added at the user's request."
+    },
+    {
+      "id": "registration-openai-gpt-6-2-astra-65",
+      "updated_at": "2026-11-18T23:29:00+09:00",
+      "target_id": "openai-gpt-6-2-astra-max",
+      "target_ja": "GPT-6.2 Astra",
+      "target_en": "GPT-6.2 Astra",
+      "type": "registration",
+      "change_ja": "GPT-6.2 Astra（max）を新規登録。戦闘力62（AA v5.0.1実測）、価格 $8.00/$40.00",
+      "change_en": "Registered GPT-6.2 Astra (max): power 62 (measured on AA v5.0.1), priced at $8.00/$40.00",
+      "reason_ja": "2026-11-17にOpenAIがGPT-6.2 Astraを発売。GPT-6 Astra（57）から+5し、価格は2割安くなった。",
+      "reason_en": "OpenAI released GPT-6.2 Astra on 2026-11-17: up 5 points from GPT-6 Astra (57) at a 20% lower price."
+    },
+    {
+      "id": "registration-openai-gpt-6-2-sol-66",
+      "updated_at": "2026-11-18T23:29:00+09:00",
+      "target_id": "openai-gpt-6-2-sol-max",
+      "target_ja": "GPT-6.2 Sol",
+      "target_en": "GPT-6.2 Sol",
+      "type": "registration",
+      "change_ja": "GPT-6.2 Sol（max）を新規登録。戦闘力57（AA v5.0.1実測）、価格 $2.00/$10.00",
+      "change_en": "Registered GPT-6.2 Sol (max): power 57 (measured on AA v5.0.1), priced at $2.00/$10.00",
+      "reason_ja": "2026-11-17にOpenAIがGPT-6.2 Solを発売。GPT-6.1 Sol（55）から+2し、価格は据え置き。",
+      "reason_en": "OpenAI released GPT-6.2 Sol on 2026-11-17: up 2 points from GPT-6.1 Sol (55) at the same price."
     }
   ]
 }

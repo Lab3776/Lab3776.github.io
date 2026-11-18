@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T00:05:00+09:00",
+  "updated_at": "2026-11-18T23:29:00+09:00",
   "evaluation_method": {
     "version": "provisional-0.4",
     "note_ja": "Artificial Analysis Intelligence Index v5.0.1 を主要アンカーとする。実測があるモデルはIndex値をそのまま採用戦闘力に置く。v5.0.1で測定されていないモデルは v4.3.2 の採用戦闘力を保持し、現在戦闘力は benchmark-bridges.json の換算による参考値とする。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
@@ -1103,6 +1103,46 @@
           "type": "benchmark",
           "url": "https://artificialanalysis.ai/models/gpt-6-1-terra",
           "note": "AA Intelligence Index v5.0.1: 51 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "openai-gpt-6-2-astra-max",
+      "evaluated_at": "2026-11-18T23:29:00+09:00",
+      "adopted_power": 62,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 62
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値62（max、原スコア62.1）を採用。GPT-6 Astra（57）の後継フラッグシップ。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 62 (max; raw 62.1). Successor flagship to GPT-6 Astra (57).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+          "note": "AA Intelligence Index v5.0.1: 62.1 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "openai-gpt-6-2-sol-max",
+      "evaluated_at": "2026-11-18T23:29:00+09:00",
+      "adopted_power": 57,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 57
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値57（max、原スコア57.3）を採用。GPT-6.1 Sol（55）から+2。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 57 (max; raw 57.3). Up 2 points from GPT-6.1 Sol (55).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/gpt-6-2-sol",
+          "note": "AA Intelligence Index v5.0.1: 57.3 (max)"
         }
       ]
     }

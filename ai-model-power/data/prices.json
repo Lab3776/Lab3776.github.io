@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T00:05:00+09:00",
+  "updated_at": "2026-11-18T23:29:00+09:00",
   "standard_cost_rule": {
     "version": "0.2",
     "currency": "USD",
@@ -771,6 +771,28 @@
       "active": true,
       "effective_from": "2026-10-26",
       "source_url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+    },
+    {
+      "model_id": "openai-gpt-6-2-astra-max",
+      "provider": "OpenAI API",
+      "input_usd_per_million_tokens": 8,
+      "output_usd_per_million_tokens": 40,
+      "cached_input_usd_per_million_tokens": 0.4,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-17",
+      "source_url": "https://developers.openai.com/api/docs/models/gpt-6.2-astra"
+    },
+    {
+      "model_id": "openai-gpt-6-2-sol-max",
+      "provider": "OpenAI API",
+      "input_usd_per_million_tokens": 2,
+      "output_usd_per_million_tokens": 10,
+      "cached_input_usd_per_million_tokens": 0.1,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-17",
+      "source_url": "https://developers.openai.com/api/docs/models/gpt-6.2-sol"
     }
   ]
 }

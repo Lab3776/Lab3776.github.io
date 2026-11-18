@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-11-17T00:05:00+09:00",
+  "updated_at": "2026-11-18T23:29:00+09:00",
   "models": [
     {
       "id": "openai-gpt-6-1-sol-max",
@@ -997,6 +997,30 @@
       "variant": "max",
       "provider": "OpenAI",
       "released_at": "2026-10-26",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1050000
+    },
+    {
+      "id": "openai-gpt-6-2-astra-max",
+      "name": "GPT-6.2 Astra",
+      "variant": "max",
+      "provider": "OpenAI",
+      "released_at": "2026-11-17",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1050000
+    },
+    {
+      "id": "openai-gpt-6-2-sol-max",
+      "name": "GPT-6.2 Sol",
+      "variant": "max",
+      "provider": "OpenAI",
+      "released_at": "2026-11-17",
       "status": "active",
       "free_access": false,
       "local_available": false,
