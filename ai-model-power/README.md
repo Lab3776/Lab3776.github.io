@@ -4,11 +4,11 @@
 
 The database may contain general-access, API-only, CLI-only, local-only, special-purpose and retired models. The top page uses three display scopes:
 
-- **Major services**: OpenAI / Anthropic / Google / xAI (Grok). This is the default scope.
+- **Major services**: OpenAI / Anthropic / Google / xAI (Grok) / Meta (Muse). This is the default scope.
 - **General access**: Major services plus Z.ai, DeepSeek, Kimi and other models that can be normally installed and used through a web service or app.
 - **All**: every database record, including API-only, local-only, CLI-only and older models.
 
-The Major services scope is a subset of General access: the model/profile must satisfy `general_access_available` and its provider must be one of OpenAI, Anthropic, Google or xAI/Grok. Retired models are excluded separately by the default `active` status filter.
+The Major services scope is a subset of General access: the model/profile must satisfy `general_access_available` and its provider must be one of OpenAI, Anthropic, Google, xAI/Grok or Meta. Retired models are excluded separately by the default `active` status filter.
 
 `data/models.json` uses `general_access_available` for the General access decision.
 

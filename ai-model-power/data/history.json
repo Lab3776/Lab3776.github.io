@@ -891,6 +891,18 @@
       "change_en": "Registered Qwen4 Max (standard): power 43 (measured on AA v5.0.1), priced at $1.413/$4.24",
       "reason_ja": "Alibabaの新フラッグシップ。Qwen3.8 Max（34）から+9。価格はGlobal/Japanのリスト価格。",
       "reason_en": "Alibaba's new flagship: up 9 points from Qwen3.8 Max (34). Priced at the Global/Japan list price."
+    },
+    {
+      "id": "site-major-scope-meta-75",
+      "updated_at": "2026-11-18T23:43:00+09:00",
+      "target_id": "comparison-scope",
+      "target_ja": "比較スコープ",
+      "target_en": "Comparison scope",
+      "type": "site",
+      "change_ja": "「主要サービス」の対象にMeta（Muse）を追加した",
+      "change_en": "Added Meta (Muse) to the Major services scope",
+      "reason_ja": "Museモデルの登録が揃い、ユーザーの判断で主要サービスとして扱うことになったため。",
+      "reason_en": "The Muse model registrations are now complete, and the user decided Muse should be treated as a major service."
     }
   ]
 }

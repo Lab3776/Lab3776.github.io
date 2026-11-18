@@ -18,7 +18,7 @@ const I18N = {
     methodTitle: "表示値について",
     methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。",
     methodNote: "コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。",
-    scopeMajorNote: "主要サービス：OpenAI / Anthropic / Google / xAI（Grok）",
+    scopeMajorNote: "主要サービス：OpenAI / Anthropic / Google / xAI（Grok） / Meta（Muse）",
     scopeGeneralNote: "一般向け：上記に加えて、Z.ai、DeepSeek、Kimiなど、Webやアプリから普通に導入・利用できるもの",
     scopeAllNote: "すべて：API-only、Local-only、CLI-only、過去モデルも含むDB全件",
     provisional: "仮公開", yes: "あり", no: "なし", unknown: "—",
@@ -43,7 +43,7 @@ const I18N = {
     methodTitle: "About displayed values",
     methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from currently available standard API pricing using 75% input and 25% output.",
     methodNote: "Value = current power ÷ standard cost. Higher means more reference performance per dollar.",
-    scopeMajorNote: "Major services: OpenAI / Anthropic / Google / xAI (Grok)",
+    scopeMajorNote: "Major services: OpenAI / Anthropic / Google / xAI (Grok) / Meta (Muse)",
     scopeGeneralNote: "General access: the above plus Z.ai, DeepSeek, Kimi and others that can be normally installed and used through the web or an app",
     scopeAllNote: "All: every database record, including API-only, local-only, CLI-only and older models",
     provisional: "Provisional", yes: "Yes", no: "No", unknown: "—",
@@ -58,7 +58,7 @@ const state = {
 
 const $ = id => document.getElementById(id);
 const t = key => I18N[state.lang][key] ?? key;
-const MAJOR_PROVIDERS = new Set(["OpenAI", "Anthropic", "Google", "xAI", "SpaceXAI"]);
+const MAJOR_PROVIDERS = new Set(["OpenAI", "Anthropic", "Google", "xAI", "SpaceXAI", "Meta"]);
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
