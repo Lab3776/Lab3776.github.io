@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T23:29:00+09:00",
+  "updated_at": "2026-11-18T23:34:00+09:00",
   "standard_cost_rule": {
     "version": "0.2",
     "currency": "USD",
@@ -793,6 +793,73 @@
       "active": true,
       "effective_from": "2026-11-17",
       "source_url": "https://developers.openai.com/api/docs/models/gpt-6.2-sol"
+    },
+    {
+      "model_id": "anthropic-claude-fable-5-2-max",
+      "provider": "Anthropic API",
+      "input_usd_per_million_tokens": 8,
+      "output_usd_per_million_tokens": 40,
+      "cached_input_usd_per_million_tokens": 0.2,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-09",
+      "source_url": "https://www.anthropic.com/claude/fable"
+    },
+    {
+      "model_id": "anthropic-claude-haiku-5-5-max",
+      "provider": "Anthropic API",
+      "input_usd_per_million_tokens": 0.1,
+      "output_usd_per_million_tokens": 0.5,
+      "cached_input_usd_per_million_tokens": 0.01,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-10-07",
+      "source_url": "https://www.anthropic.com/claude/haiku"
+    },
+    {
+      "model_id": "meta-muse-wonder-max",
+      "provider": "AA reference / available provider",
+      "input_usd_per_million_tokens": 4,
+      "output_usd_per_million_tokens": 20,
+      "cached_input_usd_per_million_tokens": 0.2,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-10-12",
+      "source_url": "https://artificialanalysis.ai/models/muse-wonder"
+    },
+    {
+      "model_id": "meta-muse-ember-max",
+      "provider": "AA reference / available provider",
+      "input_usd_per_million_tokens": 0.1,
+      "output_usd_per_million_tokens": 0.5,
+      "cached_input_usd_per_million_tokens": 0.004,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-09",
+      "source_url": "https://artificialanalysis.ai/models/muse-ember"
+    },
+    {
+      "model_id": "kimi-kimi-k3-1-pro-max",
+      "provider": "Kimi API",
+      "input_usd_per_million_tokens": 2,
+      "output_usd_per_million_tokens": 10,
+      "cached_input_usd_per_million_tokens": 0.2,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-10-23",
+      "source_url": "https://artificialanalysis.ai/models/kimi-k3-1-pro"
+    },
+    {
+      "model_id": "alibaba-qwen4-max",
+      "provider": "Alibaba Cloud Model Studio",
+      "input_usd_per_million_tokens": 1.413,
+      "output_usd_per_million_tokens": 4.24,
+      "cached_input_usd_per_million_tokens": 0.071,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-16",
+      "source_url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "note": "Global/Japan list price for qwen4-max."
     }
   ]
 }

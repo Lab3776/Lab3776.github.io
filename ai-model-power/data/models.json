@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-11-18T23:29:00+09:00",
+  "updated_at": "2026-11-18T23:34:00+09:00",
   "models": [
     {
       "id": "openai-gpt-6-1-sol-max",
@@ -1026,6 +1026,102 @@
       "local_available": false,
       "general_access_available": true,
       "context_window_tokens": 1050000
+    },
+    {
+      "id": "anthropic-claude-fable-5-2-max",
+      "name": "Claude Fable 5.2",
+      "variant": "max",
+      "provider": "Anthropic",
+      "released_at": "2026-11-09",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "anthropic-claude-haiku-5-5-max",
+      "name": "Claude Haiku 5.5",
+      "variant": "max",
+      "provider": "Anthropic",
+      "released_at": "2026-10-07",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "openai-gpt-6-sol-max",
+      "name": "GPT-6 Sol",
+      "variant": "max",
+      "provider": "OpenAI",
+      "released_at": "2026-09-22",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1050000
+    },
+    {
+      "id": "meta-muse-wonder-full-max",
+      "name": "Muse Wonder Full",
+      "variant": "max",
+      "provider": "Meta",
+      "released_at": "2026-10-12",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "meta-muse-wonder-max",
+      "name": "Muse Wonder",
+      "variant": "max",
+      "provider": "Meta",
+      "released_at": "2026-10-12",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "meta-muse-ember-max",
+      "name": "Muse Ember",
+      "variant": "max",
+      "provider": "Meta",
+      "released_at": "2026-11-09",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "kimi-kimi-k3-1-pro-max",
+      "name": "Kimi K3.1 Pro",
+      "variant": "max",
+      "provider": "Kimi",
+      "released_at": "2026-10-23",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "alibaba-qwen4-max",
+      "name": "Qwen4 Max",
+      "variant": null,
+      "provider": "Alibaba",
+      "released_at": "2026-11-16",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
     }
   ]
 }

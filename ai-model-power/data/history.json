@@ -795,6 +795,102 @@
       "change_en": "Registered GPT-6.2 Sol (max): power 57 (measured on AA v5.0.1), priced at $2.00/$10.00",
       "reason_ja": "2026-11-17にOpenAIがGPT-6.2 Solを発売。GPT-6.1 Sol（55）から+2し、価格は据え置き。",
       "reason_en": "OpenAI released GPT-6.2 Sol on 2026-11-17: up 2 points from GPT-6.1 Sol (55) at the same price."
+    },
+    {
+      "id": "registration-anthropic-claude-fable-5-2-67",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "anthropic-claude-fable-5-2-max",
+      "target_ja": "Claude Fable 5.2",
+      "target_en": "Claude Fable 5.2",
+      "type": "registration",
+      "change_ja": "Claude Fable 5.2（max）を新規登録。戦闘力65（AA v5.0.1実測）、価格 $8/$40",
+      "change_en": "Registered Claude Fable 5.2 (max): power 65 (measured on AA v5.0.1), priced at $8/$40",
+      "reason_ja": "Anthropicの現行フラッグシップ。Fable 5.1（49）から大幅に上昇し、AA全体の首位。価格は5.1から2割安くなった。",
+      "reason_en": "Anthropic's current flagship: up sharply from Fable 5.1 (49) to the top of the AA board, at a 20% lower price than 5.1."
+    },
+    {
+      "id": "registration-anthropic-claude-haiku-5-5-68",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "anthropic-claude-haiku-5-5-max",
+      "target_ja": "Claude Haiku 5.5",
+      "target_en": "Claude Haiku 5.5",
+      "type": "registration",
+      "change_ja": "Claude Haiku 5.5（max）を新規登録。戦闘力37（AA v5.0.1実測）、価格 $0.1/$0.5",
+      "change_en": "Registered Claude Haiku 5.5 (max): power 37 (measured on AA v5.0.1), priced at $0.1/$0.5",
+      "reason_ja": "Claude 5.5系列の小型モデル。価格はプロンプト100Kトークン以下の標準レート（超過分は$0.50/$2.50）。",
+      "reason_en": "The small model of the Claude 5.5 family. Priced at the standard rate for prompts up to 100K tokens ($0.50/$2.50 above that)."
+    },
+    {
+      "id": "registration-openai-gpt-6-sol-69",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "openai-gpt-6-sol-max",
+      "target_ja": "GPT-6 Sol",
+      "target_en": "GPT-6 Sol",
+      "type": "registration",
+      "change_ja": "GPT-6 Sol（max）を新規登録。戦闘力44（AA v5.0.1実測）",
+      "change_en": "Registered GPT-6 Sol (max): power 44 (measured on AA v5.0.1)",
+      "reason_ja": "GPT-6系列のSol。価格レコードと履歴レイヤーには存在したが、現行モデルとしての本体登録が欠けていたため補完した。",
+      "reason_en": "The Sol of the GPT-6 family. A price record and historical-layer entries existed, but the current-model registration was missing; completed here."
+    },
+    {
+      "id": "registration-meta-muse-wonder-full-70",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "meta-muse-wonder-full-max",
+      "target_ja": "Muse Wonder Full",
+      "target_en": "Muse Wonder Full",
+      "type": "registration",
+      "change_ja": "Muse Wonder Full（max）を新規登録。戦闘力50（AA v5.0.1実測）",
+      "change_en": "Registered Muse Wonder Full (max): power 50 (measured on AA v5.0.1)",
+      "reason_ja": "Metaの最上位モデル。Museの有料プラン（Power/Maximum）で提供され、従量API価格はないため標準コストは算出しない。",
+      "reason_en": "Meta's top model, offered through Muse subscription plans (Power/Maximum). No pay-as-you-go API price, so no standard cost is computed."
+    },
+    {
+      "id": "registration-meta-muse-wonder-71",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "meta-muse-wonder-max",
+      "target_ja": "Muse Wonder",
+      "target_en": "Muse Wonder",
+      "type": "registration",
+      "change_ja": "Muse Wonder（max）を新規登録。戦闘力44（AA v5.0.1実測）、価格 $4/$20",
+      "change_en": "Registered Muse Wonder (max): power 44 (measured on AA v5.0.1), priced at $4/$20",
+      "reason_ja": "Metaの上位推論モデル。Muse Wonder Fullの下位にあたる通常版。",
+      "reason_en": "Meta's upper reasoning model, the standard tier below Muse Wonder Full."
+    },
+    {
+      "id": "registration-meta-muse-ember-72",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "meta-muse-ember-max",
+      "target_ja": "Muse Ember",
+      "target_en": "Muse Ember",
+      "type": "registration",
+      "change_ja": "Muse Ember（max）を新規登録。戦闘力36（AA v5.0.1実測）、価格 $0.1/$0.5",
+      "change_en": "Registered Muse Ember (max): power 36 (measured on AA v5.0.1), priced at $0.1/$0.5",
+      "reason_ja": "Metaの小型・高効率モデル。価格はプロンプト200Kトークン以下の標準レート（超過分は$0.30/$1.50）。",
+      "reason_en": "Meta's small, efficiency-focused model. Priced at the standard rate for prompts up to 200K tokens ($0.30/$1.50 above that)."
+    },
+    {
+      "id": "registration-kimi-kimi-k3-1-pro-73",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "kimi-kimi-k3-1-pro-max",
+      "target_ja": "Kimi K3.1 Pro",
+      "target_en": "Kimi K3.1 Pro",
+      "type": "registration",
+      "change_ja": "Kimi K3.1 Pro（max）を新規登録。戦闘力47（AA v5.0.1実測）、価格 $2/$10",
+      "change_en": "Registered Kimi K3.1 Pro (max): power 47 (measured on AA v5.0.1), priced at $2/$10",
+      "reason_ja": "Moonshotの現行フラッグシップ。Kimi K3（44）から+3し、価格は下がった。オープンウェイト公開済み。",
+      "reason_en": "Moonshot's current flagship: up 3 points from Kimi K3 (44) at a lower price. Open weights published."
+    },
+    {
+      "id": "registration-alibaba-qwen4-74",
+      "updated_at": "2026-11-18T23:34:00+09:00",
+      "target_id": "alibaba-qwen4-max",
+      "target_ja": "Qwen4 Max",
+      "target_en": "Qwen4 Max",
+      "type": "registration",
+      "change_ja": "Qwen4 Max（標準）を新規登録。戦闘力43（AA v5.0.1実測）、価格 $1.413/$4.24",
+      "change_en": "Registered Qwen4 Max (standard): power 43 (measured on AA v5.0.1), priced at $1.413/$4.24",
+      "reason_ja": "Alibabaの新フラッグシップ。Qwen3.8 Max（34）から+9。価格はGlobal/Japanのリスト価格。",
+      "reason_en": "Alibaba's new flagship: up 9 points from Qwen3.8 Max (34). Priced at the Global/Japan list price."
     }
   ]
 }

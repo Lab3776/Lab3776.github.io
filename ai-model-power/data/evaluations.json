@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T23:29:00+09:00",
+  "updated_at": "2026-11-18T23:34:00+09:00",
   "evaluation_method": {
     "version": "provisional-0.4",
     "note_ja": "Artificial Analysis Intelligence Index v5.0.1 を主要アンカーとする。実測があるモデルはIndex値をそのまま採用戦闘力に置く。v5.0.1で測定されていないモデルは v4.3.2 の採用戦闘力を保持し、現在戦闘力は benchmark-bridges.json の換算による参考値とする。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
@@ -1143,6 +1143,166 @@
           "type": "benchmark",
           "url": "https://artificialanalysis.ai/models/gpt-6-2-sol",
           "note": "AA Intelligence Index v5.0.1: 57.3 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "anthropic-claude-fable-5-2-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 65,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 65
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値65（max、原スコア64.6）を採用。Anthropicの現行フラッグシップ。Fable 5.1（49）から大幅に上昇し、AA全体の首位。価格は5.1から2割安くなった。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 65 (max; raw 64.6). Anthropic's current flagship: up sharply from Fable 5.1 (49) to the top of the AA board, at a 20% lower price than 5.1.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+          "note": "AA Intelligence Index v5.0.1: 64.6 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "anthropic-claude-haiku-5-5-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 37,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 37
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値37（max、原スコア36.5）を採用。Claude 5.5系列の小型モデル。価格はプロンプト100Kトークン以下の標準レート（超過分は$0.50/$2.50）。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 37 (max; raw 36.5). The small model of the Claude 5.5 family. Priced at the standard rate for prompts up to 100K tokens ($0.50/$2.50 above that).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/claude-haiku-5-5",
+          "note": "AA Intelligence Index v5.0.1: 36.5 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "openai-gpt-6-sol-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 44,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 44
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値44（max、原スコア44.2）を採用。GPT-6系列のSol。価格レコードと履歴レイヤーには存在したが、現行モデルとしての本体登録が欠けていたため補完した。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 44 (max; raw 44.2). The Sol of the GPT-6 family. A price record and historical-layer entries existed, but the current-model registration was missing; completed here.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/gpt-6-sol",
+          "note": "AA Intelligence Index v5.0.1: 44.2 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "meta-muse-wonder-full-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 50,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 50
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値50（max、原スコア50.1）を採用。Metaの最上位モデル。Museの有料プラン（Power/Maximum）で提供され、従量API価格はないため標準コストは算出しない。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 50 (max; raw 50.1). Meta's top model, offered through Muse subscription plans (Power/Maximum). No pay-as-you-go API price, so no standard cost is computed.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/muse-wonder-full",
+          "note": "AA Intelligence Index v5.0.1: 50.1 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "meta-muse-wonder-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 44,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 44
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値44（max、原スコア43.6）を採用。Metaの上位推論モデル。Muse Wonder Fullの下位にあたる通常版。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 44 (max; raw 43.6). Meta's upper reasoning model, the standard tier below Muse Wonder Full.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/muse-wonder",
+          "note": "AA Intelligence Index v5.0.1: 43.6 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "meta-muse-ember-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 36,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 36
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値36（max、原スコア36.0）を採用。Metaの小型・高効率モデル。価格はプロンプト200Kトークン以下の標準レート（超過分は$0.30/$1.50）。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 36 (max; raw 36.0). Meta's small, efficiency-focused model. Priced at the standard rate for prompts up to 200K tokens ($0.30/$1.50 above that).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/muse-ember",
+          "note": "AA Intelligence Index v5.0.1: 36.0 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "kimi-kimi-k3-1-pro-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 47,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 47
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値47（max、原スコア46.5）を採用。Moonshotの現行フラッグシップ。Kimi K3（44）から+3し、価格は下がった。オープンウェイト公開済み。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 47 (max; raw 46.5). Moonshot's current flagship: up 3 points from Kimi K3 (44) at a lower price. Open weights published.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/kimi-k3-1-pro",
+          "note": "AA Intelligence Index v5.0.1: 46.5 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "alibaba-qwen4-max",
+      "evaluated_at": "2026-11-18T23:34:00+09:00",
+      "adopted_power": 43,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 43
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値43（max、原スコア42.9）を採用。Alibabaの新フラッグシップ。Qwen3.8 Max（34）から+9。価格はGlobal/Japanのリスト価格。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 43 (max; raw 42.9). Alibaba's new flagship: up 9 points from Qwen3.8 Max (34). Priced at the Global/Japan list price.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/qwen4",
+          "note": "AA Intelligence Index v5.0.1: 42.9 (max)"
         }
       ]
     }
