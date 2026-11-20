@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T23:34:00+09:00",
+  "updated_at": "2026-11-20",
   "standard_cost_rule": {
     "version": "0.2",
     "currency": "USD",
@@ -860,6 +860,61 @@
       "effective_from": "2026-11-16",
       "source_url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "note": "Global/Japan list price for qwen4-max."
+    },
+    {
+      "model_id": "google-gemini-4-neon-xhigh",
+      "provider": "Gemini Developer API",
+      "input_usd_per_million_tokens": 3,
+      "output_usd_per_million_tokens": 15,
+      "cached_input_usd_per_million_tokens": 0.15,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-11-18",
+      "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+      "model_id": "xiaomi-mimo-v2-6-pro-reasoning",
+      "provider": "Provider median / Xiaomi available",
+      "input_usd_per_million_tokens": 0.435,
+      "output_usd_per_million_tokens": 0.87,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-09-21",
+      "source_url": "https://artificialanalysis.ai/models/mimo-v2-6-pro"
+    },
+    {
+      "model_id": "alibaba-qwen3-8-flash-next",
+      "provider": "Alibaba Cloud Model Studio",
+      "input_usd_per_million_tokens": 0.15,
+      "output_usd_per_million_tokens": 0.47,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-08-26",
+      "source_url": "https://artificialanalysis.ai/models/qwen3-8-flash-next"
+    },
+    {
+      "model_id": "meta-muse-spark-open-xhigh",
+      "provider": "AA reference / available provider",
+      "input_usd_per_million_tokens": 1.25,
+      "output_usd_per_million_tokens": 4.25,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-10-15",
+      "source_url": "https://artificialanalysis.ai/models/muse-spark-open"
+    },
+    {
+      "model_id": "meta-muse-glimmer-high",
+      "provider": "AA reference / available provider",
+      "input_usd_per_million_tokens": 0.32,
+      "output_usd_per_million_tokens": 1.35,
+      "cached_input_usd_per_million_tokens": null,
+      "free_tier": false,
+      "active": true,
+      "effective_from": "2026-08-10",
+      "source_url": "https://artificialanalysis.ai/models/muse-glimmer"
     }
   ]
 }

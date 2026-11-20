@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-11-18T23:34:00+09:00",
+  "updated_at": "2026-11-20",
   "models": [
     {
       "id": "openai-gpt-6-1-sol-max",
@@ -1122,6 +1122,66 @@
       "local_available": false,
       "general_access_available": true,
       "context_window_tokens": 1000000
+    },
+    {
+      "id": "google-gemini-4-neon-xhigh",
+      "name": "Gemini 4 Neon",
+      "variant": "xhigh",
+      "provider": "Google",
+      "released_at": "2026-11-18",
+      "status": "active",
+      "free_access": false,
+      "local_available": false,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "xiaomi-mimo-v2-6-pro-reasoning",
+      "name": "MiMo-V2.6-Pro",
+      "variant": "reasoning",
+      "provider": "Xiaomi",
+      "released_at": "2026-09-21",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "general_access_available": true,
+      "context_window_tokens": 1000000
+    },
+    {
+      "id": "alibaba-qwen3-8-flash-next",
+      "name": "Qwen3.8-Flash-Next",
+      "variant": null,
+      "provider": "Alibaba",
+      "released_at": "2026-08-26",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "general_access_available": true,
+      "context_window_tokens": 262144
+    },
+    {
+      "id": "meta-muse-spark-open-xhigh",
+      "name": "Muse Spark Open",
+      "variant": "xhigh",
+      "provider": "Meta",
+      "released_at": "2026-10-15",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "general_access_available": true,
+      "context_window_tokens": 1048576
+    },
+    {
+      "id": "meta-muse-glimmer-high",
+      "name": "Muse Glimmer",
+      "variant": "high",
+      "provider": "Meta",
+      "released_at": "2026-08-10",
+      "status": "active",
+      "free_access": false,
+      "local_available": true,
+      "general_access_available": true,
+      "context_window_tokens": 131072
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18",
+  "updated_at": "2026-11-20",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -903,6 +903,66 @@
       "change_en": "Added Meta (Muse) to the Major services scope",
       "reason_ja": "Museモデルの登録が揃い、ユーザーの判断で主要サービスとして扱うことになったため。",
       "reason_en": "The Muse model registrations are now complete, and the user decided Muse should be treated as a major service."
+    },
+    {
+      "id": "registration-google-gemini-4-neon-76",
+      "updated_at": "2026-11-20T22:41:00+09:00",
+      "target_id": "google-gemini-4-neon-xhigh",
+      "target_ja": "Gemini 4 Neon",
+      "target_en": "Gemini 4 Neon",
+      "type": "registration",
+      "change_ja": "Gemini 4 Neonを新規登録した（戦闘力61）",
+      "change_en": "Registered Gemini 4 Neon (power 61)",
+      "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
+      "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
+    },
+    {
+      "id": "registration-xiaomi-mimo-v2-6-pro-77",
+      "updated_at": "2026-11-20T22:41:00+09:00",
+      "target_id": "xiaomi-mimo-v2-6-pro-reasoning",
+      "target_ja": "MiMo-V2.6-Pro",
+      "target_en": "MiMo-V2.6-Pro",
+      "type": "registration",
+      "change_ja": "MiMo-V2.6-Proを新規登録した（戦闘力30）",
+      "change_en": "Registered MiMo-V2.6-Pro (power 30)",
+      "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
+      "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
+    },
+    {
+      "id": "registration-alibaba-qwen3-8-flash-next-78",
+      "updated_at": "2026-11-20T22:41:00+09:00",
+      "target_id": "alibaba-qwen3-8-flash-next",
+      "target_ja": "Qwen3.8-Flash-Next",
+      "target_en": "Qwen3.8-Flash-Next",
+      "type": "registration",
+      "change_ja": "Qwen3.8-Flash-Nextを新規登録した（戦闘力29）",
+      "change_en": "Registered Qwen3.8-Flash-Next (power 29)",
+      "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
+      "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
+    },
+    {
+      "id": "registration-meta-muse-spark-open-79",
+      "updated_at": "2026-11-20T22:41:00+09:00",
+      "target_id": "meta-muse-spark-open-xhigh",
+      "target_ja": "Muse Spark Open",
+      "target_en": "Muse Spark Open",
+      "type": "registration",
+      "change_ja": "Muse Spark Openを新規登録した（戦闘力25）",
+      "change_en": "Registered Muse Spark Open (power 25)",
+      "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
+      "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
+    },
+    {
+      "id": "registration-meta-muse-glimmer-80",
+      "updated_at": "2026-11-20T22:41:00+09:00",
+      "target_id": "meta-muse-glimmer-high",
+      "target_ja": "Muse Glimmer",
+      "target_en": "Muse Glimmer",
+      "type": "registration",
+      "change_ja": "Muse Glimmerを新規登録した（戦闘力6）",
+      "change_en": "Registered Muse Glimmer (power 6)",
+      "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
+      "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
     }
   ]
 }

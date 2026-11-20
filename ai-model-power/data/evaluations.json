@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T23:34:00+09:00",
+  "updated_at": "2026-11-20T22:41:00+09:00",
   "evaluation_method": {
     "version": "provisional-0.4",
     "note_ja": "Artificial Analysis Intelligence Index v5.0.1 を主要アンカーとする。実測があるモデルはIndex値をそのまま採用戦闘力に置く。v5.0.1で測定されていないモデルは v4.3.2 の採用戦闘力を保持し、現在戦闘力は benchmark-bridges.json の換算による参考値とする。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
@@ -1303,6 +1303,106 @@
           "type": "benchmark",
           "url": "https://artificialanalysis.ai/models/qwen4-max",
           "note": "AA Intelligence Index v5.0.1: 42.9 (max)"
+        }
+      ]
+    },
+    {
+      "model_id": "google-gemini-4-neon-xhigh",
+      "evaluated_at": "2026-11-20T22:41:00+09:00",
+      "adopted_power": 61,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 61
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値61（xhigh）を採用。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 61 (xhigh).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/gemini-4-neon",
+          "note": "AA Intelligence Index v5.0.1: 61 (xhigh)"
+        }
+      ]
+    },
+    {
+      "model_id": "xiaomi-mimo-v2-6-pro-reasoning",
+      "evaluated_at": "2026-11-20T22:41:00+09:00",
+      "adopted_power": 30,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 30
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値30を採用。登録済みMiMo-V2.5-Proの後継。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 30. Successor to the registered MiMo-V2.5-Pro.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/mimo-v2-6-pro",
+          "note": "AA Intelligence Index v5.0.1: 30 (reasoning)"
+        }
+      ]
+    },
+    {
+      "model_id": "alibaba-qwen3-8-flash-next",
+      "evaluated_at": "2026-11-20T22:41:00+09:00",
+      "adopted_power": 29,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 29
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値29を採用。オープンウェイトの現行世代Flash系。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 29. Current-generation open-weight Flash tier.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
+          "note": "AA Intelligence Index v5.0.1: 29 (default)"
+        }
+      ]
+    },
+    {
+      "model_id": "meta-muse-spark-open-xhigh",
+      "evaluated_at": "2026-11-20T22:41:00+09:00",
+      "adopted_power": 25,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 25
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値25（xhigh）を採用。Muse Sparkのオープンウェイト版。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 25 (xhigh). Open-weight release of Muse Spark.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/muse-spark-open",
+          "note": "AA Intelligence Index v5.0.1: 25 (xhigh)"
+        }
+      ]
+    },
+    {
+      "model_id": "meta-muse-glimmer-high",
+      "evaluated_at": "2026-11-20T22:41:00+09:00",
+      "adopted_power": 6,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 6.3
+      },
+      "change_reason_ja": "新規登録。AA Intelligence Index v5.0.1の実測値6.3（high）を採用し6に丸めた。30Bのオープンウェイト。",
+      "change_reason_en": "New registration. Adopted the measured AA Intelligence Index v5.0.1 score 6.3 (high), rounded to 6. 30B open-weight model.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/muse-glimmer",
+          "note": "AA Intelligence Index v5.0.1: 6.3 (high)"
         }
       ]
     }
