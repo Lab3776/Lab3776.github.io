@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alti Privacy Policy</title>
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<main class="page">
+  <div class="nav"><a class="nav-home" href="../">Back to Applications</a><span>Lab 3776</span></div>
+  <article class="sheet">
+    <div class="eyebrow">Privacy Policy</div>
+    <h1>Alti</h1>
+    <p class="lede">How Alti handles user information.</p>
+    <div class="meta"><span>Effective: November 23, 2026</span><span>Updated: November 23, 2026</span></div>
+
+    <h2>1. Overview</h2>
+    <p>Alti is an Android desktop mascot application provided by Lab 3776. It offers chat with a character, comments while the screen is shared, drawing, and related features. Lab 3776 does not operate a server for this application and does not receive user data from it. The application contains no advertising and no developer analytics.</p>
+
+    <h2>2. Processing routes (local / API)</h2>
+    <p>Alti has two AI processing routes, selectable in Settings. With the local route (the default), the AI model LFM2.5-VL-450M runs on the device. Conversation text and images are processed on the device and are not sent anywhere by the application. On first use, the model files are downloaded from Liquid AI's official distribution on Hugging Face; this download connects to the distributor's servers.</p>
+    <p>With the optional API route, if the user configures their own Google Gemini API key, conversation text — and, while screen sharing is on or when an image is involved, that image — is sent to Google's Gemini API and handled under Google's terms. The API key is stored only on the device in storage encrypted with an Android Keystore-protected key, and is used solely for Gemini API requests.</p>
+
+    <h2>3. Screen sharing and text recognition</h2>
+    <p>Screen sharing runs only while the user has started sharing. While sharing, the application captures screen frames to generate the character's comments. Text on the screen is read with Google ML Kit Text Recognition, which runs on-device.</p>
+    <p>Google's ML Kit disclosure states that the SDK may collect device/app information, per-installation identifiers, performance and API metrics, feature/event information, and error codes for diagnostics and usage analytics. Google states that this data is encrypted in transit and is not shared by ML Kit with third parties.</p>
+    <p><a href="https://developers.google.com/ml-kit/android-data-disclosure">ML Kit data disclosure</a></p>
+
+    <h2>4. Data stored on the device</h2>
+    <p>Conversation history is stored in an on-device database. Conversation history and the model files are kept in an area excluded from Android backup. The character's memory data (such as conversation summaries) is stored in an on-device database and can be erased from Settings. App settings, such as the route selection and mascot behavior switches, are stored on the device.</p>
+
+    <h2>5. Permissions</h2>
+    <p>Internet access is used to download the model files and, on the API route, to connect to the Gemini API. Display over other apps is used for the bubble. A foreground service keeps the bubble and screen sharing running. Notifications announce the character's messages.</p>
+
+    <h2>6. Contact</h2>
+    <p>For questions about this policy, contact lab3776.tokyo@gmail.com.</p>
+  </article>
+</main>
+</body>
+</html>
