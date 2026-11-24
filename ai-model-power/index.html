@@ -6,7 +6,21 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#101114">
   <title>AIモデル戦闘力データベース | Lab 3776</title>
-  <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、コスパ、無料利用、ローカル実行可否などを比較するLab 3776のデータベース。">
+  <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、コスパ、無料利用、ローカル実行可否などを横断比較するLab 3776の公開データベース。">
+  <link rel="canonical" href="https://lab3776.github.io/ai-model-power/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Lab 3776">
+  <meta property="og:title" content="AIモデル戦闘力データベース | Lab 3776">
+  <meta property="og:description" content="主要AIモデルの性能（現在戦闘力）・標準コスト・コスパ・無料利用・ローカル実行可否をひとつの表で横断比較。">
+  <meta property="og:url" content="https://lab3776.github.io/ai-model-power/">
+  <meta property="og:image" content="https://lab3776.github.io/ai-model-power/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@Lab3776">
+  <meta name="twitter:title" content="AIモデル戦闘力データベース | Lab 3776">
+  <meta name="twitter:description" content="主要AIモデルの性能（現在戦闘力）・標準コスト・コスパ・無料利用・ローカル実行可否をひとつの表で横断比較。">
+  <meta name="twitter:image" content="https://lab3776.github.io/ai-model-power/ogp.png">
   <link rel="stylesheet" href="style.css">
   <style>
     .history-label-en { display: none; }
@@ -25,8 +39,23 @@
       <p class="eyebrow">LAB 3776 / PUBLIC DATABASE</p>
       <h1 data-i18n="title">AIモデル戦闘力データベース</h1>
       <p class="lead" data-i18n="lead">AIモデルの現在戦闘力とコストを中心に比較します。</p>
-      <p class="database-meta"><span><span data-i18n="listedModels">掲載モデル</span> <strong id="modelCount">—</strong></span><span><span data-i18n="lastUpdated">データ更新</span> <span id="updatedAt">—</span></span><a class="history-link" href="history.html" aria-label="更新履歴 / Update history"><span class="history-label-ja">(履歴)</span><span class="history-label-en">(History)</span></a></p>
+      <p class="database-meta"><span><span data-i18n="shownModels">表示</span> <strong id="shownCount">—</strong> / <span id="modelCount">—</span></span><span><span data-i18n="lastUpdated">データ更新</span> <span id="updatedAt">—</span></span><a class="history-link" href="history.html" aria-label="更新履歴 / Update history"><span class="history-label-ja">(履歴)</span><span class="history-label-en">(History)</span></a></p>
     </section>
+
+    <div class="quick-bar" role="region" aria-label="クイック切替 / Quick filters">
+      <div class="quick-group" role="group" aria-label="表示範囲 / Scope">
+        <button type="button" class="chip is-active" data-quick-access="major" data-i18n="majorServices">主要サービス</button>
+        <button type="button" class="chip" data-quick-access="general" data-i18n="generalAccess">一般向け</button>
+        <button type="button" class="chip" data-quick-access="free" data-i18n="freeAvailable">無料利用あり</button>
+        <button type="button" class="chip" data-quick-access="local" data-i18n="localAvailable">ローカル可</button>
+        <button type="button" class="chip" data-quick-access="" data-i18n="all">すべて</button>
+      </div>
+      <div class="quick-group quick-sort-group" role="group" aria-label="並び順 / Quick sort">
+        <button type="button" class="chip chip-sort is-active" data-quick-sort="current_power_desc" data-i18n="quickSortPower">戦闘力順</button>
+        <button type="button" class="chip chip-sort" data-quick-sort="cost_performance_desc" data-i18n="quickSortValue">コスパ順</button>
+        <button type="button" class="chip chip-sort" data-quick-sort="standard_cost_asc" data-i18n="quickSortCost">安い順</button>
+      </div>
+    </div>
 
     <details class="controls">
       <summary data-i18n="filters">検索・絞り込み</summary>
@@ -78,18 +107,18 @@
       <p class="scroll-hint" data-i18n="scrollHint">モデル名を固定したまま右へスクロールできます →</p>
       <div class="table-scroll">
         <div class="compare-table">
-          <div class="table-row table-head" aria-hidden="true">
-            <div data-i18n="model">モデル</div>
-            <div data-i18n="currentPower">現在戦闘力</div>
-            <div data-i18n="standardCost">標準コスト</div>
-            <div data-i18n="costPerformance">コスパ</div>
-            <div data-i18n="adoptedPower">採用戦闘力</div>
-            <div data-i18n="inputPrice">Input</div>
-            <div data-i18n="outputPrice">Output</div>
-            <div data-i18n="free">無料</div>
-            <div data-i18n="local">Local</div>
-            <div data-i18n="released">公開</div>
-            <div data-i18n="availability">状態</div>
+          <div class="table-row table-head" role="row">
+            <div role="columnheader"><button type="button" class="sort-btn sort-btn-left" data-sort-key="name"><span data-i18n="model">モデル</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="current_power"><span data-i18n="currentPower">現在戦闘力</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="standard_cost"><span data-i18n="standardCost">標準コスト</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="cost_performance"><span data-i18n="costPerformance">コスパ</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="adopted_power"><span data-i18n="adoptedPower">採用戦闘力</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="input_price"><span data-i18n="inputPrice">Input</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="output_price"><span data-i18n="outputPrice">Output</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader" class="static-head" data-i18n="free">無料</div>
+            <div role="columnheader" class="static-head" data-i18n="local">Local</div>
+            <div role="columnheader"><button type="button" class="sort-btn sort-btn-left" data-sort-key="released"><span data-i18n="released">公開</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader" class="static-head" data-i18n="availability">状態</div>
           </div>
           <div id="modelList"></div>
         </div>
@@ -109,7 +138,16 @@
     </section>
   </main>
 
-  <footer><span>© Lab 3776</span><span>·</span><span data-i18n="provisional">仮公開</span></footer>
+  <footer>
+    <span>© Lab 3776</span>
+    <span>·</span>
+    <a class="footer-link" href="../" data-i18n="allApps">Lab 3776 アプリ一覧</a>
+    <span>·</span>
+    <a class="footer-link" href="https://x.com/Lab3776" target="_blank" rel="noopener noreferrer" aria-label="X / @Lab3776">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.5l-7.117 8.134L22.75 22h-6.553l-5.13-7.12L4.84 22H1.58l7.61-8.7L1.25 2h6.72l4.636 6.443L18.244 2Zm-1.141 18h1.804L6.99 3.896H5.055L17.103 20Z"/></svg>
+      <span>@Lab3776</span>
+    </a>
+  </footer>
   <script src="app.js" defer></script>
 </body>
 </html>

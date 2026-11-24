@@ -5,7 +5,9 @@ const I18N = {
     notice: "戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。",
     filters: "検索・絞り込み",
     history: "更新履歴",
-    listedModels: "掲載モデル", lastUpdated: "データ更新", search: "検索",
+    listedModels: "掲載モデル", shownModels: "表示", lastUpdated: "データ更新", search: "検索",
+    quickSortPower: "戦闘力順", quickSortValue: "コスパ順", quickSortCost: "安い順",
+    allApps: "Lab 3776 アプリ一覧",
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "表示範囲", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了", unknownStatus: "未確認",
     majorServices: "主要サービス", generalAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
@@ -30,7 +32,9 @@ const I18N = {
     notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional evaluations.",
     filters: "Search & filters",
     history: "History",
-    listedModels: "Models", lastUpdated: "Data updated", search: "Search",
+    listedModels: "Models", shownModels: "Showing", lastUpdated: "Data updated", search: "Search",
+    quickSortPower: "Top power", quickSortValue: "Best value", quickSortCost: "Lowest cost",
+    allApps: "All Lab 3776 apps",
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Scope", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired", unknownStatus: "Unverified",
     majorServices: "Major services", generalAccess: "General access", freeAvailable: "Free access", localAvailable: "Local available",
@@ -53,7 +57,20 @@ const I18N = {
 
 const state = {
   lang: localStorage.getItem("ai-model-power-lang") || (navigator.language?.toLowerCase().startsWith("ja") ? "ja" : "en"),
-  models: [], evaluations: [], prices: [], priceRule: null, bridges: null, updatedAt: null
+  models: [], evaluations: [], prices: [], priceRule: null, bridges: null, updatedAt: null,
+  sortKey: "current_power",
+  sortDir: "desc"
+};
+
+const DEFAULT_SORT_DIR = {
+  current_power: "desc",
+  cost_performance: "desc",
+  adopted_power: "desc",
+  released: "desc",
+  standard_cost: "asc",
+  input_price: "asc",
+  output_price: "asc",
+  name: "asc"
 };
 
 const $ = id => document.getElementById(id);
@@ -237,14 +254,37 @@ function buildRows() {
   });
 }
 
-function filteredRows() {
+function parseSortToken(token) {
+  const match = String(token || "").match(/^(.+)_(asc|desc)$/);
+  if (!match) return {key: "current_power", dir: "desc"};
+  return {key: match[1], dir: match[2]};
+}
+
+function compareNullableNum(a, b, dir) {
+  const av = a == null || !Number.isFinite(Number(a)) ? null : Number(a);
+  const bv = b == null || !Number.isFinite(Number(b)) ? null : Number(b);
+  if (av === null && bv === null) return 0;
+  if (av === null) return 1;
+  if (bv === null) return -1;
+  return dir === "asc" ? av - bv : bv - av;
+}
+
+function compareNullableStr(a, b, dir) {
+  const av = a ? String(a) : "";
+  const bv = b ? String(b) : "";
+  if (!av && !bv) return 0;
+  if (!av) return 1;
+  if (!bv) return -1;
+  return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+}
+
+function filteredRows(allRows) {
   const q = $("searchInput").value.trim().toLowerCase();
   const provider = $("providerFilter").value;
   const status = $("statusFilter").value;
   const access = $("accessFilter").value;
-  const sort = $("sortSelect").value;
 
-  const rows = buildRows().filter(row => {
+  const rows = allRows.filter(row => {
     if (q && !`${row.name || ""} ${row.variant || ""} ${row.provider || ""}`.toLowerCase().includes(q)) return false;
     if (provider && row.provider !== provider) return false;
     if (status && row.status !== status) return false;
@@ -255,14 +295,51 @@ function filteredRows() {
     return true;
   });
 
-  const numDesc = key => (a, b) => (b[key] ?? -Infinity) - (a[key] ?? -Infinity);
-  if (sort === "cost_performance_desc") rows.sort(numDesc("costPerformance"));
-  else if (sort === "standard_cost_asc") rows.sort((a, b) => (a.standardCost ?? Infinity) - (b.standardCost ?? Infinity));
-  else if (sort === "adopted_power_desc") rows.sort(numDesc("adoptedPower"));
-  else if (sort === "released_desc") rows.sort((a, b) => String(b.released_at || "").localeCompare(String(a.released_at || "")));
-  else if (sort === "name_asc") rows.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
-  else rows.sort(numDesc("currentPower"));
+  const {sortKey, sortDir} = state;
+  rows.sort((a, b) => {
+    if (sortKey === "cost_performance") return compareNullableNum(a.costPerformance, b.costPerformance, sortDir);
+    if (sortKey === "standard_cost") return compareNullableNum(a.standardCost, b.standardCost, sortDir);
+    if (sortKey === "adopted_power") return compareNullableNum(a.adoptedPower, b.adoptedPower, sortDir);
+    if (sortKey === "input_price") return compareNullableNum(a.inputPrice, b.inputPrice, sortDir);
+    if (sortKey === "output_price") return compareNullableNum(a.outputPrice, b.outputPrice, sortDir);
+    if (sortKey === "released") return compareNullableStr(a.released_at, b.released_at, sortDir);
+    if (sortKey === "name") return compareNullableStr(a.name, b.name, sortDir);
+    return compareNullableNum(a.currentPower, b.currentPower, sortDir);
+  });
   return rows;
+}
+
+function syncQuickAndHeaderUi() {
+  const access = $("accessFilter").value;
+  document.querySelectorAll("[data-quick-access]").forEach(btn => {
+    const active = btn.dataset.quickAccess === access;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+
+  const sortToken = `${state.sortKey}_${state.sortDir}`;
+  const sortSelect = $("sortSelect");
+  if ([...sortSelect.options].some(opt => opt.value === sortToken)) {
+    sortSelect.value = sortToken;
+  }
+
+  document.querySelectorAll("[data-quick-sort]").forEach(btn => {
+    const active = btn.dataset.quickSort === sortToken;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+
+  document.querySelectorAll(".sort-btn[data-sort-key]").forEach(btn => {
+    const active = btn.dataset.sortKey === state.sortKey;
+    btn.classList.toggle("is-active", active);
+    if (active) {
+      btn.dataset.dir = state.sortDir;
+      btn.parentElement?.setAttribute("aria-sort", state.sortDir === "asc" ? "ascending" : "descending");
+    } else {
+      delete btn.dataset.dir;
+      btn.parentElement?.removeAttribute("aria-sort");
+    }
+  });
 }
 
 function statusText(status) {
@@ -296,12 +373,16 @@ function formatCostPerformance(value) {
   return Math.round(Number(value)).toString();
 }
 
-function rowHtml(row) {
+function rowHtml(row, index, maxPower) {
   const displayName = row.variant ? `${row.name} ${row.variant}` : row.name;
   const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : row.status === "active" ? "status-active" : "";
+  const rank = index + 1;
+  const rankClass = rank <= 3 ? "rank-num rank-top" : "rank-num";
+  const pct = row.currentPower != null && maxPower > 0 ? Math.max(4, Math.min(100, Math.round((row.currentPower / maxPower) * 100))) : 0;
+  const barHtml = row.currentPower != null ? `<span class="power-bar" aria-hidden="true"><span class="power-bar-fill" style="width:${pct}%"></span></span>` : "";
   return `<div class="table-row model-row">
-    <div class="model-cell" translate="no"><span class="model-name">${escapeHtml(displayName)}</span><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
-    <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong></div>
+    <div class="model-cell" translate="no"><div class="model-head-line"><span class="${rankClass}">${rank}</span><span class="model-name">${escapeHtml(displayName)}</span></div><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
+    <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong>${barHtml}</div>
     <div class="metric-cell standard-cost"><strong>${escapeHtml(formatMoney(row.standardCost))}</strong></div>
     <div class="metric-cell cost-performance"><strong>${escapeHtml(formatCostPerformance(row.costPerformance))}</strong></div>
     <div class="metric-cell"><strong>${row.adoptedPower ?? "—"}</strong></div>
@@ -316,10 +397,15 @@ function rowHtml(row) {
 
 function render() {
   if (!$("modelList")) return;
-  const rows = filteredRows();
-  $("modelCount").textContent = state.models.length.toLocaleString(state.lang === "ja" ? "ja-JP" : "en-US");
+  syncQuickAndHeaderUi();
+  const allRows = buildRows();
+  const maxPower = allRows.reduce((max, r) => (r.currentPower != null && r.currentPower > max ? r.currentPower : max), 0);
+  const rows = filteredRows(allRows);
+  const locale = state.lang === "ja" ? "ja-JP" : "en-US";
+  if ($("shownCount")) $("shownCount").textContent = rows.length.toLocaleString(locale);
+  $("modelCount").textContent = state.models.length.toLocaleString(locale);
   $("updatedAt").textContent = state.updatedAt ? formatDate(state.updatedAt) : t("unknown");
-  $("modelList").innerHTML = rows.map(rowHtml).join("");
+  $("modelList").innerHTML = rows.map((row, index) => rowHtml(row, index, maxPower)).join("");
 
   const empty = $("emptyState");
   if (rows.length === 0 && state.models.length > 0 && $("loadingState").hidden) {
@@ -330,8 +416,44 @@ function render() {
   }
 }
 
-["searchInput", "providerFilter", "statusFilter", "accessFilter", "sortSelect"].forEach(id => {
+["searchInput", "providerFilter", "statusFilter", "accessFilter"].forEach(id => {
   $(id).addEventListener(id === "searchInput" ? "input" : "change", render);
+});
+
+$("sortSelect").addEventListener("change", () => {
+  const parsed = parseSortToken($("sortSelect").value);
+  state.sortKey = parsed.key;
+  state.sortDir = parsed.dir;
+  render();
+});
+
+document.querySelectorAll("[data-quick-access]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    $("accessFilter").value = btn.dataset.quickAccess;
+    render();
+  });
+});
+
+document.querySelectorAll("[data-quick-sort]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const parsed = parseSortToken(btn.dataset.quickSort);
+    state.sortKey = parsed.key;
+    state.sortDir = parsed.dir;
+    render();
+  });
+});
+
+document.querySelectorAll(".sort-btn[data-sort-key]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.sortKey;
+    if (state.sortKey === key) {
+      state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
+    } else {
+      state.sortKey = key;
+      state.sortDir = DEFAULT_SORT_DIR[key] || "desc";
+    }
+    render();
+  });
 });
 
 $("langToggle").addEventListener("click", () => {
