@@ -6,12 +6,12 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#101114">
   <title>AIモデル戦闘力データベース | Lab 3776</title>
-  <meta name="description" content="AIモデルの現在戦闘力と標準コストを中心に、価格、コスパ、無料利用、ローカル実行可否などを横断比較するLab 3776の公開データベース。">
+  <meta name="description" content="Gemini 2.5 Flash = 100 を基準に、主要AIモデルの戦闘力（独自の相対性能指数）・標準APIコスト・コスパ・無料利用・ローカル実行可否を横断比較するLab 3776の公開データベース。">
   <link rel="canonical" href="https://lab3776.github.io/ai-model-power/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Lab 3776">
   <meta property="og:title" content="AIモデル戦闘力データベース | Lab 3776">
-  <meta property="og:description" content="主要AIモデルの性能（現在戦闘力）・標準コスト・コスパ・無料利用・ローカル実行可否をひとつの表で横断比較。">
+  <meta property="og:description" content="Gemini 2.5 Flash (2025/06) = 100 基準。主要AIモデルの戦闘力・標準コスト・コスパをひとつの表で横断比較。">
   <meta property="og:url" content="https://lab3776.github.io/ai-model-power/">
   <meta property="og:image" content="https://lab3776.github.io/ai-model-power/ogp.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@Lab3776">
   <meta name="twitter:title" content="AIモデル戦闘力データベース | Lab 3776">
-  <meta name="twitter:description" content="主要AIモデルの性能（現在戦闘力）・標準コスト・コスパ・無料利用・ローカル実行可否をひとつの表で横断比較。">
+  <meta name="twitter:description" content="Gemini 2.5 Flash (2025/06) = 100 基準。主要AIモデルの戦闘力・標準コスト・コスパをひとつの表で横断比較。">
   <meta name="twitter:image" content="https://lab3776.github.io/ai-model-power/ogp.png">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -38,7 +38,7 @@
     <section class="hero">
       <p class="eyebrow">LAB 3776 / PUBLIC DATABASE</p>
       <h1 data-i18n="title">AIモデル戦闘力データベース</h1>
-      <p class="lead" data-i18n="lead">AIモデルの現在戦闘力とコストを中心に比較します。</p>
+      <p class="lead" data-i18n="lead">Gemini 2.5 Flash（2025年6月）= 100 を基準に、AIモデルの戦闘力とコストを横断比較します。</p>
       <p class="database-meta"><span><span data-i18n="shownModels">表示</span> <strong id="shownCount">—</strong> / <span id="modelCount">—</span></span><span><span data-i18n="lastUpdated">データ更新</span> <span id="updatedAt">—</span></span><a class="history-link" href="history.html" aria-label="更新履歴 / Update history"><span class="history-label-ja">(履歴)</span><span class="history-label-en">(History)</span></a></p>
     </section>
 
@@ -94,7 +94,7 @@
               <option value="current_power_desc" data-i18n="sortPowerDesc">現在戦闘力：高い順</option>
               <option value="cost_performance_desc" data-i18n="sortCostPerformanceDesc">コスパ：高い順</option>
               <option value="standard_cost_asc" data-i18n="sortCostAsc">標準コスト：安い順</option>
-              <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">採用戦闘力：高い順</option>
+              <option value="adopted_power_desc" data-i18n="sortAdoptedDesc">AA元値：高い順</option>
               <option value="released_desc" data-i18n="sortReleasedDesc">公開日：新しい順</option>
               <option value="name_asc" data-i18n="sortNameAsc">モデル名：昇順</option>
             </select>
@@ -112,7 +112,7 @@
             <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="current_power"><span data-i18n="currentPower">現在戦闘力</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
             <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="standard_cost"><span data-i18n="standardCost">標準コスト</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
             <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="cost_performance"><span data-i18n="costPerformance">コスパ</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
-            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="adopted_power"><span data-i18n="adoptedPower">採用戦闘力</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
+            <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="adopted_power"><span data-i18n="adoptedPower">AA元値</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
             <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="input_price"><span data-i18n="inputPrice">Input</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
             <div role="columnheader"><button type="button" class="sort-btn" data-sort-key="output_price"><span data-i18n="outputPrice">Output</span><span class="sort-indicator" aria-hidden="true"></span></button></div>
             <div role="columnheader" class="static-head" data-i18n="free">無料</div>
@@ -129,11 +129,11 @@
 
     <section class="method-card">
       <h2 data-i18n="methodTitle">表示値について</h2>
-      <p class="notice-inline" data-i18n="notice">戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。</p>
-      <p data-i18n="methodBody">現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。</p>
-      <p class="muted" data-i18n="methodNote">コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。</p>
+      <p class="notice-inline" data-i18n="notice">戦闘力は Gemini 2.5 Flash（2025年6月）= 100 を基準に、AA Intelligence Index をオッズ型換算した独自の相対性能指数（amp-scale-v1）です。数値の倍率は実際の能力・正答率の倍率ではありません。</p>
+      <p data-i18n="methodBody">v5.0.1 のロジット座標と基準定数を凍結し、上限なく性能インフレを表現します。「~」付きは v4.3.2 実測から16ペアの凍結ブリッジで推定した参考値です（v4 範囲 16〜58 の外は外挿）。標準コストは Input 75% / Output 25% の標準API価格から算出します。</p>
+      <p class="muted" data-i18n="methodNote">コスパは「戦闘力 ÷ 標準コスト」（対数バー表示）。推論トークン量や再試行は含まないため、高難度用途では必要十分な戦闘力を満たすモデルから選んでください。</p>
       <p class="muted" data-i18n="scopeMajorNote">主要サービス：OpenAI / Anthropic / Google / xAI（Grok） / Meta（Muse）</p>
-      <p class="muted" data-i18n="scopeGeneralNote">一般向け：上記に加えて、Z.ai、DeepSeek、Kimiなど、Webやアプリから普通に導入・利用できるもの</p>
+      <p class="muted" data-i18n="scopeGeneralNote">一般向け：上記に加えて、Z.ai、DeepSeek、Kimi、Mistral、MiniMaxなど、Webやアプリから普通に導入・利用できるもの</p>
       <p class="muted" data-i18n="scopeAllNote">すべて：API-only、Local-only、CLI-only、過去モデルも含むDB全件</p>
     </section>
   </main>

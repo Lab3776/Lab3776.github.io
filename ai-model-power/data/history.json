@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-20",
+  "updated_at": "2026-11-24T18:36:00+09:00",
   "entries": [
     {
       "id": "registration-anthropic-claude-sonnet-5-5-max-1",
@@ -963,6 +963,54 @@
       "change_en": "Registered Muse Glimmer (power 6)",
       "reason_ja": "AA Intelligence Index v5.0.1で実測され、現行モデルとして提供されているため。",
       "reason_en": "Measured on AA Intelligence Index v5.0.1 and currently available."
+    },
+    {
+      "id": "method-amp-scale-v1-81",
+      "updated_at": "2026-11-24T18:36:00+09:00",
+      "target_id": "amp-scale-v1",
+      "target_ja": "戦闘力計算方式（amp-scale-v1）",
+      "target_en": "Combat power scale (amp-scale-v1)",
+      "type": "method",
+      "change_ja": "ロジット線形ブリッジ＋v5.0.1固定座標＋Gemini 2.5 Flash=100基準のオッズ型相対指数（alpha=1.0）へ改定し、基準定数・16ペア係数を凍結",
+      "change_en": "Migrated to amp-scale-v1: frozen 16-pair logit-linear bridge, fixed v5.0.1 coordinate, and odds-style relative index (alpha=1.0, Gemini 2.5 Flash = 100)",
+      "reason_ja": "旧線形ブリッジで発生していた現役7件含む12モデルの負数戦闘力・負数コスパを解消し、16ペア誤差を改善（MAE 4.11→3.01）しつつ上限なしのインフレ表現と将来版追加時の既存値不変を両立するため（AMP-0001独立レビュー反映）。",
+      "reason_en": "Eliminated 12 negative power/value rows caused by linear extrapolation, improved 16-pair bridge accuracy (MAE 4.11 to 3.01), and established an uncapped, future-stable scale following AMP-0001 independent reviews."
+    },
+    {
+      "id": "registration-mistral-large-4-high-82",
+      "updated_at": "2026-11-24T18:36:00+09:00",
+      "target_id": "mistral-large-4-high",
+      "target_ja": "Mistral Large 4 high",
+      "target_en": "Mistral Large 4 high",
+      "type": "registration",
+      "change_ja": "Mistral Large 4 highを新規登録（AA v5.0.1: 26 / 戦闘力 832 / 価格 $0.70/$2.10）",
+      "change_en": "Registered Mistral Large 4 high (AA v5.0.1: 26 / power 832 / pricing $0.70/$2.10)",
+      "reason_ja": "Mistral AIの現行フラッグシップ（オープンウェイト1T MoE）が未掲載だったため、AA v5.0.1実測と公式API価格に基づき追加。",
+      "reason_en": "Added Mistral AI's current open-weight flagship model based on measured AA v5.0.1 score and official API pricing."
+    },
+    {
+      "id": "registration-minimax-m3-1-flash-83",
+      "updated_at": "2026-11-24T18:36:00+09:00",
+      "target_id": "minimax-m3-1-flash",
+      "target_ja": "MiniMax-M3.1-Flash",
+      "target_en": "MiniMax-M3.1-Flash",
+      "type": "registration",
+      "change_ja": "MiniMax-M3.1-Flashを新規登録（AA v5.0.1: 29 / 戦闘力 967 / 価格 $0.15/$0.60）",
+      "change_en": "Registered MiniMax-M3.1-Flash (AA v5.0.1: 29 / power 967 / pricing $0.15/$0.60)",
+      "reason_ja": "MiniMaxの現行オープンウェイト主力モデルが未掲載だったため、AA v5.0.1実測と公式API価格に基づき追加。",
+      "reason_en": "Added MiniMax's current open-weight model based on measured AA v5.0.1 score and official API pricing."
+    },
+    {
+      "id": "registration-deepseek-v4-1-flash-1017-max-84",
+      "updated_at": "2026-11-24T18:36:00+09:00",
+      "target_id": "deepseek-v4-1-flash-1017-max",
+      "target_ja": "DeepSeek V4.1 Flash 1017 max",
+      "target_en": "DeepSeek V4.1 Flash 1017 max",
+      "type": "registration",
+      "change_ja": "DeepSeek V4.1 Flash 1017 maxを新規登録（AA v5.0.1: 33 / 戦闘力 1,166 / 価格 $0.30/$1.20）",
+      "change_en": "Registered DeepSeek V4.1 Flash 1017 max (AA v5.0.1: 33 / power 1,166 / pricing $0.30/$1.20)",
+      "reason_ja": "既存登録は2026-09-10版のv4.3.2換算のみだったため、AA v5.0.1実測がある2026-10-17更新版を独立エントリとして追加。",
+      "reason_en": "Added the October 17, 2026 update with direct AA v5.0.1 measurement as a distinct entry while preserving the earlier September record."
     }
   ]
 }

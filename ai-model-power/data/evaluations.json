@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-20T22:41:00+09:00",
+  "updated_at": "2026-11-24T18:36:00+09:00",
   "evaluation_method": {
-    "version": "provisional-0.4",
-    "note_ja": "Artificial Analysis Intelligence Index v5.0.1 を主要アンカーとする。実測があるモデルはIndex値をそのまま採用戦闘力に置く。v5.0.1で測定されていないモデルは v4.3.2 の採用戦闘力を保持し、現在戦闘力は benchmark-bridges.json の換算による参考値とする。今後、公式資料・他ベンチ・時系列比較を追加して再評価する。",
-    "note_en": "Artificial Analysis Intelligence Index v5.0.1 is the primary anchor. Models with a v5.0.1 measurement adopt the Index value directly as adopted power. Models not measured on v5.0.1 keep their v4.3.2 adopted power, and their current power is a reference value converted via the bridge registered in benchmark-bridges.json. Values will be re-evaluated as additional evidence is added."
+    "version": "amp-scale-v1",
+    "note_ja": "Artificial Analysis Intelligence Index v5.0.1 のロジット軸を恒久の基準座標として固定し、Gemini 2.5 Flash（2025年6月 / v4.3.2=13）を100とする定数凍結オッズ型換算（alpha=1.0）で現在戦闘力を算出する。v4.3.2のみ実測のモデルは16ペアの凍結ロジット線形ブリッジによる推定値（~表記）とする。",
+    "note_en": "Uses a permanently fixed AA Intelligence Index v5.0.1 logit axis and a frozen-constant odds-style relative scale (alpha=1.0, Gemini 2.5 Flash June 2025 = 100) to compute current power. Models measured only on v4.3.2 are shown as estimates (~) via a frozen 16-pair logit-linear bridge."
   },
   "evaluations": [
     {
@@ -1403,6 +1403,66 @@
           "type": "benchmark",
           "url": "https://artificialanalysis.ai/models/muse-glimmer",
           "note": "AA Intelligence Index v5.0.1: 6.3 (high)"
+        }
+      ]
+    },
+    {
+      "model_id": "mistral-large-4-high",
+      "evaluated_at": "2026-11-24T18:36:00+09:00",
+      "adopted_power": 26,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 26
+      },
+      "change_reason_ja": "2026年10月公開のMistral最新フラッグシップ（1T MoE / オープンウェイト）をAA Intelligence Index v5.0.1実測値に基づき新規登録。",
+      "change_reason_en": "Registered Mistral's October 2026 flagship open-weight MoE model based on its measured AA Intelligence Index v5.0.1 score.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/mistral-large-4",
+          "note": "AA Intelligence Index v5.0.1: 26 (high)"
+        }
+      ]
+    },
+    {
+      "model_id": "minimax-m3-1-flash",
+      "evaluated_at": "2026-11-24T18:36:00+09:00",
+      "adopted_power": 29,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 29
+      },
+      "change_reason_ja": "2026年10月公開のMiniMax最新オープンウェイトモデルをAA Intelligence Index v5.0.1実測値に基づき新規登録。",
+      "change_reason_en": "Registered MiniMax's October 2026 open-weight MoE model based on its measured AA Intelligence Index v5.0.1 score.",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
+          "note": "AA Intelligence Index v5.0.1: 29"
+        }
+      ]
+    },
+    {
+      "model_id": "deepseek-v4-1-flash-1017-max",
+      "evaluated_at": "2026-11-24T18:36:00+09:00",
+      "adopted_power": 33,
+      "confidence": "provisional",
+      "basis": {
+        "benchmark": "Artificial Analysis Intelligence Index",
+        "version": "5.0.1",
+        "observed_score": 33
+      },
+      "change_reason_ja": "DeepSeek V4.1 Flashの2026年10月17日更新版をAA Intelligence Index v5.0.1実測値（max=33）に基づき新規登録。",
+      "change_reason_en": "Registered the October 17, 2026 update of DeepSeek V4.1 Flash based on its measured AA Intelligence Index v5.0.1 score (max=33).",
+      "evidence": [
+        {
+          "type": "benchmark",
+          "url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
+          "note": "AA Intelligence Index v5.0.1: 33 (1017 / max)"
         }
       ]
     }

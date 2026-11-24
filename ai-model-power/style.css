@@ -198,9 +198,10 @@ input::placeholder { color: #727a8b; }
   gap: 4px;
 }
 .current-power strong { color: #dce0ff; font-size: .92rem; line-height: 1.1; }
+.current-power strong.power-est { color: #aeb6d6; }
 .power-bar {
   width: 100%;
-  max-width: 58px;
+  max-width: 62px;
   height: 3px;
   border-radius: 999px;
   background: rgba(255,255,255,.08);
@@ -211,6 +212,20 @@ input::placeholder { color: #727a8b; }
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg, #6576ff, #9aa6ff);
+}
+.power-bar-fill.is-est {
+  background: linear-gradient(90deg, #4b5478, #7883ab);
+}
+.raw-cell {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+}
+.raw-ver {
+  color: var(--muted);
+  font-size: .56rem;
+  line-height: 1.1;
 }
 .standard-cost strong { color: var(--good); }
 .cost-performance strong { color: #aab3ff; }
@@ -297,15 +312,15 @@ footer {
   justify-content: space-between;
   gap: 8px;
   margin: 0 0 10px;
+  min-width: 0;
+  max-width: 100%;
 }
 .quick-group {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 6px;
-  overflow-x: auto;
+  min-width: 0;
   max-width: 100%;
-  padding-bottom: 2px;
-  scrollbar-width: none;
 }
 .quick-group::-webkit-scrollbar { display: none; }
 .chip {

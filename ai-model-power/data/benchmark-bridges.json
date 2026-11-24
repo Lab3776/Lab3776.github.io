@@ -1,20 +1,162 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-11-16T23:42:00+09:00",
+  "schema_version": 2,
+  "scale_id": "amp-scale-v1",
+  "updated_at": "2026-11-24T18:36:00+09:00",
+  "frozen_at": "2026-11-24T18:36:00+09:00",
   "current_reference": {
     "benchmark": "Artificial Analysis Intelligence Index",
-    "version": "5.0.1"
+    "version": "5.0.1",
+    "coordinate": "logit",
+    "formula": "theta = ln(s / (100 - s)) for 0 < s < 100"
   },
-  "bridges": [
-    {
-      "benchmark": "Artificial Analysis Intelligence Index",
-      "from_version": "4.3.2",
-      "to_version": "5.0.1",
-      "type": "linear",
-      "a": 1.2978,
-      "b": -20.17,
-      "note_ja": "同一profileで両版の実測がある15件への最小二乗フィット（平均絶対誤差 4.3、最大残差 8.4）。ペア範囲（16〜58）の外は外挿であり、旧スコア14未満では換算値が0以下になりうるため参考値として扱うこと。",
-      "note_en": "Least-squares fit over 15 models measured on both versions at matched profiles (MAE 4.3, max residual 8.4). Outside the paired range (16-58) the conversion is an extrapolation; below an old score of 14 it can yield zero or negative values and must be treated as a rough reference only."
+  "scale": {
+    "type": "odds_relative",
+    "alpha": 1.0,
+    "origin_power": 100.0,
+    "theta_ref": -3.1643781165204765,
+    "origin_label_ja": "Gemini 2.5 Flash (2025年6月 / v4.3.2=13) = 100 基準（定数凍結）",
+    "origin_label_en": "Anchored to Gemini 2.5 Flash (June 2025 / v4.3.2=13) = 100 (frozen constant)",
+    "origin_model_id": "google-gemini-2-5-flash-reasoning",
+    "formula": "power = origin_power * exp(alpha * (theta - theta_ref))",
+    "note_ja": "v5.0.1のロジット座標を恒久の基準軸として固定し、基準定数 theta_ref を凍結したオッズ型換算による独自の相対性能指数。同一バージョン内の順位を保存し、上限なく性能インフレを表現する。数値の倍率は実際の能力・正答率の倍率ではない。",
+    "note_en": "An independent odds-style relative performance index anchored on a permanently fixed v5.0.1 logit coordinate with a frozen origin constant theta_ref. Preserves within-version ordering without an upper cap; ratios are relative index ratios, not literal capability or accuracy multipliers."
+  },
+  "version_transforms": {
+    "Artificial Analysis Intelligence Index": {
+      "5.0.1": {
+        "type": "logit_identity",
+        "a": 1.0,
+        "b": 0.0,
+        "is_estimated": false,
+        "valid_min": 0,
+        "valid_max": 100,
+        "note_ja": "基準座標（v5.0.1 実測値）。そのままロジット変換して算出する。",
+        "note_en": "Reference coordinate (v5.0.1 direct measurement). Transformed directly via logit."
+      },
+      "4.3.2": {
+        "type": "logit_linear",
+        "a": 1.5540210560886647,
+        "b": -0.210248174870258,
+        "is_estimated": true,
+        "frozen": true,
+        "pair_count": 16,
+        "covered_from_range": [
+          16,
+          58
+        ],
+        "covered_to_range": [
+          6,
+          59
+        ],
+        "fit_stats": {
+          "train_mae_v5_points": 3.01,
+          "train_rmse_v5_points": 3.76,
+          "train_max_err_v5_points": 7.59,
+          "loocv_mae_v5_points": 3.33,
+          "loocv_rmse_v5_points": 4.13,
+          "loocv_max_err_v5_points": 8.45
+        },
+        "calibration_pairs": [
+          {
+            "model_id": "google-gemini-3-1-flash-lite",
+            "model_name": "Gemini 3.1 Flash-Lite reasoning",
+            "from_score": 16,
+            "to_score": 6
+          },
+          {
+            "model_id": "google-gemini-3-5-flash-lite",
+            "model_name": "Gemini 3.5 Flash-Lite reasoning",
+            "from_score": 22,
+            "to_score": 12
+          },
+          {
+            "model_id": "deepseek-v4-pro-0813-max",
+            "model_name": "DeepSeek V4 Pro 0813 max",
+            "from_score": 36,
+            "to_score": 23
+          },
+          {
+            "model_id": "openai-gpt-6-luna-max",
+            "model_name": "GPT-6 Luna max",
+            "from_score": 37,
+            "to_score": 28
+          },
+          {
+            "model_id": "google-gemini-3-8-flash-high",
+            "model_name": "Gemini 3.8 Flash high",
+            "from_score": 41,
+            "to_score": 31
+          },
+          {
+            "model_id": "zai-glm-5-3-flash",
+            "model_name": "GLM-5.3 Flash",
+            "from_score": 42,
+            "to_score": 28
+          },
+          {
+            "model_id": "alibaba-qwen3-8-max-0902",
+            "model_name": "Qwen3.8 Max (0902)",
+            "from_score": 45,
+            "to_score": 34
+          },
+          {
+            "model_id": "zai-glm-5-3-max",
+            "model_name": "GLM-5.3 max",
+            "from_score": 45,
+            "to_score": 32
+          },
+          {
+            "model_id": "spacexai-grok-4-7-xhigh",
+            "model_name": "Grok 4.7 xhigh",
+            "from_score": 46,
+            "to_score": 35
+          },
+          {
+            "model_id": "meta-muse-spark-1-3-max",
+            "model_name": "Muse Spark 1.3 max",
+            "from_score": 48,
+            "to_score": 37
+          },
+          {
+            "model_id": "openai-gpt-6-sol-max",
+            "model_name": "GPT-6 Sol max",
+            "from_score": 48,
+            "to_score": 44
+          },
+          {
+            "model_id": "openai-gpt-6-1-sol-max",
+            "model_name": "GPT-6.1 Sol max",
+            "from_score": 52,
+            "to_score": 55
+          },
+          {
+            "model_id": "anthropic-claude-fable-5-1-max",
+            "model_name": "Claude Fable 5.1 max",
+            "from_score": 53,
+            "to_score": 49
+          },
+          {
+            "model_id": "openai-gpt-6-astra-max",
+            "model_name": "GPT-6 Astra max",
+            "from_score": 53,
+            "to_score": 57
+          },
+          {
+            "model_id": "anthropic-claude-sonnet-5-5-max",
+            "model_name": "Claude Sonnet 5.5 max",
+            "from_score": 56,
+            "to_score": 55
+          },
+          {
+            "model_id": "anthropic-claude-opus-5-5-max",
+            "model_name": "Claude Opus 5.5 max",
+            "from_score": 58,
+            "to_score": 59
+          }
+        ],
+        "note_ja": "両版で実測のある16モデルのロジット空間における最小二乗フィット（採用時点で凍結）。ペア範囲（v4.3.2: 16〜58）の外は外挿であり推定誤差が大きい。",
+        "note_en": "Frozen least-squares fit in logit space over 16 models measured on both versions. Scores outside the paired range (v4.3.2: 16-58) are extrapolations with higher uncertainty."
+      }
     }
-  ]
+  }
 }

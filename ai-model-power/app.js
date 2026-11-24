@@ -1,8 +1,8 @@
 const I18N = {
   ja: {
     title: "AIモデル戦闘力データベース",
-    lead: "AIモデルの現在戦闘力とコストを中心に比較します。",
-    notice: "戦闘力は公開資料から相対的に推定する独自の参考指標です。現在の登録値は初期の暫定評価です。",
+    lead: "Gemini 2.5 Flash（2025年6月）= 100 を基準に、AIモデルの戦闘力とコストを横断比較します。",
+    notice: "戦闘力は Gemini 2.5 Flash（2025年6月）= 100 を基準に、AA Intelligence Index をオッズ型換算した独自の相対性能指数（amp-scale-v1）です。数値の倍率は実際の能力・正答率の倍率ではありません。",
     filters: "検索・絞り込み",
     history: "更新履歴",
     listedModels: "掲載モデル", shownModels: "表示", lastUpdated: "データ更新", search: "検索",
@@ -11,25 +11,27 @@ const I18N = {
     searchPlaceholder: "モデル名・企業名で検索", provider: "企業", availability: "提供状態", access: "表示範囲", sort: "並び順",
     all: "すべて", active: "提供中", preview: "Preview", retired: "提供終了", unknownStatus: "未確認",
     majorServices: "主要サービス", generalAccess: "一般向け", freeAvailable: "無料利用あり", localAvailable: "ローカル可",
-    sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "採用戦闘力：高い順",
+    sortPowerDesc: "現在戦闘力：高い順", sortCostPerformanceDesc: "コスパ：高い順", sortCostAsc: "標準コスト：安い順", sortAdoptedDesc: "AA元値：高い順",
     sortReleasedDesc: "公開日：新しい順", sortNameAsc: "モデル名：昇順",
-    model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", costPerformance: "コスパ", adoptedPower: "採用戦闘力",
+    model: "モデル", currentPower: "現在戦闘力", standardCost: "標準コスト", costPerformance: "コスパ", adoptedPower: "AA元値",
     inputPrice: "Input", outputPrice: "Output", free: "無料", local: "Local", released: "公開",
     scrollHint: "モデル名を固定したまま右へスクロールできます →",
     emptyTitle: "該当するモデルはありません", emptyBody: "条件を変えてください。", loading: "データを読み込んでいます…",
     methodTitle: "表示値について",
-    methodBody: "現在戦闘力は採用戦闘力を最新基準へ換算した値です。標準コストはInput 75% / Output 25%として現時点の標準API価格から自動計算します。",
-    methodNote: "コスパは「現在戦闘力 ÷ 標準コスト」。高いほど、1ドルあたりの参考性能が高いことを示します。",
+    methodBody: "v5.0.1 のロジット座標と基準定数を凍結し、上限なく性能インフレを表現します。「~」付きは v4.3.2 実測から16ペアの凍結ブリッジで推定した参考値です（v4 範囲 16〜58 の外は外挿）。標準コストは Input 75% / Output 25% の標準API価格から算出します。",
+    methodNote: "コスパは「戦闘力 ÷ 標準コスト」（対数バー表示）。推論トークン量や再試行は含まないため、高難度用途では必要十分な戦闘力を満たすモデルから選んでください。",
     scopeMajorNote: "主要サービス：OpenAI / Anthropic / Google / xAI（Grok） / Meta（Muse）",
-    scopeGeneralNote: "一般向け：上記に加えて、Z.ai、DeepSeek、Kimiなど、Webやアプリから普通に導入・利用できるもの",
+    scopeGeneralNote: "一般向け：上記に加えて、Z.ai、DeepSeek、Kimi、Mistral、MiniMaxなど、Webやアプリから普通に導入・利用できるもの",
     scopeAllNote: "すべて：API-only、Local-only、CLI-only、過去モデルも含むDB全件",
+    estTooltip: "v4.3.2 実測から凍結ブリッジで推定した参考値",
+    extrapolatedTooltip: "v4.3.2 ペア範囲（16〜58）の外のため外挿による参考値",
     provisional: "仮公開", yes: "あり", no: "なし", unknown: "—",
     dataErrorTitle: "データを読み込めませんでした", dataErrorBody: "JSONファイルを確認してください。"
   },
   en: {
     title: "AI Model Power Database",
-    lead: "Compare current model power and cost at a glance.",
-    notice: "Power is an independent relative reference index derived from public evidence. Current entries are provisional evaluations.",
+    lead: "Compare AI model power (anchored to Gemini 2.5 Flash June 2025 = 100) and API cost in one table.",
+    notice: "Power is an independent odds-style relative performance index (amp-scale-v1) converted from AA Intelligence Index with Gemini 2.5 Flash (June 2025) = 100. Ratios are not literal capability or accuracy multipliers.",
     filters: "Search & filters",
     history: "History",
     listedModels: "Models", shownModels: "Showing", lastUpdated: "Data updated", search: "Search",
@@ -38,18 +40,20 @@ const I18N = {
     searchPlaceholder: "Search model or provider", provider: "Provider", availability: "Availability", access: "Scope", sort: "Sort",
     all: "All", active: "Active", preview: "Preview", retired: "Retired", unknownStatus: "Unverified",
     majorServices: "Major services", generalAccess: "General access", freeAvailable: "Free access", localAvailable: "Local available",
-    sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "Adopted power: high to low",
+    sortPowerDesc: "Current power: high to low", sortCostPerformanceDesc: "Value: high to low", sortCostAsc: "Standard cost: low to high", sortAdoptedDesc: "AA raw: high to low",
     sortReleasedDesc: "Release date: newest", sortNameAsc: "Model name: A-Z",
-    model: "Model", currentPower: "Current power", standardCost: "Standard cost", costPerformance: "Value", adoptedPower: "Adopted power",
+    model: "Model", currentPower: "Current power", standardCost: "Standard cost", costPerformance: "Value", adoptedPower: "AA raw",
     inputPrice: "Input", outputPrice: "Output", free: "Free", local: "Local", released: "Released",
     scrollHint: "Model names stay fixed while you scroll right →",
     emptyTitle: "No matching models", emptyBody: "Change the filters and try again.", loading: "Loading data…",
     methodTitle: "About displayed values",
-    methodBody: "Current power converts adopted power to the latest reference. Standard cost is calculated from currently available standard API pricing using 75% input and 25% output.",
-    methodNote: "Value = current power ÷ standard cost. Higher means more reference performance per dollar.",
+    methodBody: "Uses a permanently fixed v5.0.1 logit axis and frozen origin constant with no upper cap. Values marked with '~' are estimates converted from v4.3.2 via a frozen 16-pair bridge (extrapolated outside v4 16-58). Standard cost uses 75% input / 25% output standard API pricing.",
+    methodNote: "Value = power ÷ standard cost (bars use log scale). Reasoning token overhead and retries are not included; pick models that meet your required power first.",
     scopeMajorNote: "Major services: OpenAI / Anthropic / Google / xAI (Grok) / Meta (Muse)",
-    scopeGeneralNote: "General access: the above plus Z.ai, DeepSeek, Kimi and others that can be normally installed and used through the web or an app",
+    scopeGeneralNote: "General access: the above plus Z.ai, DeepSeek, Kimi, Mistral, MiniMax and others normally usable via web or app",
     scopeAllNote: "All: every database record, including API-only, local-only, CLI-only and older models",
+    estTooltip: "Estimated from v4.3.2 via frozen logit-linear bridge",
+    extrapolatedTooltip: "Extrapolated outside the v4.3.2 calibration pair range (16-58)",
     provisional: "Provisional", yes: "Yes", no: "No", unknown: "—",
     dataErrorTitle: "Could not load data", dataErrorBody: "Check the JSON files."
   }
@@ -174,42 +178,53 @@ function getLatestPrice(modelId) {
     .sort((a, b) => String(b.effective_from || "").localeCompare(String(a.effective_from || "")))[0] || null;
 }
 
-function convertPower(adoptedPower, basis) {
-  if (adoptedPower == null || !basis || !state.bridges?.current_reference) return adoptedPower;
-  const target = state.bridges.current_reference;
-  if (basis.benchmark !== target.benchmark || basis.version === target.version) return adoptedPower;
+function computeScaledPower(adoptedPower, basis) {
+  const empty = {raw: null, isEstimated: false, isExtrapolated: false, basisVersion: basis?.version || null};
+  if (adoptedPower == null || !basis?.benchmark || !basis?.version) return empty;
+  const s = Number(adoptedPower);
+  if (!Number.isFinite(s) || s <= 0 || s >= 100) return empty;
 
-  const edges = state.bridges.bridges || [];
-  const queue = [{version: basis.version, value: Number(adoptedPower), visited: new Set([basis.version])}];
-  while (queue.length) {
-    const node = queue.shift();
-    if (node.version === target.version) return Math.round(node.value);
-    for (const edge of edges.filter(e => e.benchmark === basis.benchmark && e.from_version === node.version)) {
-      if (node.visited.has(edge.to_version)) continue;
-      let value = node.value;
-      if (edge.type === "linear") value = Number(edge.a ?? 1) * value + Number(edge.b ?? 0);
-      else if (edge.type === "multiplier") value *= Number(edge.factor ?? 1);
-      else continue;
-      const visited = new Set(node.visited);
-      visited.add(edge.to_version);
-      queue.push({version: edge.to_version, value, visited});
-    }
-  }
-  return adoptedPower;
+  const scale = state.bridges?.scale;
+  const tf = state.bridges?.version_transforms?.[basis.benchmark]?.[basis.version];
+  if (!scale || !tf) return empty;
+
+  const logit = Math.log(s / (100 - s));
+  let theta;
+  if (tf.type === "logit_identity") theta = logit;
+  else if (tf.type === "logit_linear") theta = Number(tf.a) * logit + Number(tf.b);
+  else return empty;
+
+  const alpha = Number(scale.alpha);
+  const originPower = Number(scale.origin_power);
+  const thetaRef = Number(scale.theta_ref);
+  if (!Number.isFinite(theta) || !Number.isFinite(alpha) || !Number.isFinite(originPower) || !Number.isFinite(thetaRef)) return empty;
+
+  const raw = originPower * Math.exp(alpha * (theta - thetaRef));
+  if (!Number.isFinite(raw) || raw <= 0) return empty;
+
+  const range = tf.covered_from_range;
+  const isExtrapolated = Array.isArray(range) && range.length === 2 ? (s < range[0] || s > range[1]) : false;
+  return {
+    raw,
+    isEstimated: Boolean(tf.is_estimated),
+    isExtrapolated,
+    basisVersion: basis.version
+  };
 }
 
 function standardCost(price) {
-  if (!price) return null;
+  if (!price || price.input_usd_per_million_tokens == null || price.output_usd_per_million_tokens == null) return null;
   const input = Number(price.input_usd_per_million_tokens);
   const output = Number(price.output_usd_per_million_tokens);
-  if (!Number.isFinite(input) || !Number.isFinite(output)) return null;
+  if (!Number.isFinite(input) || !Number.isFinite(output) || input < 0 || output < 0) return null;
   return input * Number(state.priceRule?.input_weight ?? .75) + output * Number(state.priceRule?.output_weight ?? .25);
 }
 
 function costPerformance(currentPower, cost) {
+  if (currentPower == null || cost == null) return null;
   const p = Number(currentPower);
   const c = Number(cost);
-  if (!Number.isFinite(p) || !Number.isFinite(c) || c <= 0) return null;
+  if (!Number.isFinite(p) || !Number.isFinite(c) || p <= 0 || c <= 0) return null;
   return p / c;
 }
 
@@ -235,16 +250,19 @@ function buildRows() {
     const evaluation = getLatestEvaluation(model.id);
     const price = getLatestPrice(model.id);
     const adoptedPower = evaluation?.adopted_power ?? null;
-    const currentPower = convertPower(adoptedPower, evaluation?.basis);
+    const scaled = computeScaledPower(adoptedPower, evaluation?.basis);
     const cost = standardCost(price);
     return {
       ...model,
       evaluation,
       price,
       adoptedPower,
-      currentPower,
+      basisVersion: scaled.basisVersion,
+      currentPower: scaled.raw,
+      isEstimated: scaled.isEstimated,
+      isExtrapolated: scaled.isExtrapolated,
       standardCost: cost,
-      costPerformance: costPerformance(currentPower, cost),
+      costPerformance: costPerformance(scaled.raw, cost),
       inputPrice: price?.input_usd_per_million_tokens ?? null,
       outputPrice: price?.output_usd_per_million_tokens ?? null,
       freeAccess: nullableBool(model.free_access, price?.free_tier),
@@ -368,9 +386,19 @@ function formatMoney(value) {
   return `$${Number(value).toFixed(2)}`;
 }
 
+function formatPower(value, isEstimated) {
+  if (value == null || !Number.isFinite(Number(value)) || Number(value) <= 0) return t("unknown");
+  const locale = state.lang === "ja" ? "ja-JP" : "en-US";
+  const num = Number(value);
+  const text = num < 1 ? "<1" : Math.round(num).toLocaleString(locale);
+  return isEstimated ? `~${text}` : text;
+}
+
 function formatCostPerformance(value) {
-  if (value == null || !Number.isFinite(Number(value))) return t("unknown");
-  return Math.round(Number(value)).toString();
+  if (value == null || !Number.isFinite(Number(value)) || Number(value) <= 0) return t("unknown");
+  const locale = state.lang === "ja" ? "ja-JP" : "en-US";
+  const num = Number(value);
+  return num < 1 ? "<1" : Math.round(num).toLocaleString(locale);
 }
 
 function rowHtml(row, index, maxPower) {
@@ -378,14 +406,19 @@ function rowHtml(row, index, maxPower) {
   const statusClass = row.status === "preview" ? "status-preview" : row.status === "retired" ? "no" : row.status === "active" ? "status-active" : "";
   const rank = index + 1;
   const rankClass = rank <= 3 ? "rank-num rank-top" : "rank-num";
-  const pct = row.currentPower != null && maxPower > 0 ? Math.max(4, Math.min(100, Math.round((row.currentPower / maxPower) * 100))) : 0;
-  const barHtml = row.currentPower != null ? `<span class="power-bar" aria-hidden="true"><span class="power-bar-fill" style="width:${pct}%"></span></span>` : "";
+  const pct = row.currentPower != null && row.currentPower > 0 && maxPower > 1
+    ? Math.max(6, Math.min(100, Math.round((Math.log(Math.max(1, row.currentPower)) / Math.log(maxPower)) * 100)))
+    : 0;
+  const barHtml = row.currentPower != null ? `<span class="power-bar" aria-hidden="true"><span class="power-bar-fill${row.isEstimated ? " is-est" : ""}" style="width:${pct}%"></span></span>` : "";
+  const powerTitle = row.isExtrapolated ? t("extrapolatedTooltip") : row.isEstimated ? t("estTooltip") : "";
+  const powerClass = row.isEstimated ? "power-est" : "";
+  const rawVer = row.basisVersion ? `<span class="raw-ver">v${escapeHtml(row.basisVersion)}</span>` : "";
   return `<div class="table-row model-row">
     <div class="model-cell" translate="no"><div class="model-head-line"><span class="${rankClass}">${rank}</span><span class="model-name">${escapeHtml(displayName)}</span></div><span class="model-sub">${escapeHtml(row.provider || "—")}</span></div>
-    <div class="metric-cell current-power"><strong>${row.currentPower ?? "—"}</strong>${barHtml}</div>
+    <div class="metric-cell current-power"${powerTitle ? ` title="${escapeHtml(powerTitle)}"` : ""}><strong class="${powerClass}">${escapeHtml(formatPower(row.currentPower, row.isEstimated))}</strong>${barHtml}</div>
     <div class="metric-cell standard-cost"><strong>${escapeHtml(formatMoney(row.standardCost))}</strong></div>
     <div class="metric-cell cost-performance"><strong>${escapeHtml(formatCostPerformance(row.costPerformance))}</strong></div>
-    <div class="metric-cell"><strong>${row.adoptedPower ?? "—"}</strong></div>
+    <div class="metric-cell raw-cell"><strong>${row.adoptedPower ?? "—"}</strong>${rawVer}</div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.inputPrice))}</div>
     <div class="metric-cell">${escapeHtml(formatMoney(row.outputPrice))}</div>
     <div class="metric-cell ${availabilityClass(row.freeAccess)}">${escapeHtml(availabilityText(row.freeAccess))}</div>
